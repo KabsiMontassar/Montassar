@@ -1,0 +1,132 @@
+{
+  "en": {
+    "hero": {
+      "title": "Hi, I'm Montassar",
+      "subtitle": "Full Stack Developer",
+      "description": "I create amazing web experiences with modern technologies."
+    },
+    "whatido": {
+      "title": "What I Do",
+      "services": [
+        {
+          "title": "Web Development",
+          "description": "Building responsive and interactive websites using React, Node.js, and more."
+        },
+        {
+          "title": "UI/UX Design",
+          "description": "Designing user-friendly interfaces with a focus on user experience."
+        },
+        {
+          "title": "Mobile Apps",
+          "description": "Developing cross-platform mobile applications."
+        }
+      ]
+    },
+    "mywork": {
+      "title": "My Work",
+      "projects": [
+        {
+          "title": "Project 1",
+          "description": "A modern e-commerce platform.",
+          "link": "#"
+        },
+        {
+          "title": "Project 2",
+          "description": "A portfolio website with animations.",
+          "link": "#"
+        },
+        {
+          "title": "Project 3",
+          "description": "A task management app.",
+          "link": "#"
+        }
+      ]
+    },
+    "about": {
+      "title": "About Me",
+      "description": "I'm a passionate developer with 5 years of experience in creating digital solutions. I love coding and solving complex problems."
+    },
+    "contact": {
+      "title": "Contact",
+      "email": "montassar@example.com",
+      "phone": "+1234567890",
+      "message": "Let's work together!"
+    },
+    "nav": {
+      "hero": "Home",
+      "whatido": "Services",
+      "mywork": "Work",
+      "about": "About",
+      "contact": "Contact"
+    },
+    "buttons": {
+      "letsTalk": "Let's Talk",
+      "contactUs": "Contact Us"
+    }
+  },
+  "fr": {
+    "hero": {
+      "title": "Salut, je suis Montassar",
+      "subtitle": "Développeur Full Stack",
+      "description": "Je crée des expériences web incroyables avec des technologies modernes."
+    },
+    "whatido": {
+      "title": "Ce que je fais",
+      "services": [
+        {
+          "title": "Développement Web",
+          "description": "Construction de sites web responsives et interactifs utilisant React, Node.js, et plus."
+        },
+        {
+          "title": "Design UI/UX",
+          "description": "Conception d'interfaces conviviales avec un focus sur l'expérience utilisateur."
+        },
+        {
+          "title": "Applications Mobiles",
+          "description": "Développement d'applications mobiles multiplateformes."
+        }
+      ]
+    },
+    "mywork": {
+      "title": "Mon Travail",
+      "projects": [
+        {
+          "title": "Projet 1",
+          "description": "Une plateforme e-commerce moderne.",
+          "link": "#"
+        },
+        {
+          "title": "Projet 2",
+          "description": "Un site portfolio avec des animations.",
+          "link": "#"
+        },
+        {
+          "title": "Projet 3",
+          "description": "Une application de gestion de tâches.",
+          "link": "#"
+        }
+      ]
+    },
+    "about": {
+      "title": "À propos de moi",
+      "description": "Je suis un développeur passionné avec 5 ans d'expérience dans la création de solutions numériques. J'adore coder et résoudre des problèmes complexes."
+    },
+    "contact": {
+      "title": "Contact",
+      "email": "montassar@example.com",
+      "phone": "+1234567890",
+      "message": "Travaillons ensemble !"
+    },
+    "nav": {
+      "hero": "Accueil",
+      "whatido": "Services",
+      "mywork": "Travail",
+      "about": "À propos",
+      "contact": "Contact"
+    },
+    "buttons": {
+      "letsTalk": "Parlons",
+      "contactUs": "Contactez-nous"
+    }
+  }
+}
