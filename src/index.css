@@ -65,6 +65,11 @@ polygon {
   cursor: none !important;
 }
 
+/* Remove shadows from buttons */
+button {
+  box-shadow: none !important;
+}
+
 /* Custom animations */
 @keyframes fadeIn {
   from {
@@ -144,4 +149,32 @@ polygon {
 .custom-button:active::before {
   box-shadow: 0 0 0 2px #000, 0 0 #d0d0d0;
   transform: translate3d(0, 0, -1em);
+}
+
+/* Ensure panels are not affected by backdrop filters */
+.NavigationMenu,
+.ContactDrawer,
+.SettingsPanel {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  filter: none !important;
+  isolation: isolate;
+  position: relative;
+  z-index: 60;
+}
+
+/* Ensure panel contents are not blurred */
+.NavigationMenu *,
+.ContactDrawer *,
+.SettingsPanel * {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  filter: none !important;
+}
+
+/* Add a class to prevent blur effect */
+.no-blur {
+  position: relative;
+  z-index: 60; /* Ensure it is above the overlay */
+  backdrop-filter: none; /* Disable blur effect */
 }

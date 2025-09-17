@@ -171,29 +171,35 @@ function App() {
         <PiHandWavingBold className="w-6 h-6" />
       </button>
       {/* Settings Panel */}
-      <SettingsPanel
-        isOpen={settingsOpen}
-        onToggle={() => setSettingsOpen(!settingsOpen)}
-        language={language}
-        onLanguageChange={setLanguage}
-        theme={theme}
-        onThemeChange={setTheme}
-      />
+      <div className={settingsOpen ? "no-blur" : ""}>
+        <SettingsPanel
+          isOpen={settingsOpen}
+          onToggle={() => setSettingsOpen(!settingsOpen)}
+          language={language}
+          onLanguageChange={setLanguage}
+          theme={theme}
+          onThemeChange={setTheme}
+        />
+      </div>
       {/* Navigation Menu */}
-      <NavigationMenu
-        isOpen={navOpen}
-        onClose={() => setNavOpen(false)}
-        navData={data.nav}
-        onNavigate={handleNavigate}
-        theme={theme}
-      />
+      <div className={navOpen ? "no-blur" : ""}>
+        <NavigationMenu
+          isOpen={navOpen}
+          onClose={() => setNavOpen(false)}
+          navData={data.nav}
+          onNavigate={handleNavigate}
+          theme={theme}
+        />
+      </div>
       {/* Contact Drawer */}
-      <ContactDrawer
-        isOpen={contactOpen}
-        onClose={() => setContactOpen(false)}
-        contactData={data}
-        theme={theme}
-      />
+      <div className={contactOpen ? "no-blur" : ""}>
+        <ContactDrawer
+          isOpen={contactOpen}
+          onClose={() => setContactOpen(false)}
+          contactData={data}
+          theme={theme}
+        />
+      </div>
       {/* Main Content */}{" "}
       {/* <Hero data={data.hero} theme={theme} />
       <WhatIDo data={data.whatido} theme={theme} />
@@ -204,7 +210,7 @@ function App() {
       {/* Overlay for drawers */}
       {(navOpen || contactOpen || settingsOpen) && (
         <div
-          className="fixed inset-0 z-50 transition-all duration-300"
+          className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-md z-50 transition-all duration-300"
           onClick={handleOverlayClick}
         ></div>
       )}
