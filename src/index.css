@@ -30,20 +30,26 @@ body {
   border: 4px solid black;
   pointer-events: none;
   z-index: 9999;
-  transition: width 0.3s ease, height 0.3s ease;
-  transform: translate(-50%, -50%);
+  /* Use transform for better performance */
+  transform: translate(0, 0);
+  /* Optimize transitions */
+  transition: transform 0.1s ease-out, width 0.2s ease-out, height 0.2s ease-out;
+  /* Enable hardware acceleration */
+  will-change: transform, width, height;
 }
 
-/* Medium cursor size for interactive elements */
-.custom-cursor.medium {
-  width: 35px;
-  height: 35px;
+/* Small cursor size (default) */
+.custom-cursor.small {
+  width: 25px;
+  height: 25px;
 }
 
-/* Large cursor size for hover states */
-.custom-cursor.large {
+/* Interactive cursor size */
+.custom-cursor.interactive {
   width: 35px;
   height: 35px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-color: rgba(0, 0, 0, 0.8);
 }
 
 /* Hide cursor on all interactive elements */
@@ -63,6 +69,17 @@ line,
 polyline,
 polygon {
   cursor: none !important;
+}
+
+/* Optimize cursor visibility on mobile */
+@media (max-width: 768px) {
+  .custom-cursor {
+    display: none !important;
+  }
+  
+  body {
+    cursor: auto !important;
+  }
 }
 
 /* Remove shadows from buttons */
@@ -126,10 +143,10 @@ button {
   bottom: 0;
   background: #e0e0e0; /* Darker gray */
   border-radius: inherit;
-  box-shadow: 0 0 0 2px #000, 0 0.625em 0 0 #d0d0d0; /* Black border, light gray shadow */
+  box-shadow: 0 0 0 2px #000; /* Black border, light gray shadow */
   transform: translate3d(0, 0.75em, -1em);
   transition: transform 150ms cubic-bezier(0, 0, 0.58, 1),
-    box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
+;
 }
 
 .custom-button:hover {
@@ -137,7 +154,6 @@ button {
 }
 
 .custom-button:hover::before {
-  box-shadow: 0 0 0 2px #000, 0 0.5em 0 0 #d0d0d0;
   transform: translate3d(0, 0.5em, -1em);
 }
 

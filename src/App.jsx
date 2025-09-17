@@ -18,12 +18,11 @@ function App() {
   const [navOpen, setNavOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const [cursorSize, setCursorSize] = useState("small");
   const cursorRef = useRef(null);
 
   const data = translations[language];
 
-  // Helper functions for cursor logic
+  // Helper functions for cursor logic (memoized for performance)
   const isInteractiveElement = useCallback((target) => {
     return (
       target.matches(
@@ -49,48 +48,31 @@ function App() {
     }
   };
 
-  // Event handlers defined at component level
+  // Optimized cursor functionality
   const handleMouseMove = useCallback((e) => {
     const cursor = cursorRef.current;
     if (cursor) {
-      cursor.style.left = `${e.clientX}px`;
-      cursor.style.top = `${e.clientY}px`;
+      // Use transform for better performance
+      cursor.style.transform = `translate(${e.clientX - 12.5}px, ${e.clientY - 12.5}px)`;
     }
   }, []);
 
-  const handleMouseEnter = useCallback(
-    (e) => {
-      const target = e.target;
-      if (isInteractiveElement(target) || isIconElement(target)) {
-        setCursorSize("large");
+  const handleMouseInteraction = useCallback((e) => {
+    const target = e.target;
+    const isInteractive = isInteractiveElement(target) || isIconElement(target);
+    
+    // Use CSS classes for size changes instead of state
+    const cursor = cursorRef.current;
+    if (cursor) {
+      if (isInteractive) {
+        cursor.classList.add('interactive');
+        cursor.classList.remove('small');
       } else {
-        setCursorSize("small");
+        cursor.classList.add('small');
+        cursor.classList.remove('interactive');
       }
-    },
-    [isInteractiveElement, isIconElement]
-  );
-
-  const handleMouseLeave = useCallback(
-    (e) => {
-      const target = e.target;
-      if (!isInteractiveElement(target)) {
-        setCursorSize("small");
-      }
-    },
-    [isInteractiveElement]
-  );
-
-  const handleMouseOver = useCallback(
-    (e) => {
-      const target = e.target;
-      if (isInteractiveElement(target) || isIconElement(target)) {
-        setCursorSize("medium");
-      } else {
-        setCursorSize("small");
-      }
-    },
-    [isInteractiveElement, isIconElement]
-  );
+    }
+  }, [isInteractiveElement, isIconElement]);
 
   const handleKeyDown = useCallback((e) => {
     if (e.key === "Escape") {
@@ -122,28 +104,33 @@ function App() {
     const cursor = cursorRef.current;
     if (cursor) {
       cursor.style.display = "block";
+      cursor.classList.add('small'); // Default size
     }
 
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseenter", handleMouseEnter, true);
-    document.addEventListener("mouseleave", handleMouseLeave, true);
-    document.addEventListener("mouseover", handleMouseOver, true);
+    // Throttle mousemove for better performance
+    let ticking = false;
+    const throttledMouseMove = (e) => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleMouseMove(e);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    document.addEventListener("mousemove", throttledMouseMove);
+    document.addEventListener("mouseover", handleMouseInteraction, true);
+    document.addEventListener("mouseout", handleMouseInteraction, true);
     document.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseenter", handleMouseEnter, true);
-      document.removeEventListener("mouseleave", handleMouseLeave, true);
-      document.removeEventListener("mouseover", handleMouseOver, true);
+      document.removeEventListener("mousemove", throttledMouseMove);
+      document.removeEventListener("mouseover", handleMouseInteraction, true);
+      document.removeEventListener("mouseout", handleMouseInteraction, true);
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [
-    handleMouseMove,
-    handleMouseEnter,
-    handleMouseLeave,
-    handleMouseOver,
-    handleKeyDown,
-  ]);
+  }, [handleMouseMove, handleMouseInteraction, handleKeyDown]);
 
   return (
     <div
@@ -154,7 +141,7 @@ function App() {
       }`}
     >
       {/* Custom Cursor */}
-      <div ref={cursorRef} className={`custom-cursor ${cursorSize}`}></div>
+      <div ref={cursorRef} className="custom-cursor"></div>
       {/* Fixed Buttons */}
       <button
         onClick={() => setNavOpen(true)}
@@ -210,7 +197,7 @@ function App() {
       {/* Overlay for drawers */}
       {(navOpen || contactOpen || settingsOpen) && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-md z-50 transition-all duration-300"
+          className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 transition-all duration-300"
           onClick={handleOverlayClick}
         ></div>
       )}
