@@ -46,16 +46,18 @@ const SectionF = () => (
     </div>
 
     <div
-      className="flex items-end justify-end absolute bottom-0 left-0 right-0 z-20"
+      className="flex items-end justify-center absolute bottom-0 left-0 right-0 z-20"
       style={{ height: "120px" }}
     >
-      <CurvedLoop
-        marqueeText="Kebsi Montassar ✦ Creative Developer ✦ Software Engineer ✦"
-        speed={0.8}
-        curveAmount={150}
-        direction="left"
-        interactive={true}
-      />
+      <div className="w-full h-full flex items-end">
+        <CurvedLoop
+          marqueeText="Kebsi Montassar ✦ Creative Developer ✦ Software Engineer ✦"
+          speed={0.8}
+          curveAmount={150}
+          direction="left"
+          interactive={true}
+        />
+      </div>
     </div>
   </div>
 );
