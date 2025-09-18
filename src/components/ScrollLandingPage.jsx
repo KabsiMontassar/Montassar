@@ -11,7 +11,7 @@ gsap.registerPlugin(Observer);
 
 const sections = [SectionF, SectionS, SectionT];
 
-// Custom Cursor with Circle Only
+// Custom Cursor with Delayed Following
 const CustomCursor = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -22,32 +22,59 @@ const CustomCursor = () => {
 
     document.addEventListener("mousemove", handleMouseMove);
 
-    // Hide default cursor
-    document.body.style.cursor = "none";
-
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
-      document.body.style.cursor = "auto";
     };
   }, []);
 
   return (
-    <motion.div
-      className="fixed pointer-events-none z-50 w-4 h-4 border-2 border-white rounded-full"
-      style={{
-        left: mousePosition.x - 8,
-        top: mousePosition.y - 8,
-        mixBlendMode: "difference",
-      }}
-      animate={{
-        scale: [1, 1.1, 1],
-      }}
-      transition={{
-        duration: 0.8,
-        repeat: Infinity,
-        ease: "easeInOut",
-      }}
-    />
+    <>
+      {/* Inner yellow circle (moderate delay) */}
+      <motion.div
+        className="fixed pointer-events-none z-50 w-4 h-4 bg-[#ffe500] rounded-full"
+        animate={{
+          x: mousePosition.x - 8,
+          y: mousePosition.y - 8,
+          scale: [1, 1.2, 1],
+        }}
+        transition={{
+          x: { type: "spring", stiffness: 300, damping: 30 },
+          y: { type: "spring", stiffness: 300, damping: 30 },
+          scale: {
+            duration: 0.6,
+            repeat: Infinity,
+            ease: "easeInOut",
+          },
+        }}
+      />
+
+      {/* Outer transparent circle with yellow border (more delayed) */}
+      <motion.div
+        className="fixed pointer-events-none z-40 w-6 h-6 border border-[#ffe500] rounded-full bg-transparent"
+        animate={{
+          x: mousePosition.x - 12,
+          y: mousePosition.y - 12,
+          scale: [1, 1.1, 1],
+          opacity: [0.6, 0.8, 0.6],
+        }}
+        transition={{
+          x: { type: "spring", stiffness: 200, damping: 25 },
+          y: { type: "spring", stiffness: 200, damping: 25 },
+          scale: {
+            duration: 1.2,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 0.2,
+          },
+          opacity: {
+            duration: 1.2,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 0.2,
+          },
+        }}
+      />
+    </>
   );
 };
 
@@ -92,7 +119,8 @@ const ScrollLandingPage = () => {
       slideRefs.current.forEach((slide, index) => {
         if (slide) {
           gsap.set(slide, {
-            zIndex: index === newPosition ? 20 : index === currentSlide ? 10 : 0,
+            zIndex:
+              index === newPosition ? 20 : index === currentSlide ? 10 : 0,
           });
         }
       });
@@ -117,7 +145,7 @@ const ScrollLandingPage = () => {
               });
             }
           });
-          
+
           setIsAnimating(false);
           setCurrentSlide(newPosition);
         },
@@ -125,12 +153,20 @@ const ScrollLandingPage = () => {
 
       // Simple slide transitions
       gsapTimeline.current
-        .to(currentSlideEl, {
-          yPercent: direction === "next" ? -100 : 100,
-        }, 0)
-        .to(upcomingSlideEl, {
-          yPercent: 0,
-        }, 0);
+        .to(
+          currentSlideEl,
+          {
+            yPercent: direction === "next" ? -100 : 100,
+          },
+          0
+        )
+        .to(
+          upcomingSlideEl,
+          {
+            yPercent: 0,
+          },
+          0
+        );
     },
     [currentSlide, isAnimating]
   );
@@ -182,8 +218,8 @@ const ScrollLandingPage = () => {
   }, [isAnimating, next, prev]);
 
   return (
-    <div 
-      ref={containerRef} 
+    <div
+      ref={containerRef}
       className="fixed inset-0 overflow-hidden"
       style={{
         height: "100vh",
@@ -195,7 +231,7 @@ const ScrollLandingPage = () => {
       {sections.map((SectionComponent, index) => (
         <div
           key={`slide-${index}`}
-          ref={el => slideRefs.current[index] = el}
+          ref={(el) => (slideRefs.current[index] = el)}
           className={`absolute inset-0 w-full h-screen overflow-hidden ${
             index === currentSlide ? "z-10" : "z-0"
           }`}
