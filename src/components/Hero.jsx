@@ -6,10 +6,10 @@ const Hero = ({ data }) => {
       <div className="hero-container">
         <div className="hero-text">
           <div className="hero-title">
-            <div >
+            <div>
               <span className="text-black">A tech and cloud workshop</span>
             </div>
-            <div >
+            <div className="text-line-container">
               <span className="text-black">creating </span>
               <div className="colorful-text">
                 <div className="char char-1">F</div>
@@ -21,10 +21,20 @@ const Hero = ({ data }) => {
                 <div className="char char-7">G</div>
               </div>
               <span className="text-black"> and </span>
-              <span className="colorful-text-alt">efficient</span>
+              <div className="colorful-text-alt">
+                <div className="button-char button-char-1">E</div>
+                <div className="button-char button-char-2">F</div>
+                <div className="button-char button-char-3">F</div>
+                <div className="button-char button-char-4">I</div>
+                <div className="button-char button-char-5">C</div>
+                <div className="button-char button-char-6">I</div>
+                <div className="button-char button-char-7">E</div>
+                <div className="button-char button-char-8">N</div>
+                <div className="button-char button-char-9">T</div>
+              </div>
             </div>
-            <div >
-              <span className="text-black">web experiences</span>
+            <div>
+              <span className="text-black">digital experiences</span>
             </div>
           </div>
         </div>
