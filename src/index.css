@@ -253,69 +253,69 @@ button {
 
 /* Hover effects - letters move to top-left and show colored text-shadows in original position */
 .colorful-text:where(:hover,:focus-visible) .char {
-  transform: translate(-8px, -8px);
+  transform: translate(-5px, -5px);
 }
 
 .colorful-text:where(:hover,:focus-visible) .char-1 {
-  text-shadow: 10px 10px 0 #ffdb26, 12px 12px 0 #ffdb26, 14px 14px 0 #ffdb26;
+  text-shadow: 6px 6px 0 #ffdb26, 7px 7px 0 #ffdb26, 8px 8px 0 #ffdb26;
 }
 
 .colorful-text:where(:hover,:focus-visible) .char-2 {
-  text-shadow: 10px 10px 0 #661fff, 12px 12px 0 #661fff, 14px 14px 0 #661fff;
+  text-shadow: 6px 6px 0 #661fff, 7px 7px 0 #661fff, 8px 8px 0 #661fff;
 }
 
 .colorful-text:where(:hover,:focus-visible) .char-3 {
-  text-shadow: 10px 10px 0 #f8376f, 12px 12px 0 #f8376f, 14px 14px 0 #f8376f;
+  text-shadow: 6px 6px 0 #f8376f, 7px 7px 0 #f8376f, 8px 8px 0 #f8376f;
 }
 
 .colorful-text:where(:hover,:focus-visible) .char-4 {
-  text-shadow: 10px 10px 0 #00fba9, 12px 12px 0 #00fba9, 14px 14px 0 #00fba9;
+  text-shadow: 6px 6px 0 #00fba9, 7px 7px 0 #00fba9, 8px 8px 0 #00fba9;
 }
 
 .colorful-text:where(:hover,:focus-visible) .char-5 {
-  text-shadow: 10px 10px 0 #ffdb26, 12px 12px 0 #ffdb26, 14px 14px 0 #ffdb26;
+  text-shadow: 6px 6px 0 #ffdb26, 7px 7px 0 #ffdb26, 8px 8px 0 #ffdb26;
 }
 
 .colorful-text:where(:hover,:focus-visible) .char-6 {
-  text-shadow: 10px 10px 0 #661fff, 12px 12px 0 #661fff, 14px 14px 0 #661fff;
+  text-shadow: 6px 6px 0 #661fff, 7px 7px 0 #661fff, 8px 8px 0 #661fff;
 }
 
 .colorful-text:where(:hover,:focus-visible) .char-7 {
-  text-shadow: 10px 10px 0 #f8376f, 12px 12px 0 #f8376f, 14px 14px 0 #f8376f;
+  text-shadow: 6px 6px 0 #f8376f, 7px 7px 0 #f8376f, 8px 8px 0 #f8376f;
 }
 
 /* Responsive adjustments for mobile */
 @media (max-width: 768px) {
   .colorful-text:where(:hover,:focus-visible) .char {
-    transform: translate(-6px, -6px);
+    transform: translate(-4px, -4px);
   }
   
   .colorful-text:where(:hover,:focus-visible) .char-1 {
-    text-shadow: 8px 8px 0 #ffdb26, 10px 10px 0 #ffdb26;
+    text-shadow: 5px 5px 0 #ffdb26, 6px 6px 0 #ffdb26;
   }
   
   .colorful-text:where(:hover,:focus-visible) .char-2 {
-    text-shadow: 8px 8px 0 #661fff, 10px 10px 0 #661fff;
+    text-shadow: 5px 5px 0 #661fff, 6px 6px 0 #661fff;
   }
   
   .colorful-text:where(:hover,:focus-visible) .char-3 {
-    text-shadow: 8px 8px 0 #f8376f, 10px 10px 0 #f8376f;
+    text-shadow: 5px 5px 0 #f8376f, 6px 6px 0 #f8376f;
   }
   
   .colorful-text:where(:hover,:focus-visible) .char-4 {
-    text-shadow: 8px 8px 0 #00fba9, 10px 10px 0 #00fba9;
+    text-shadow: 5px 5px 0 #00fba9, 6px 6px 0 #00fba9;
   }
   
   .colorful-text:where(:hover,:focus-visible) .char-5 {
-    text-shadow: 8px 8px 0 #ffdb26, 10px 10px 0 #ffdb26;
+    text-shadow: 5px 5px 0 #ffdb26, 6px 6px 0 #ffdb26;
   }
   
   .colorful-text:where(:hover,:focus-visible) .char-6 {
-    text-shadow: 8px 8px 0 #661fff, 10px 10px 0 #661fff;
+    text-shadow: 5px 5px 0 #661fff, 6px 6px 0 #661fff;
   }
   
   .colorful-text:where(:hover,:focus-visible) .char-7 {
-    text-shadow: 8px 8px 0 #f8376f, 10px 10px 0 #f8376f;
+    text-shadow: 5px 5px 0 #f8376f, 6px 6px 0 #f8376f;
   }
 }
 
