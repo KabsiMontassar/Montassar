@@ -446,6 +446,19 @@ const ScrollLandingPage = () => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isAnimating, next, prev]);
 
+  const getFilterClassName = () => {
+    switch (currentSlide) {
+      case 0:
+        return isMenuOpen ? "" : "filter invert";
+      case 1:
+        return isMenuOpen ? "filter invert" : "";
+      case 2:
+        return isMenuOpen ? "" : "filter invert";
+      default:
+        return "";
+    }
+  };
+
   return (
     <div
       ref={containerRef}
@@ -483,7 +496,7 @@ const ScrollLandingPage = () => {
           <div className="absolute top-8 left-8 z-20">
             <motion.div
               ref={(el) => (montassarRefs.current[index] = el)}
-              className="flex items-center space-x-3"
+              className="flex items-center space-x-1"
               animate={{
                 x:
                   index === currentSlide ? getMontassarMagneticMovement().x : 0,
@@ -505,9 +518,7 @@ const ScrollLandingPage = () => {
               <motion.img
                 src={yinYangSvg}
                 alt="Yin Yang"
-                className={`w-6 h-6 ${
-                  index === 0 || index === 2 ? "filter invert" : ""
-                }`}
+                className={`w-6 h-6 space-x-1 ${getFilterClassName()}`}
                 style={{
                   filter:
                     index === 1
@@ -556,9 +567,6 @@ const ScrollLandingPage = () => {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           className={getIconColor()}
-          animate={{
-            rotate: isMenuHovered ? [0, 360] : 0,
-          }}
           transition={{
             duration: 2,
             ease: "linear",
@@ -586,9 +594,9 @@ const ScrollLandingPage = () => {
       >
         <div className="relative w-full h-full flex flex-col">
           {/* Top Left - Montassar */}
-          <div className="absolute top-8 left-8">
+          <div className="absolute top-8 left-8    ">
             <motion.div
-              className="flex items-center space-x-3"
+              className="flex items-center"
               animate={{
                 x: getMontassarMagneticMovement().x,
                 y: getMontassarMagneticMovement().y,
@@ -598,15 +606,13 @@ const ScrollLandingPage = () => {
                 y: { type: "spring", stiffness: 150, damping: 15 },
               }}
             >
-              <h1 className={`text-2xl font-light ${getTextColor()}`}>
+              <h1 className={`text-2xl p-0 font-light ${getTextColor()}`}>
                 Montassar
               </h1>
               <motion.img
                 src={yinYangSvg}
                 alt="Yin Yang"
-                className={`w-6 h-6 ${
-                  currentSlide === 1 ? "" : "filter invert"
-                }`}
+                className={`w-6 h-6 space-x-1 ${getFilterClassName()}`}
                 animate={{
                   rotate: isMontassarHovered ? [0, 360] : 0,
                 }}
