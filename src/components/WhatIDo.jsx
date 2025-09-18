@@ -3,17 +3,8 @@ import React from 'react';
 const WhatIDo = ({ data, theme }) => {
   return (
     <section id="whatido" className="relative min-h-screen bg-black text-white">
-      {/* Top Separator */}
-      <div className="section-separator top">
-        <div className="separator-line"></div>
-        <div className="separator-dots">
-          <div className="dot"></div>
-          <div className="dot"></div>
-          <div className="dot"></div>
-          <div className="dot"></div>
-          <div className="dot"></div>
-        </div>
-      </div>
+      {/* Top Scallop Divider */}
+      <div className="scallop-up"></div>
       
       {/* Content */}
       <div className="flex items-center justify-center py-20 px-8 relative z-10">
@@ -30,17 +21,8 @@ const WhatIDo = ({ data, theme }) => {
         </div>
       </div>
       
-      {/* Bottom Separator */}
-      <div className="section-separator bottom">
-        <div className="separator-dots">
-          <div className="dot"></div>
-          <div className="dot"></div>
-          <div className="dot"></div>
-          <div className="dot"></div>
-          <div className="dot"></div>
-        </div>
-        <div className="separator-line"></div>
-      </div>
+      {/* Bottom Scallop Divider */}
+        <div className="scallop-down"></div>
     </section>
   );
 };

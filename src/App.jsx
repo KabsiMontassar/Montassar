@@ -175,7 +175,7 @@ function App() {
           contactData={data}
         />
       </div>
-      <div className="min-h-[100vh]">
+      <div className="min-h-[95vh]">
         <Hero data={data.hero} />
       </div>
 

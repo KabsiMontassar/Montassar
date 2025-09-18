@@ -518,3 +518,60 @@ section {
   transform: translateY(0);
   animation: none;
 }
+
+/* Scalloped Dividers */
+.scallop-down {
+  position: absolute;
+
+  bottom: -10px;
+  height: 35px;
+  width: 100%;
+  background: radial-gradient(
+    circle at 50% 0%,
+    #000 0%,
+    #000 49%,
+    white 51%,
+    white 100%
+  );
+  background-size: 40px 100%;
+  z-index: 10;
+}
+
+.scallop-up {
+  position: absolute;
+  top: -20px;
+  height: 35px;
+  width: 100%;
+  background: radial-gradient(
+    circle at 50% 100%,
+    #000 0%,
+    #000 49%,
+    white 51%,
+    white 100%
+  );
+  background-size: 40px 100%;
+  z-index: 10;
+}
+
+/* Alternative scallop styles for different color schemes */
+.scallop-white-to-black-down {
+  background: radial-gradient(
+    circle at 50% 0%,
+    white 0%,
+    white 49%,
+    #000 51%,
+    #000 100%
+  );
+  background-size: 40px 100%;
+}
+
+.scallop-white-to-black-up {
+  background: radial-gradient(
+    circle at 50% 100%,
+    white 0%,
+    white 49%,
+    #000 51%,
+    #000 100%
+  );
+  background-size: 40px 100%;
+}
