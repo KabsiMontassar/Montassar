@@ -130,13 +130,23 @@ function App() {
     };
   }, [handleMouseMove, handleMouseInteraction, handleKeyDown]);
 
-  // Montassar Floating Text scroll functionality
+  // Montassar Floating Text scroll functionality - Optimized
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const element = document.getElementById("montassar-floating");
+    let ticking = false;
+    const element = document.getElementById("montassar-floating");
 
+    const updateFloatingText = () => {
       if (!element) return;
+
+      const scrollY = window.scrollY;
+      const isAnyPanelOpen = navOpen || contactOpen || settingsOpen;
+
+      // Apply panel effects first
+      if (isAnyPanelOpen) {
+        element.classList.add('panel-blur');
+      } else {
+        element.classList.remove('panel-blur');
+      }
 
       if (scrollY <= 100) {
         // Start position - large at bottom with more margin
@@ -168,19 +178,28 @@ function App() {
         element.style.fontSize = `${fontSize}rem`;
         element.style.transform = "translateX(-50%)";
       }
+
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(updateFloatingText);
+        ticking = true;
+      }
     };
 
     // Add scroll listener
     window.addEventListener("scroll", handleScroll, { passive: true });
 
     // Initial call
-    handleScroll();
+    updateFloatingText();
 
     // Cleanup
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [navOpen, contactOpen, settingsOpen]);
 
   return (
     <div className="relative bg-primary text-secondary">
