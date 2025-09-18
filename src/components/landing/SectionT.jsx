@@ -8,7 +8,7 @@ gsap.registerPlugin(Observer);
 const SectionT = () => (
   <div className="relative w-full h-full bg-gradient-to-r from-black to-[#222121] overflow-hidden">
     <div className="relative z-10 h-full flex items-center justify-center text-white">
-      <div className="text-center max-w-6xl px-8">
+      <div className="text-center w-full px-4 md:px-8 lg:px-16">
         <motion.div
           initial={{ opacity: 0, rotateX: 45 }}
           animate={{ opacity: 1, rotateX: 0 }}
@@ -27,7 +27,7 @@ const SectionT = () => (
             Let's Build Together
           </motion.h1>
           <motion.p
-            className="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed text-gray-300"
+            className="text-lg md:text-xl max-w-5xl mx-auto leading-relaxed text-gray-300"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{

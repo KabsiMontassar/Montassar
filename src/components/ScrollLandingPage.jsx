@@ -128,6 +128,29 @@ const ScrollLandingPage = () => {
     return () => window.removeEventListener("keydown", handleEscape);
   }, [isMenuOpen]);
 
+  // Prevent mouse clicks from causing unwanted scroll behavior
+  useEffect(() => {
+    const preventClickScroll = (e) => {
+      // Only prevent default if it's a click that might cause scrolling
+      // Allow normal clicks on interactive elements
+      const target = e.target;
+      const isInteractive = target.closest('button, a, input, select, textarea, [role="button"]');
+
+      if (!isInteractive && e.button === 0) { // Left mouse button
+        e.preventDefault();
+      }
+    };
+
+    // Add passive event listeners to avoid interfering with normal interactions
+    document.addEventListener('click', preventClickScroll, { passive: false });
+    document.addEventListener('mousedown', preventClickScroll, { passive: false });
+
+    return () => {
+      document.removeEventListener('click', preventClickScroll);
+      document.removeEventListener('mousedown', preventClickScroll);
+    };
+  }, []);
+
   // Get menu background based on current section
   const getMenuBackground = () => {
     if (currentSlide === 0 || currentSlide === 2) {
@@ -145,8 +168,8 @@ const ScrollLandingPage = () => {
       // White background, use black text for better contrast
       return "text-black";
     } else {
-      // Dark gradient background, use white text
-      return "text-white";
+      // Dark gradient background, use f4f4f4 text
+      return "text-[#f4f4f4]";
     }
   };
 
@@ -155,7 +178,7 @@ const ScrollLandingPage = () => {
       case 0:
         return isMenuOpen ? "text-black" : "text-white";
       case 1:
-        return isMenuOpen ? "text-white" : "text-black";
+        return isMenuOpen ? "text-[#f4f4f4]" : "text-black";
       case 2:
         return isMenuOpen ? "text-black" : "text-white";
       default:
@@ -337,7 +360,7 @@ const ScrollLandingPage = () => {
   // Initialize GSAP Observer for full-screen scroll
   useEffect(() => {
     const observer = Observer.create({
-      type: "wheel,touch,pointer",
+      type: "wheel,touch", // Removed "pointer" to prevent mouse clicks from scrolling
       onDown: () => !isAnimating && prev(),
       onUp: () => !isAnimating && next(),
       wheelSpeed: -1,
@@ -368,12 +391,16 @@ const ScrollLandingPage = () => {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 overflow-hidden"
+      className="fixed inset-0 overflow-hidden select-none"
       style={{
         height: "100vh",
         width: "100vw",
         perspective: "1000px",
         backfaceVisibility: "hidden",
+        userSelect: "none",
+        WebkitUserSelect: "none",
+        MozUserSelect: "none",
+        msUserSelect: "none",
       }}
     >
       {sections.map((SectionComponent, index) => (
@@ -390,8 +417,19 @@ const ScrollLandingPage = () => {
           }}
         >
           {/* Section content */}
-          <div className="absolute inset-0 w-full h-full">
+          <div className="w-full h-full">
             <SectionComponent />
+          </div>
+
+          {/* Montassar text overlay - same position as menu */}
+          <div className="absolute top-8 left-8 z-20">
+            <h1
+              className={`text-2xl font-light ${
+                index === 0 || index === 2 ? "text-[#f4f4f4]" : "text-black"
+              }`}
+            >
+              Montassar
+            </h1>
           </div>
         </div>
       ))}
@@ -488,34 +526,40 @@ const ScrollLandingPage = () => {
             onClick={(e) => e.stopPropagation()}
           >
             {/* Bottom Left - Time */}
-            <div className={`text-lg font-light ${getTextColor()}`}>
-              {formatTime(currentTime)}
+            <div className={`text-center ${getTextColor()}`}>
+              <div className="text-sm font-light mb-1">Local time</div>
+              <div className="text-lg font-light">
+                {formatTime(currentTime)}
+              </div>
             </div>
 
             {/* Bottom Right - Social Links */}
-            <div className="flex flex-col space-y-2 text-right">
-              <a
-                href="mailto:your.email@example.com"
-                className={`text-lg font-light ${getTextColor()} ${getHoverColor()} transition-colors duration-300`}
-              >
-                Email
-              </a>
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`text-lg font-light ${getTextColor()} ${getHoverColor()} transition-colors duration-300`}
-              >
-                GitHub
-              </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`text-lg font-light ${getTextColor()} ${getHoverColor()} transition-colors duration-300`}
-              >
-                LinkedIn
-              </a>
+            <div className={`text-left ${getTextColor()}`}>
+              <div className="text-lg font-light mb-2">Socials</div>
+              <div className="flex space-x-6 justify-end">
+                <a
+                  href="mailto:your.email@example.com"
+                  className={`text-lg font-light ${getHoverColor()} transition-colors duration-300`}
+                >
+                  Email
+                </a>
+                <a
+                  href="https://github.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`text-lg font-light ${getHoverColor()} transition-colors duration-300`}
+                >
+                  GitHub
+                </a>
+                <a
+                  href="https://linkedin.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`text-lg font-light ${getHoverColor()} transition-colors duration-300`}
+                >
+                  LinkedIn
+                </a>
+              </div>
             </div>
           </div>
         </div>
