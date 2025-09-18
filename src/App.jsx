@@ -52,26 +52,32 @@ function App() {
     const cursor = cursorRef.current;
     if (cursor) {
       // Use transform for better performance
-      cursor.style.transform = `translate(${e.clientX - 12.5}px, ${e.clientY - 12.5}px)`;
+      cursor.style.transform = `translate(${e.clientX - 12.5}px, ${
+        e.clientY - 12.5
+      }px)`;
     }
   }, []);
 
-  const handleMouseInteraction = useCallback((e) => {
-    const target = e.target;
-    const isInteractive = isInteractiveElement(target) || isIconElement(target);
-    
-    // Use CSS classes for size changes instead of state
-    const cursor = cursorRef.current;
-    if (cursor) {
-      if (isInteractive) {
-        cursor.classList.add('interactive');
-        cursor.classList.remove('small');
-      } else {
-        cursor.classList.add('small');
-        cursor.classList.remove('interactive');
+  const handleMouseInteraction = useCallback(
+    (e) => {
+      const target = e.target;
+      const isInteractive =
+        isInteractiveElement(target) || isIconElement(target);
+
+      // Use CSS classes for size changes instead of state
+      const cursor = cursorRef.current;
+      if (cursor) {
+        if (isInteractive) {
+          cursor.classList.add("interactive");
+          cursor.classList.remove("small");
+        } else {
+          cursor.classList.add("small");
+          cursor.classList.remove("interactive");
+        }
       }
-    }
-  }, [isInteractiveElement, isIconElement]);
+    },
+    [isInteractiveElement, isIconElement]
+  );
 
   const handleKeyDown = useCallback((e) => {
     if (e.key === "Escape") {
@@ -90,15 +96,13 @@ function App() {
     }
   }, []);
 
-
-
   // Custom cursor functionality
   useEffect(() => {
     // Initialize cursor visibility
     const cursor = cursorRef.current;
     if (cursor) {
       cursor.style.display = "block";
-      cursor.classList.add('small'); // Default size
+      cursor.classList.add("small"); // Default size
     }
 
     // Throttle mousemove for better performance
@@ -171,15 +175,14 @@ function App() {
           contactData={data}
         />
       </div>
-      {/* Main Content */}{" "}
-      <Hero data={data.hero} />
-      {/*
-      <WhatIDo data={data.whatido} theme={theme} />
-      <MyWork data={data.mywork} theme={theme} />
-      <About data={data.about} theme={theme} />
-      <Contact data={data.contact} theme={theme} /> */}
-      {/* <div className="flex items-center justify-center min-h-screen">hello</div> */}
-      {/* Overlay for drawers */}
+      <div className="min-h-[100vh]">
+        <Hero data={data.hero} />
+      </div>
+
+      <WhatIDo data={data.whatido} />
+      <MyWork data={data.mywork} />
+      <About data={data.about} />
+      <Contact data={data.contact} />
       {(navOpen || contactOpen || settingsOpen) && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 transition-all duration-300"

@@ -1,8 +1,10 @@
-import React from "react";
 
-const Hero = ({ data }) => {
+const Hero = () => {
   return (
-    <section id="hero" className=" flex fade-in bg-primary text-secondary">
+    <section
+      id="hero"
+      className="relative flex fade-in bg-primary text-secondary"
+    >
       <div className="hero-container">
         <div className="hero-text">
           <div className="hero-title">

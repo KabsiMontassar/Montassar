@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Rubik:500&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Bungee&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -8,7 +8,10 @@
 html {
   scroll-behavior: smooth;
 }
-
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
 body {
   margin: 0;
   font-family: Rubik, system-ui, "Segoe UI", Roboto, Helvetica, Arial,
@@ -104,65 +107,65 @@ button {
 }
 /* Custom 3D Button Styles */
 .custom-button {
-    margin: 7px 7px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: none; /* Hide default cursor for custom cursor */
-    outline: none;
-    border: 0;
-    text-decoration: none;
-    font-size: inherit;
-    font-family: inherit;
-    font-weight: 600;
-    color: #000; /* Black text */
-    text-transform: uppercase;
-    padding: 0.75em 1.25em;
-    background: #ffffff; /* white background */
-    border: 2px solid #000; /* Black border */
-    border-radius: 0.75em;
-    transform-style: preserve-3d;
-    transition: transform 150ms cubic-bezier(0, 0, 0.58, 1),
-        background 150ms cubic-bezier(0, 0, 0.58, 1);
-    width: auto;
-    height: auto;
-    min-width: 60px;
-    min-height: 24px;
+  margin: 7px 7px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: none; /* Hide default cursor for custom cursor */
+  outline: none;
+  border: 0;
+  text-decoration: none;
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: 600;
+  color: #000; /* Black text */
+  text-transform: uppercase;
+  padding: 0.75em 1.25em;
+  background: #ffffff; /* white background */
+  border: 2px solid #000; /* Black border */
+  border-radius: 0.75em;
+  transform-style: preserve-3d;
+  transition: transform 150ms cubic-bezier(0, 0, 0.58, 1),
+    background 150ms cubic-bezier(0, 0, 0.58, 1);
+  width: auto;
+  height: auto;
+  min-width: 60px;
+  min-height: 24px;
 }
 
 .custom-button::before {
-    position: absolute;
-    content: "";
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: #e0e0e0; /* Darker gray */
-    border-radius: inherit;
-    box-shadow: 0 0 0 2px #000; /* Black border, light gray shadow */
-    transform: translate3d(0, 0.5em, -1em); /* Reduced from 0.7em to 0.5em */
-    transition: transform 150ms cubic-bezier(0, 0, 0.58, 1);
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #e0e0e0; /* Darker gray */
+  border-radius: inherit;
+  box-shadow: 0 0 0 2px #000; /* Black border, light gray shadow */
+  transform: translate3d(0, 0.5em, -1em); /* Reduced from 0.7em to 0.5em */
+  transition: transform 150ms cubic-bezier(0, 0, 0.58, 1);
 }
 
 .custom-button:hover {
-    transform: translate(0, 0.25em);
+  transform: translate(0, 0.25em);
 }
 
 .custom-button:hover::before {
-    transform: translate3d(0, 0.3em, -1em); /* Reduced from 0.5em to 0.3em */
+  transform: translate3d(0, 0.3em, -1em); /* Reduced from 0.5em to 0.3em */
 }
 
 .custom-button:active {
-    background: #f0f0f0;
-    transform: translate(0em, 0.75em);
+  background: #f0f0f0;
+  transform: translate(0em, 0.75em);
 }
 
 .custom-button:active::before {
-    box-shadow: 0 0 0 2px #000, 0 0 #d0d0d0;
-    transform: translate3d(0, 0, -1em);
+  box-shadow: 0 0 0 2px #000, 0 0 #d0d0d0;
+  transform: translate3d(0, 0, -1em);
 }
 
 /* Ensure panels are not affected by backdrop filters */
@@ -224,8 +227,7 @@ button {
   text-wrap-mode: nowrap;
 }
 .text-black {
-  font-weight: 500 ;
-  
+  font-weight: 500;
 }
 
 .text-line-container {
@@ -237,7 +239,6 @@ button {
   width: 100%;
   flex-wrap: nowrap;
 }
-
 
 .colorful-text {
   font-family: Bungee, Arial, sans-serif;
@@ -252,9 +253,10 @@ button {
 
 .colorful-text .char {
   display: inline-block;
-  transition: text-shadow .4s cubic-bezier(.4,.2,.2,1), transform .4s ease;
+  transition: text-shadow 0.4s cubic-bezier(0.4, 0.2, 0.2, 1),
+    transform 0.4s ease;
   will-change: text-shadow, transform;
-  margin: 0 ;
+  margin: 0;
   font-size: 5rem;
   vertical-align: top;
   color: #000000;
@@ -262,73 +264,72 @@ button {
 }
 
 /* Hover effects - letters move to top-left and show colored text-shadows in original position */
-.colorful-text:where(:hover,:focus-visible) .char {
+.colorful-text:where(:hover, :focus-visible) .char {
   transform: translate(-5px, -5px);
 }
 
-.colorful-text:where(:hover,:focus-visible) .char-1 {
+.colorful-text:where(:hover, :focus-visible) .char-1 {
   text-shadow: 6px 6px 0 #ffdb26, 7px 7px 0 #ffdb26, 8px 8px 0 #ffdb26;
 }
 
-.colorful-text:where(:hover,:focus-visible) .char-2 {
+.colorful-text:where(:hover, :focus-visible) .char-2 {
   text-shadow: 6px 6px 0 #661fff, 7px 7px 0 #661fff, 8px 8px 0 #661fff;
 }
 
-.colorful-text:where(:hover,:focus-visible) .char-3 {
+.colorful-text:where(:hover, :focus-visible) .char-3 {
   text-shadow: 6px 6px 0 #f8376f, 7px 7px 0 #f8376f, 8px 8px 0 #f8376f;
 }
 
-.colorful-text:where(:hover,:focus-visible) .char-4 {
+.colorful-text:where(:hover, :focus-visible) .char-4 {
   text-shadow: 6px 6px 0 #00fba9, 7px 7px 0 #00fba9, 8px 8px 0 #00fba9;
 }
 
-.colorful-text:where(:hover,:focus-visible) .char-5 {
+.colorful-text:where(:hover, :focus-visible) .char-5 {
   text-shadow: 6px 6px 0 #ffdb26, 7px 7px 0 #ffdb26, 8px 8px 0 #ffdb26;
 }
 
-.colorful-text:where(:hover,:focus-visible) .char-6 {
+.colorful-text:where(:hover, :focus-visible) .char-6 {
   text-shadow: 6px 6px 0 #661fff, 7px 7px 0 #661fff, 8px 8px 0 #661fff;
 }
 
-.colorful-text:where(:hover,:focus-visible) .char-7 {
+.colorful-text:where(:hover, :focus-visible) .char-7 {
   text-shadow: 6px 6px 0 #f8376f, 7px 7px 0 #f8376f, 8px 8px 0 #f8376f;
 }
 
 /* Responsive adjustments for mobile */
 @media (max-width: 768px) {
-  .colorful-text:where(:hover,:focus-visible) .char {
+  .colorful-text:where(:hover, :focus-visible) .char {
     transform: translate(-4px, -4px);
   }
-  
-  .colorful-text:where(:hover,:focus-visible) .char-1 {
+
+  .colorful-text:where(:hover, :focus-visible) .char-1 {
     text-shadow: 5px 5px 0 #ffdb26, 6px 6px 0 #ffdb26;
   }
-  
-  .colorful-text:where(:hover,:focus-visible) .char-2 {
+
+  .colorful-text:where(:hover, :focus-visible) .char-2 {
     text-shadow: 5px 5px 0 #661fff, 6px 6px 0 #661fff;
   }
-  
-  .colorful-text:where(:hover,:focus-visible) .char-3 {
+
+  .colorful-text:where(:hover, :focus-visible) .char-3 {
     text-shadow: 5px 5px 0 #f8376f, 6px 6px 0 #f8376f;
   }
-  
-  .colorful-text:where(:hover,:focus-visible) .char-4 {
+
+  .colorful-text:where(:hover, :focus-visible) .char-4 {
     text-shadow: 5px 5px 0 #00fba9, 6px 6px 0 #00fba9;
   }
-  
-  .colorful-text:where(:hover,:focus-visible) .char-5 {
+
+  .colorful-text:where(:hover, :focus-visible) .char-5 {
     text-shadow: 5px 5px 0 #ffdb26, 6px 6px 0 #ffdb26;
   }
-  
-  .colorful-text:where(:hover,:focus-visible) .char-6 {
+
+  .colorful-text:where(:hover, :focus-visible) .char-6 {
     text-shadow: 5px 5px 0 #661fff, 6px 6px 0 #661fff;
   }
-  
-  .colorful-text:where(:hover,:focus-visible) .char-7 {
+
+  .colorful-text:where(:hover, :focus-visible) .char-7 {
     text-shadow: 5px 5px 0 #f8376f, 6px 6px 0 #f8376f;
   }
 }
-
 
 .colorful-text-alt {
   display: flex;
@@ -346,12 +347,13 @@ button {
   border: 0;
   text-decoration: none;
   font-size: 0.6em;
-  font-family: Fira Code, ui-monospace, SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+  font-family: Fira Code, ui-monospace, SFMono-Regular, Consolas,
+    Liberation Mono, Menlo, monospace;
   font-weight: 600;
   color: #000; /* Black text */
   text-transform: uppercase;
   padding: 0em 0.2em;
-  background: #ffffff; 
+  background: #ffffff;
   border: 1px solid #000;
   border-radius: 0.25em;
   transform-style: preserve-3d;
@@ -400,4 +402,119 @@ button {
   .hero-title {
     font-size: 2rem;
   }
+}
+
+/* Section Separator Styles */
+.section-separator {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 60px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.section-separator.top {
+  top: 0;
+}
+
+.section-separator.bottom {
+  bottom: 0;
+}
+
+.separator-line {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    white 20%,
+    white 80%,
+    transparent 100%
+  );
+}
+
+.separator-dots {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.separator-dots .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: white;
+  animation: dotPulse 2s ease-in-out infinite;
+}
+
+.separator-dots .dot:nth-child(1) {
+  animation-delay: 0s;
+}
+.separator-dots .dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.separator-dots .dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+.separator-dots .dot:nth-child(4) {
+  animation-delay: 0.6s;
+}
+.separator-dots .dot:nth-child(5) {
+  animation-delay: 0.8s;
+}
+
+@keyframes dotPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* Remove old circle frame styles */
+.section-frame-circles {
+  display: none;
+}
+
+.frame-circle {
+  display: none;
+}
+
+/* Section scroll animations */
+section {
+  opacity: 0;
+  transform: translateY(50px);
+  animation: sectionFadeIn 0.8s ease-out forwards;
+}
+
+@keyframes sectionFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Add scroll-triggered animations */
+.section-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* Ensure hero section is always visible */
+#hero {
+  opacity: 1;
+  transform: translateY(0);
+  animation: none;
 }
