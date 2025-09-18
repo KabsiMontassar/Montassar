@@ -20,6 +20,19 @@ const SectionF = () => {
   // Magnetic effect state
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
+  // Auto-cycle through job titles
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prevIndex) => {
+        const newIndex = (prevIndex + 1) % titles.length;
+        console.log("Job title changing to:", titles[newIndex]);
+        return newIndex;
+      });
+    }, 2000); // Change every 2 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
   // Decryption animation for text
   const decryptText = (originalText) => {
     const chars = "!@#$%^&*()_+-=[]{}|;:,.<>?";
@@ -65,20 +78,26 @@ const SectionF = () => {
     }
   };
 
+  const handleCardMouseMove = (e) => {
+    handleMouseMove(e);
+  };
+
+  const handleMouseLeave = () => {
+    setMousePosition({ x: 0, y: 0 });
+    setIsCardHovered(false);
+  };
+
+  const handleMouseEnter = () => {
+    setIsCardHovered(true);
+  };
+
   useEffect(() => {
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % titles.length);
-    }, 2000); // 2s  per title - longer display time
-    return () => clearInterval(interval);
-  }, []);
-
   return (
-    <div className="relative w-full h-full bg-gradient-to-r from-black to-[#222121] overflow-hidden">
+    <div className="relative w-full h-full bg-gradient-to-r from-black to-[#222121] overflow-hidden mobile-section-f">
       {/* Plasma Background Effect */}
       <div className="absolute inset-0 z-0 opacity-70">
         <Plasma
@@ -92,29 +111,30 @@ const SectionF = () => {
       </div>
 
       {/* Left side content */}
-      <div className="absolute left-30 top-2/5 transform -translate-y-1/2 z-10 text-white">
+      <div className="absolute left-8 md:left-30 top-1/2 md:top-2/5 transform -translate-y-1/2 z-20 text-white left-content">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex flex-col items-start space-y-6"
+          className="flex flex-col items-start space-y-4 md:space-y-6"
+          style={{ zIndex: 20, position: "relative" }}
         >
           {/* Arrow Icon */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.8 }}
-            className="mb-8"
+            className="mb-4 md:mb-8"
           >
             <FiArrowDownRight
               strokeWidth={1.5}
-              className="text-white text-6xl"
+              className="text-white text-4xl md:text-6xl arrow-icon"
             />
           </motion.div>
 
           {/* Freelance Text */}
           <motion.h2
-            className="text-4xl md:text-6xl text-white mb-2"
+            className="text-3xl md:text-4xl lg:text-6xl text-white mb-2 freelance-text"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.0 }}
@@ -129,18 +149,26 @@ const SectionF = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.2 }}
           >
-            <div className="relative overflow-hidden h-12 w-80">
+            <div className="relative overflow-hidden h-8 md:h-12 w-full max-w-full job-titles">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }} // Faster animation
-                  className="absolute w-full text-3xl md:text-4xl font-semibold text-gray-300 flex items-center h-12"
+                  transition={{ duration: 0.3 }}
+                  className="absolute w-full text-lg md:text-2xl lg:text-3xl font-semibold text-gray-300 flex items-center h-8 md:h-12 text-content z-20"
+                  style={{
+                    visibility: "visible",
+                    display: "flex",
+                    position: "relative",
+                    zIndex: 20,
+                  }}
                 >
-                  {titles[index]}
-                  <span className="text-yellow-400">.</span>
+                  <span className="truncate pr-1 text-gray-300">
+                    {titles[index]}
+                  </span>
+                  <span className="text-yellow-400 flex-shrink-0">.</span>
                 </motion.div>
               </AnimatePresence>
             </div>
@@ -149,7 +177,7 @@ const SectionF = () => {
       </div>
 
       {/* Right side card */}
-      <div className="absolute right-30 top-2/5 transform -translate-y-1/2 z-10">
+      <div className="absolute right-8 md:right-30 bottom-20 md:top-2/5 md:bottom-auto transform z-10 w-full md:w-auto right-content">
         <motion.div
           ref={cardRef}
           initial={{ opacity: 0, x: 50 }}
@@ -164,12 +192,12 @@ const SectionF = () => {
             x: { type: "spring", stiffness: 150, damping: 15 },
             y: { type: "spring", stiffness: 150, damping: 15 },
           }}
-          className="bg-[#272727] rounded-full px-8 py-6 w-80 h-30 flex items-center justify-between cursor-pointer"
+          className="bg-[#272727] rounded-full px-6 md:px-8 py-4 md:py-6 w-full md:w-80 h-auto md:h-30 flex items-center justify-between cursor-pointer work-card"
         >
           {/* Text Content */}
           <div className="flex flex-col space-y-1">
             <motion.h3
-              className="text-lg font-semibold text-gray-300"
+              className="text-base md:text-lg font-semibold text-gray-300 work-card-text"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.0 }}
@@ -177,7 +205,7 @@ const SectionF = () => {
               {isCardHovered ? decryptText("Check out") : "Check out"}
             </motion.h3>
             <motion.h2
-              className="text-xl font-bold text-white"
+              className="text-lg md:text-xl font-bold text-white work-card-title"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.2 }}
@@ -196,7 +224,7 @@ const SectionF = () => {
             <motion.img
               src={yinYangSvg}
               alt="Yin Yang"
-              className="w-16 h-16 filter invert"
+              className="w-12 h-12 md:w-16 md:h-16 filter invert yin-yang-icon"
               animate={{
                 rotate: isCardHovered ? 360 : 0,
               }}

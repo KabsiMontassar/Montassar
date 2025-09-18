@@ -66,7 +66,7 @@ const calculateMagneticEffect = (mousePos, targetPos, radius = MAGNETIC_RADIUS, 
 const CustomCursor = React.memo(({ mousePosition }) => (
   <>
     <motion.div
-      className="fixed pointer-events-none z-50 w-4 h-4 bg-[#ffe500] rounded-full"
+      className="fixed pointer-events-none z-50 w-4 h-4 bg-[#ffe500] rounded-full touch-magnetic hidden md:block"
       animate={{
         x: mousePosition.x - 8,
         y: mousePosition.y - 8,
@@ -79,7 +79,7 @@ const CustomCursor = React.memo(({ mousePosition }) => (
       }}
     />
     <motion.div
-      className="fixed pointer-events-none z-40 w-6 h-6 border border-[#ffe500] rounded-full bg-transparent"
+      className="fixed pointer-events-none z-40 w-6 h-6 border border-[#ffe500] rounded-full bg-transparent touch-magnetic hidden md:block"
       animate={{
         x: mousePosition.x - 12,
         y: mousePosition.y - 12,
@@ -399,7 +399,7 @@ const ScrollLandingPage = () => {
             <SectionComponent />
           </div>
 
-          <div className="absolute top-8 left-8 z-20">
+          <div className="absolute top-8 left-8 z-20 mobile-yin-yang tablet-yin-yang large-yin-yang">
             <motion.div
               ref={(el) => (montassarRefs.current[index] = el)}
               className="flex items-center space-x-1"
@@ -434,7 +434,7 @@ const ScrollLandingPage = () => {
       <motion.button
         ref={menuButtonRef}
         onClick={toggleMenu}
-        className="fixed top-12 right-12 z-50 w-12 h-12 flex items-center justify-center transition-all duration-300 rounded-full"
+        className="fixed top-12 right-12 z-50 w-12 h-12 flex items-center justify-center transition-all duration-300 rounded-full mobile-menu-button tablet-menu-button"
         animate={getMagneticMovement()}
         transition={{
           x: getMagneticMovement().inRange ? MAGNETIC_TRANSITION.smooth : MAGNETIC_TRANSITION.elastic,
@@ -466,15 +466,116 @@ const ScrollLandingPage = () => {
         </motion.svg>
       </motion.button>
 
+      {/* Mobile Drawer Menu */}
+      <div className="md:hidden">
+        {/* Overlay */}
+        <motion.div 
+          initial={{ opacity: 0, visibility: "hidden" }}
+          animate={{ 
+            opacity: isMenuOpen ? 1 : 0,
+            visibility: isMenuOpen ? "visible" : "hidden"
+          }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+          className="mobile-drawer-overlay"
+          onClick={() => setIsMenuOpen(false)}
+        />
+        
+        {/* Drawer */}
+        <motion.div
+          initial={{ x: "100%" }}
+          animate={{ x: isMenuOpen ? 0 : "100%" }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+          className={`mobile-drawer ${sectionStyles.menuBackground}`}
+        >
+          <div className="mobile-drawer-content">
+            {/* Header */}
+            <div className="mobile-drawer-header">
+              <motion.img
+                src={yinYangSvg}
+                alt="Yin Yang"
+                className={`w-8 h-8 ${sectionStyles.filterClass}`}
+                animate={{
+                  rotate: isMontassarHovered ? 360 : 0,
+                }}
+                transition={{
+                  duration: 2,
+                  ease: "linear",
+                  repeat: isMontassarHovered ? Infinity : 0,
+                  repeatType: isMontassarHovered ? "loop" : undefined,
+                }}
+              />
+              <button 
+                onClick={() => setIsMenuOpen(false)}
+                className={`mobile-drawer-close ${sectionStyles.textColor}`}
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+            </div>
+
+            {/* Navigation */}
+            <div className="mobile-drawer-nav">
+              {["Home", "Work", "Contact"].map((item, index) => (
+                <motion.button
+                  key={item}
+                  onClick={() => navigateToSection(index)}
+                  className={`${sectionStyles.textColor} ${sectionStyles.hoverColor} transition-colors duration-300`}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ 
+                    opacity: isMenuOpen ? 1 : 0,
+                    x: isMenuOpen ? 0 : 20 
+                  }}
+                  transition={{ delay: 0.1 + index * 0.1, duration: 0.3 }}
+                >
+                  {item}
+                </motion.button>
+              ))}
+            </div>
+
+            {/* Footer */}
+            <div className="mobile-drawer-footer">
+              <div className={`${sectionStyles.textColor} mobile-time-section`}>
+                <div className="mobile-time-text">Local time</div>
+                <div className="mobile-time-value">
+                  {formatTime(currentTime)}
+                </div>
+              </div>
+
+              <div className={`${sectionStyles.textColor} mobile-social-section`}>
+                <div className="mobile-social-text">Socials</div>
+                <div className="mobile-social-links ">
+                  {[
+                    { name: "Email", href: "mailto:your.email@example.com" },
+                    { name: "GitHub", href: "https://github.com", external: true },
+                    { name: "LinkedIn", href: "https://linkedin.com", external: true }
+                  ].map(({ name, href, external }) => (
+                    <a
+                      key={name}
+                      href={href}
+                      {...(external && { target: "_blank", rel: "noopener noreferrer" })}
+                      className={`${sectionStyles.hoverColor} transition-colors duration-300 m-1`}
+                    >
+                      {name}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Desktop Full Screen Menu */}
       <motion.div
         initial={{ y: "-100%" }}
         animate={{ y: isMenuOpen ? 0 : "-100%" }}
         transition={MENU_TRANSITION}
-        className={`fixed inset-0 z-40 ${sectionStyles.menuBackground}`}
+        className={`fixed inset-0 z-40 ${sectionStyles.menuBackground} hidden md:block`}
         onClick={() => setIsMenuOpen(false)}
       >
         <div className="relative w-full h-full flex flex-col">
-          <div className="absolute top-8 left-8">
+          <div className="absolute top-8 left-8 tablet-yin-yang">
             <motion.div
               className="flex items-center"
               animate={{
@@ -522,7 +623,7 @@ const ScrollLandingPage = () => {
                   <button
                     key={item}
                     onClick={() => navigateToSection(index)}
-                    className={`block text-6xl md:text-8xl font-light ${sectionStyles.textColor} ${sectionStyles.hoverColor} transition-colors duration-300`}
+                    className={`block text-6xl md:text-8xl font-light ${sectionStyles.textColor} ${sectionStyles.hoverColor} transition-colors duration-300 tablet-menu-nav laptop-menu-nav large-menu-nav`}
                   >
                     {item}
                   </button>
@@ -532,7 +633,7 @@ const ScrollLandingPage = () => {
           </div>
 
           <div
-            className="absolute bottom-8 left-8 right-8 flex justify-between items-end"
+            className="absolute bottom-8 left-8 right-8 flex justify-between items-end tablet-bottom-section"
             onClick={(e) => e.stopPropagation()}
           >
             <div className={`text-center ${sectionStyles.textColor}`}>
