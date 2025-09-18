@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { FiArrowDownRight } from "react-icons/fi";
 import CurvedLoop from "../CurvedLoop";
 import yinYangSvg from "../../assets/yin-yang.svg";
+import Plasma from "../Plasma";
 
 const titles = [
   "Reactjs Developer",
@@ -78,6 +79,18 @@ const SectionF = () => {
 
   return (
     <div className="relative w-full h-full bg-gradient-to-r from-black to-[#222121] overflow-hidden">
+      {/* Plasma Background Effect */}
+      <div className="absolute inset-0 z-0 opacity-70">
+        <Plasma
+          color="#ffe500"
+          speed={1}
+          direction="forward"
+          scale={1}
+          opacity={0.9}
+          mouseInteractive={true}
+        />
+      </div>
+
       {/* Left side content */}
       <div className="absolute left-30 top-2/5 transform -translate-y-1/2 z-10 text-white">
         <motion.div
@@ -101,7 +114,7 @@ const SectionF = () => {
 
           {/* Freelance Text */}
           <motion.h2
-            className="text-4xl md:text-5xl text-white mb-2"
+            className="text-4xl md:text-6xl text-white mb-2"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.0 }}
@@ -124,7 +137,7 @@ const SectionF = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.3 }} // Faster animation
-                  className="absolute w-full text-2xl md:text-3xl font-semibold text-gray-300 flex items-center h-12"
+                  className="absolute w-full text-3xl md:text-4xl font-semibold text-gray-300 flex items-center h-12"
                 >
                   {titles[index]}
                   <span className="text-yellow-400">.</span>
@@ -142,7 +155,6 @@ const SectionF = () => {
           initial={{ opacity: 0, x: 50 }}
           animate={{
             opacity: 1,
-            x: 0,
             x: mousePosition.x,
             y: mousePosition.y,
           }}
@@ -170,7 +182,7 @@ const SectionF = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.2 }}
             >
-              {isCardHovered ? decryptText("Latest Work") : "Latest Work"}
+              {isCardHovered ? decryptText("My Work") : "My Work"}
             </motion.h2>
           </div>
 
@@ -186,13 +198,13 @@ const SectionF = () => {
               alt="Yin Yang"
               className="w-16 h-16 filter invert"
               animate={{
-                rotate: isCardHovered ? [0, 360] : 0,
+                rotate: isCardHovered ? 360 : 0,
               }}
               transition={{
                 duration: 2,
                 ease: "linear",
                 repeat: isCardHovered ? Infinity : 0,
-                repeatType: "loop",
+                repeatType: isCardHovered ? "loop" : undefined,
               }}
             />
           </motion.div>

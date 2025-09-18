@@ -82,11 +82,11 @@ const ScrollLandingPage = () => {
   // Configuration
   const totalSlides = sections.length;
 
-  // Update time every minute
+  // Update time every second for better accuracy
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
-    }, 60000);
+    }, 1000);
 
     return () => clearInterval(timer);
   }, []);
@@ -131,14 +131,21 @@ const ScrollLandingPage = () => {
 
   // Format time
   const formatTime = (date) => {
-    const month = date.toLocaleString("default", { month: "short" });
-    const day = date.getDate();
-    const time = date.toLocaleString("en-US", {
+    const options = {
+      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      month: "short",
+      day: "numeric",
       hour: "numeric",
       minute: "2-digit",
       hour12: true,
-    });
-    return `${month} ${day} | ${time}`;
+    };
+
+    const timeString = date.toLocaleString("en-US", options);
+    const timeZone = date.toLocaleString("en-US", {
+      timeZoneName: "short"
+    }).split(", ")[1];
+
+    return `${timeString} ${timeZone}`;
   };
 
   // Toggle menu
@@ -508,17 +515,10 @@ const ScrollLandingPage = () => {
                 y: { type: "spring", stiffness: 150, damping: 15 },
               }}
             >
-              <h1
-                className={`text-2xl font-light ${
-                  index === 0 || index === 2 ? "text-[#f4f4f4]" : "text-black"
-                }`}
-              >
-                Montassar
-              </h1>
               <motion.img
                 src={yinYangSvg}
                 alt="Yin Yang"
-                className={`w-6 h-6 space-x-1 ${getFilterClassName()}`}
+                className={`w-10 h-10 space-x-1 ${getFilterClassName()}`}
                 style={{
                   filter:
                     index === 1
@@ -536,7 +536,7 @@ const ScrollLandingPage = () => {
                   ease: "linear",
                   repeat:
                     index === currentSlide && isMontassarHovered ? Infinity : 0,
-                  repeatType: "loop",
+                  repeatType: index === currentSlide && isMontassarHovered ? "loop" : undefined,
                 }}
               />
             </motion.div>
@@ -571,7 +571,7 @@ const ScrollLandingPage = () => {
             duration: 2,
             ease: "linear",
             repeat: isMenuHovered ? Infinity : 0,
-            repeatType: "loop",
+            repeatType: isMenuHovered ? "loop" : undefined,
           }}
         >
           <path
@@ -607,12 +607,12 @@ const ScrollLandingPage = () => {
               }}
             >
               <h1 className={`text-2xl p-0 font-light ${getTextColor()}`}>
-                Montassar
+                
               </h1>
               <motion.img
                 src={yinYangSvg}
                 alt="Yin Yang"
-                className={`w-6 h-6 space-x-1 ${getFilterClassName()}`}
+                className={`w-10 h-10 space-x-1 ${getFilterClassName()}`}
                 animate={{
                   rotate: isMontassarHovered ? [0, 360] : 0,
                 }}
@@ -620,7 +620,7 @@ const ScrollLandingPage = () => {
                   duration: 2,
                   ease: "linear",
                   repeat: isMontassarHovered ? Infinity : 0,
-                  repeatType: "loop",
+                  repeatType: isMontassarHovered ? "loop" : undefined,
                 }}
               />
             </motion.div>
@@ -670,19 +670,19 @@ const ScrollLandingPage = () => {
           >
             {/* Bottom Left - Time */}
             <div className={`text-center ${getTextColor()}`}>
-              <div className="text-sm font-light mb-1">Local time</div>
-              <div className="text-lg font-light">
+              <div className="text-lg font-light mb-1">Local time</div>
+              <div className="text-2xl font-light">
                 {formatTime(currentTime)}
               </div>
             </div>
 
             {/* Bottom Right - Social Links */}
             <div className={`text-left ${getTextColor()}`}>
-              <div className="text-lg font-light mb-2">Socials</div>
+              <div className="text-xl font-light mb-2">Socials</div>
               <div className="flex space-x-6 justify-end">
                 <a
                   href="mailto:your.email@example.com"
-                  className={`text-lg font-light ${getHoverColor()} transition-colors duration-300`}
+                  className={`text-xl font-light ${getHoverColor()} transition-colors duration-300`}
                 >
                   Email
                 </a>
@@ -690,7 +690,7 @@ const ScrollLandingPage = () => {
                   href="https://github.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`text-lg font-light ${getHoverColor()} transition-colors duration-300`}
+                  className={`text-xl font-light ${getHoverColor()} transition-colors duration-300`}
                 >
                   GitHub
                 </a>
@@ -698,7 +698,7 @@ const ScrollLandingPage = () => {
                   href="https://linkedin.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`text-lg font-light ${getHoverColor()} transition-colors duration-300`}
+                  className={`text-xl font-light ${getHoverColor()} transition-colors duration-300`}
                 >
                   LinkedIn
                 </a>
