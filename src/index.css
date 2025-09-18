@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Parallax Slide Styles */
+.parallax-slide {
+  will-change: transform;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+.parallax-slide.up-scroll {
+  transform: translate3d(0, -15vh, 0) !important;
+}
+
+.parallax-slide.down-scroll {
+  transform: translate3d(0, -115vh, 0) !important;
+}
+
+/* Content wrapper animations */
+.content-wrapper {
+  will-change: transform;
+  backface-visibility: hidden;
+  transition: transform 1.2s cubic-bezier(0.22, 0.44, 0, 1);
+}
+
+.up-scroll .content-wrapper {
+  transform: translateY(15vh) !important;
+}
+
+.down-scroll .content-wrapper {
+  transform: translateY(40vh) !important;
+}
