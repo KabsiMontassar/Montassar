@@ -6,36 +6,7 @@ import { Observer } from "gsap/Observer";
 gsap.registerPlugin(Observer);
 
 const SectionF = () => (
-  <div className="relative w-full h-full bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 overflow-hidden">
-    {/* Animated background elements */}
-    <div className="absolute inset-0">
-      <motion.div
-        className="absolute top-20 left-20 w-32 h-32 bg-purple-500/20 rounded-full blur-xl"
-        animate={{
-          scale: [1, 1.2, 1],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-      <motion.div
-        className="absolute bottom-32 right-16 w-24 h-24 bg-blue-500/20 rounded-full blur-lg"
-        animate={{
-          scale: [1.2, 1, 1.2],
-          opacity: [0.4, 0.2, 0.4],
-        }}
-        transition={{
-          duration: 3,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 1,
-        }}
-      />
-    </div>
-
-    <div className="absolute inset-0 bg-black/50" />
+  <div className="relative w-full h-full bg-gradient-to-r from-black to-[#222121] overflow-hidden">
     <div className="relative z-10 h-full flex items-center justify-center text-white">
       <div className="text-center max-w-6xl px-8">
         <motion.div
