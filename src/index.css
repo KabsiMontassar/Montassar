@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Rubik:500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Bungee&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+@import url("./assets/Fonts/WEB/css/bespoke-serif.css");
 
 @tailwind base;
 @tailwind components;
@@ -519,7 +520,6 @@ section {
   animation: none;
 }
 
-/* Scalloped Dividers */
 .scallop-down {
   position: absolute;
 
@@ -574,4 +574,71 @@ section {
     #000 100%
   );
   background-size: 40px 100%;
+}
+
+/* Floating Montassar Text */
+/* Montassar Floating Text - Clean Implementation */
+.montassar-floating {
+  position: fixed;
+  left: 50%;
+  top: calc(100vh - 300px); /* More bottom margin */
+  transform: translateX(-50%);
+  font-family: 'BespokeSerif-Bold', 'Bespoke Serif', serif;
+  font-weight: 700;
+  color: white;
+  -webkit-text-stroke: 2px black;
+  font-size: 8rem;
+  text-align: center;
+  white-space: nowrap;
+  z-index: 9999;
+  pointer-events: none;
+  transition: all 0.1s ease-out;
+}
+
+@media screen and (max-width: 768px) {
+  .montassar-floating {
+    font-size: 6rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .montassar-floating {
+    font-size: 4rem;
+  }
+}
+
+
+
+
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .floating-montassar {
+    font-size: 6rem;
+  }
+  
+  .floating-montassar.fixed-top {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .floating-montassar {
+    font-size: 4rem;
+  }
+  
+  .floating-montassar.fixed-top {
+    font-size: 1.5rem;
+    top: 15px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .floating-montassar {
+    font-size: 3rem;
+  }
+  
+  .floating-montassar.fixed-top {
+    font-size: 1.2rem;
+  }
 }

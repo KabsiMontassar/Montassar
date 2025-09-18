@@ -3,7 +3,7 @@ const Hero = () => {
   return (
     <section
       id="hero"
-      className="relative flex fade-in bg-primary text-secondary"
+      className="relative flex fade-in bg-primary text-secondary min-h-screen"
     >
       <div className="hero-container">
         <div className="hero-text">
