@@ -5,7 +5,7 @@ import { Observer } from "gsap/Observer";
 // Register GSAP plugins
 gsap.registerPlugin(Observer);
 
-const Section1 = () => (
+const SectionF = () => (
   <div className="relative w-full h-full bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 overflow-hidden">
     {/* Animated background elements */}
     <div className="absolute inset-0">
@@ -74,4 +74,4 @@ const Section1 = () => (
   </div>
 );
 
-export default Section1;
+export default SectionF;

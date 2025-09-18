@@ -5,7 +5,7 @@ import { Observer } from "gsap/Observer";
 // Register GSAP plugins
 gsap.registerPlugin(Observer);
 
-const Section3 = () => (
+const SectionT = () => (
   <div className="relative w-full h-full bg-gradient-to-br from-green-900 via-blue-900 to-indigo-900 overflow-hidden">
     {/* Animated particles */}
     <div className="absolute inset-0">
@@ -102,4 +102,4 @@ const Section3 = () => (
   </div>
 );
 
-export default Section3;
+export default SectionT;

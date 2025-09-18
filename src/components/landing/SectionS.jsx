@@ -5,7 +5,7 @@ import { Observer } from "gsap/Observer";
 // Register GSAP plugins
 gsap.registerPlugin(Observer);
 
-const Section2 = () => (
+const SectionS = () => (
   <div className="relative w-full h-full bg-gradient-to-br from-orange-900 via-red-900 to-yellow-900 overflow-hidden">
     {/* Animated geometric shapes */}
     <div className="absolute inset-0">
@@ -88,4 +88,4 @@ const Section2 = () => (
   </div>
 );
 
-export default Section2;
+export default SectionS;

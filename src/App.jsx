@@ -1,10 +1,10 @@
 import React from "react";
-import ParallaxLandingPage from "./components/LandingPage";
+import ScrollLandingPage from "./components/ScrollLandingPage";
 
 function App() {
   return (
     <div className="App">
-      <ParallaxLandingPage />
+      <ScrollLandingPage />
     </div>
   );
 }
