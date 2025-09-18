@@ -6,7 +6,7 @@ import { Observer } from "gsap/Observer";
 gsap.registerPlugin(Observer);
 
 const SectionS = () => (
-  <div className="relative w-full h-full bg-white overflow-hidden">
+  <div className="relative w-full h-full bg-[#f4f4f4] overflow-hidden">
     <div className="relative z-10 h-full flex items-center justify-center text-white">
       <div className="text-center max-w-6xl px-8">
         <motion.div

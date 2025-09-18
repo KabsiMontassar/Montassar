@@ -6,27 +6,13 @@ import SectionF from "./landing/SectionF";
 import SectionS from "./landing/SectionS";
 import SectionT from "./landing/SectionT";
 
-// Register GSAP plugins
+// Register GSAP plugin
 gsap.registerPlugin(Observer);
 
 const sections = [SectionF, SectionS, SectionT];
 
 // Custom Cursor with Delayed Following
-const CustomCursor = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-
-    document.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
-
+const CustomCursor = ({ mousePosition }) => {
   return (
     <>
       {/* Inner yellow circle (moderate delay) */}
@@ -81,12 +67,162 @@ const CustomCursor = () => {
 const ScrollLandingPage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const containerRef = useRef(null);
   const slideRefs = useRef([]);
   const gsapTimeline = useRef(null);
 
   // Configuration
   const totalSlides = sections.length;
+
+  // Update time every minute
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 60000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  // Mouse position tracking
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+
+    document.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+
+  // Format time
+  const formatTime = (date) => {
+    const month = date.toLocaleString("default", { month: "short" });
+    const day = date.getDate();
+    const time = date.toLocaleString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+    return `${month} ${day} | ${time}`;
+  };
+
+  // Toggle menu
+  const toggleMenu = useCallback(() => {
+    setIsMenuOpen(!isMenuOpen);
+  }, [isMenuOpen]);
+
+  // Close menu on escape key
+  useEffect(() => {
+    const handleEscape = (event) => {
+      if (event.key === "Escape" && isMenuOpen) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [isMenuOpen]);
+
+  // Get menu background based on current section
+  const getMenuBackground = () => {
+    if (currentSlide === 0 || currentSlide === 2) {
+      // First and third sections have gradients, so menu should be white
+      return "bg-[#f4f4f4]";
+    } else {
+      // Second section is white, so menu should have gradient
+      return "bg-gradient-to-br from-black to-[#222121]";
+    }
+  };
+
+  // Get text color based on menu background
+  const getTextColor = () => {
+    if (currentSlide === 0 || currentSlide === 2) {
+      // White background, use black text for better contrast
+      return "text-black";
+    } else {
+      // Dark gradient background, use white text
+      return "text-white";
+    }
+  };
+
+  const getIconColor = () => {
+    switch (currentSlide) {
+      case 0:
+        return isMenuOpen ? "text-black" : "text-white";
+      case 1:
+        return isMenuOpen ? "text-white" : "text-black";
+      case 2:
+        return isMenuOpen ? "text-black" : "text-white";
+      default:
+        return "text-black";
+    }
+  };
+
+  // Get hover color for menu items
+  const getHoverColor = () => {
+    if (currentSlide === 0 || currentSlide === 2) {
+      // White background, use yellow hover for contrast
+      return "hover:text-[#ffe500]";
+    } else {
+      // Dark gradient background, use yellow hover
+      return "hover:text-[#ffe500]";
+    }
+  };
+
+  // Check if cursor is close to menu button
+  const isCursorNearMenu = () => {
+    const menuX = window.innerWidth - 60; // right-8 (32px) + half width (24px)
+    const menuY = 60; // top-8 (32px) + half height (24px)
+    const distance = Math.sqrt(
+      Math.pow(mousePosition.x - menuX, 2) +
+        Math.pow(mousePosition.y - menuY, 2)
+    );
+    return distance < 150; // 150px proximity threshold for magnetic effect
+  };
+
+  // Calculate magnetic movement exactly like the provided example
+  const getMagneticMovement = () => {
+    const menuX = window.innerWidth - 60;
+    const menuY = 60;
+    const distance = Math.sqrt(
+      Math.pow(mousePosition.x - menuX, 2) +
+        Math.pow(mousePosition.y - menuY, 2)
+    );
+
+    const magneticRadius = 150; // Same radius as the example
+
+    if (distance < magneticRadius) {
+      // Calculate offset exactly like the example: e.clientX - rect.left - rect.width/2
+      // Button is positioned at top-12 right-12 (48px from edges)
+      // Button size is w-12 h-12 (48px x 48px)
+      const buttonLeft = window.innerWidth - 96; // right-12 = 48px, button width = 48px, so left = windowWidth - 96
+      const buttonTop = 48; // top-12 = 48px
+      const buttonWidth = 48;
+      const buttonHeight = 48;
+
+      const offsetX = mousePosition.x - buttonLeft - buttonWidth / 2;
+      const offsetY = mousePosition.y - buttonTop - buttonHeight / 2;
+
+      // Move button by 0.5 factor (same as example)
+      const x = offsetX * 0.5;
+      const y = offsetY * 0.5;
+
+      return { x, y, scale: 1.1, inRange: true };
+    } else {
+      return { x: 0, y: 0, scale: 1, inRange: false };
+    }
+  };
+
+  // Reset function with elastic animation like the example
+  const resetMagnet = () => {
+    // This will be handled by the animate prop returning to default values
+    return { x: 0, y: 0, scale: 1 };
+  };
 
   // Initialize slides
   useEffect(() => {
@@ -171,6 +307,18 @@ const ScrollLandingPage = () => {
     [currentSlide, isAnimating]
   );
 
+  // Navigation to specific section
+  const navigateToSection = useCallback(
+    (sectionIndex) => {
+      if (sectionIndex === currentSlide || isAnimating) return;
+
+      const direction = sectionIndex > currentSlide ? "next" : "prev";
+      navigate(sectionIndex, direction);
+      setIsMenuOpen(false); // Close menu after navigation
+    },
+    [currentSlide, isAnimating, navigate]
+  );
+
   // Navigation functions (no looping)
   const next = useCallback(() => {
     if (currentSlide < totalSlides - 1) {
@@ -248,8 +396,133 @@ const ScrollLandingPage = () => {
         </div>
       ))}
 
+      {/* Menu Icon - Top Right */}
+      <motion.button
+        onClick={toggleMenu}
+        className="fixed top-12 right-12 z-50 w-12 h-12 flex items-center justify-center transition-all duration-300 rounded-full"
+        animate={getMagneticMovement()}
+        transition={{
+          x: getMagneticMovement().inRange
+            ? { duration: 0.1, ease: "easeOut" }
+            : { duration: 1.5, ease: [0.68, -0.55, 0.265, 1.55] }, // bouncy elastic equivalent
+          y: getMagneticMovement().inRange
+            ? { duration: 0.1, ease: "easeOut" }
+            : { duration: 1.5, ease: [0.68, -0.55, 0.265, 1.55] }, // bouncy elastic equivalent
+          scale: { duration: 0.1, ease: "easeOut" },
+        }}
+      >
+        <svg
+          width="32"
+          height="32"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className={getIconColor()}
+        >
+          <path
+            d="M3 8H21M3 16H21"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </motion.button>
+
+      {/* Full Screen Menu Overlay */}
+      <motion.div
+        initial={{ y: "-100%" }}
+        animate={{ y: isMenuOpen ? 0 : "-100%" }}
+        transition={{ duration: 0.8, ease: "easeInOut" }}
+        className={`fixed inset-0 z-40 ${getMenuBackground()}`}
+        onClick={() => setIsMenuOpen(false)}
+      >
+        <div className="relative w-full h-full flex flex-col">
+          {/* Top Left - Montassar */}
+          <div className="absolute top-8 left-8">
+            <h1 className={`text-2xl font-light ${getTextColor()}`}>
+              Montassar
+            </h1>
+          </div>
+
+          {/* Center - Navigation */}
+          <div
+            className="flex-1 flex items-center justify-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="text-center space-y-8">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{
+                  opacity: isMenuOpen ? 1 : 0,
+                  y: isMenuOpen ? 0 : 20,
+                }}
+                transition={{ delay: 0.3, duration: 0.6 }}
+                className="space-y-8"
+              >
+                <button
+                  onClick={() => navigateToSection(0)}
+                  className={`block text-6xl md:text-8xl font-light ${getTextColor()} ${getHoverColor()} transition-colors duration-300`}
+                >
+                  Home
+                </button>
+                <button
+                  onClick={() => navigateToSection(1)}
+                  className={`block text-6xl md:text-8xl font-light ${getTextColor()} ${getHoverColor()} transition-colors duration-300`}
+                >
+                  Work
+                </button>
+                <button
+                  onClick={() => navigateToSection(2)}
+                  className={`block text-6xl md:text-8xl font-light ${getTextColor()} ${getHoverColor()} transition-colors duration-300`}
+                >
+                  Contact
+                </button>
+              </motion.div>
+            </div>
+          </div>
+
+          {/* Bottom Section */}
+          <div
+            className="absolute bottom-8 left-8 right-8 flex justify-between items-end"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Bottom Left - Time */}
+            <div className={`text-lg font-light ${getTextColor()}`}>
+              {formatTime(currentTime)}
+            </div>
+
+            {/* Bottom Right - Social Links */}
+            <div className="flex flex-col space-y-2 text-right">
+              <a
+                href="mailto:your.email@example.com"
+                className={`text-lg font-light ${getTextColor()} ${getHoverColor()} transition-colors duration-300`}
+              >
+                Email
+              </a>
+              <a
+                href="https://github.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`text-lg font-light ${getTextColor()} ${getHoverColor()} transition-colors duration-300`}
+              >
+                GitHub
+              </a>
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`text-lg font-light ${getTextColor()} ${getHoverColor()} transition-colors duration-300`}
+              >
+                LinkedIn
+              </a>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
       {/* Custom Cursor */}
-      <CustomCursor />
+      <CustomCursor mousePosition={mousePosition} />
     </div>
   );
 };
