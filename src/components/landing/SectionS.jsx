@@ -6,7 +6,7 @@ import { Observer } from "gsap/Observer";
 gsap.registerPlugin(Observer);
 
 const SectionS = () => (
-  <div className="relative w-full h-full bg-[#f4f4f4] overflow-hidden">
+  <div className="relative w-full h-full bg-[#f4f4f4] overflow-hidden pt-16 md:pt-20 lg:pt-24">
     <div className="relative z-10 h-full flex items-center justify-center text-black">
       <div className="text-center w-full px-4 md:px-8 lg:px-16">
         <motion.div
@@ -15,30 +15,44 @@ const SectionS = () => (
           transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           <motion.h1
-            className="text-6xl md:text-8xl font-bold mb-8 uppercase tracking-wider bg-gradient-to-r from-orange-200 via-red-200 to-yellow-200 bg-clip-text text-transparent"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
+            className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-8 leading-tight max-w-5xl mx-auto text-gray-900"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{
-              duration: 0.8,
+              duration: 1.0,
               delay: 0.2,
               ease: [0.25, 0.46, 0.45, 0.94],
             }}
           >
-            Creative Solutions
+            Building playful, tactile experiences with{" "}
+            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+              AI
+            </span>
+            ,{" "}
+            <span className="bg-gradient-to-r from-green-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent">
+              Cloud
+            </span>
+            ,{" "}
+            <span className="bg-gradient-to-r from-orange-600 via-red-600 to-pink-600 bg-clip-text text-transparent">
+              DevOps
+            </span>
+            , and cutting-edge web technologies.
           </motion.h1>
-          <motion.p
-            className="text-lg md:text-xl max-w-5xl mx-auto leading-relaxed text-gray-600"
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
+
+          <motion.button
+            className="mt-8 px-12 py-4 bg-black text-white font-semibold text-lg rounded-full hover:bg-gray-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{
               duration: 0.8,
-              delay: 0.4,
+              delay: 0.6,
               ease: [0.25, 0.46, 0.45, 0.94],
             }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            We blend technology and creativity to deliver exceptional digital
-            experiences that captivate and inspire
-          </motion.p>
+            View all Work
+          </motion.button>
         </motion.div>
       </div>
     </div>

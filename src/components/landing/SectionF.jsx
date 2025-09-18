@@ -25,7 +25,6 @@ const SectionF = () => {
     const interval = setInterval(() => {
       setIndex((prevIndex) => {
         const newIndex = (prevIndex + 1) % titles.length;
-        console.log("Job title changing to:", titles[newIndex]);
         return newIndex;
       });
     }, 2000); // Change every 2 seconds
