@@ -5,6 +5,7 @@ import { Observer } from "gsap/Observer";
 import SectionF from "./landing/SectionF";
 import SectionS from "./landing/SectionS";
 import SectionT from "./landing/SectionT";
+import yinYangSvg from "../assets/yin-yang.svg";
 
 // Register GSAP plugin
 gsap.registerPlugin(Observer);
@@ -70,9 +71,13 @@ const ScrollLandingPage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isMenuHovered, setIsMenuHovered] = useState(false);
+  const [isMontassarHovered, setIsMontassarHovered] = useState(false);
   const containerRef = useRef(null);
   const slideRefs = useRef([]);
   const gsapTimeline = useRef(null);
+  const menuButtonRef = useRef(null);
+  const montassarRefs = useRef([]); // Array of refs for each section
 
   // Configuration
   const totalSlides = sections.length;
@@ -86,10 +91,35 @@ const ScrollLandingPage = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Mouse position tracking
+  // Mouse position tracking with magnetic effect detection
   useEffect(() => {
     const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
+
+      // Check menu button magnetic range
+      if (menuButtonRef.current) {
+        const rect = menuButtonRef.current.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const distance = Math.sqrt(
+          Math.pow(e.clientX - centerX, 2) + Math.pow(e.clientY - centerY, 2)
+        );
+        setIsMenuHovered(distance < 150);
+      }
+
+      // Check Montassar text magnetic range for current section
+      const currentMontassarRef = montassarRefs.current[currentSlide];
+      if (currentMontassarRef) {
+        const rect = currentMontassarRef.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const distance = Math.sqrt(
+          Math.pow(e.clientX - centerX, 2) + Math.pow(e.clientY - centerY, 2)
+        );
+        setIsMontassarHovered(distance < 150);
+      } else {
+        setIsMontassarHovered(false);
+      }
     };
 
     document.addEventListener("mousemove", handleMouseMove);
@@ -97,7 +127,7 @@ const ScrollLandingPage = () => {
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
     };
-  }, []);
+  }, [currentSlide]); // Add currentSlide dependency
 
   // Format time
   const formatTime = (date) => {
@@ -134,20 +164,25 @@ const ScrollLandingPage = () => {
       // Only prevent default if it's a click that might cause scrolling
       // Allow normal clicks on interactive elements
       const target = e.target;
-      const isInteractive = target.closest('button, a, input, select, textarea, [role="button"]');
+      const isInteractive = target.closest(
+        'button, a, input, select, textarea, [role="button"]'
+      );
 
-      if (!isInteractive && e.button === 0) { // Left mouse button
+      if (!isInteractive && e.button === 0) {
+        // Left mouse button
         e.preventDefault();
       }
     };
 
     // Add passive event listeners to avoid interfering with normal interactions
-    document.addEventListener('click', preventClickScroll, { passive: false });
-    document.addEventListener('mousedown', preventClickScroll, { passive: false });
+    document.addEventListener("click", preventClickScroll, { passive: false });
+    document.addEventListener("mousedown", preventClickScroll, {
+      passive: false,
+    });
 
     return () => {
-      document.removeEventListener('click', preventClickScroll);
-      document.removeEventListener('mousedown', preventClickScroll);
+      document.removeEventListener("click", preventClickScroll);
+      document.removeEventListener("mousedown", preventClickScroll);
     };
   }, []);
 
@@ -206,6 +241,29 @@ const ScrollLandingPage = () => {
         Math.pow(mousePosition.y - menuY, 2)
     );
     return distance < 150; // 150px proximity threshold for magnetic effect
+  };
+
+  // Calculate magnetic movement for Montassar text
+  const getMontassarMagneticMovement = () => {
+    const currentMontassarRef = montassarRefs.current[currentSlide];
+    if (!currentMontassarRef) return { x: 0, y: 0 };
+
+    const rect = currentMontassarRef.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    const distanceX = mousePosition.x - centerX;
+    const distanceY = mousePosition.y - centerY;
+    const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+
+    if (distance < 150) {
+      const strength = (150 - distance) / 150;
+      return {
+        x: distanceX * strength * 0.4,
+        y: distanceY * strength * 0.4,
+      };
+    }
+    return { x: 0, y: 0 };
   };
 
   // Calculate magnetic movement exactly like the provided example
@@ -423,19 +481,61 @@ const ScrollLandingPage = () => {
 
           {/* Montassar text overlay - same position as menu */}
           <div className="absolute top-8 left-8 z-20">
-            <h1
-              className={`text-2xl font-light ${
-                index === 0 || index === 2 ? "text-[#f4f4f4]" : "text-black"
-              }`}
+            <motion.div
+              ref={(el) => (montassarRefs.current[index] = el)}
+              className="flex items-center space-x-3"
+              animate={{
+                x:
+                  index === currentSlide ? getMontassarMagneticMovement().x : 0,
+                y:
+                  index === currentSlide ? getMontassarMagneticMovement().y : 0,
+              }}
+              transition={{
+                x: { type: "spring", stiffness: 150, damping: 15 },
+                y: { type: "spring", stiffness: 150, damping: 15 },
+              }}
             >
-              Montassar
-            </h1>
+              <h1
+                className={`text-2xl font-light ${
+                  index === 0 || index === 2 ? "text-[#f4f4f4]" : "text-black"
+                }`}
+              >
+                Montassar
+              </h1>
+              <motion.img
+                src={yinYangSvg}
+                alt="Yin Yang"
+                className={`w-6 h-6 ${
+                  index === 0 || index === 2 ? "filter invert" : ""
+                }`}
+                style={{
+                  filter:
+                    index === 1
+                      ? "invert(0) drop-shadow(0 0 1px rgba(0,0,0,0.8))"
+                      : index === 0 || index === 2
+                      ? "invert(1)"
+                      : "",
+                }}
+                animate={{
+                  rotate:
+                    index === currentSlide && isMontassarHovered ? [0, 360] : 0,
+                }}
+                transition={{
+                  duration: 2,
+                  ease: "linear",
+                  repeat:
+                    index === currentSlide && isMontassarHovered ? Infinity : 0,
+                  repeatType: "loop",
+                }}
+              />
+            </motion.div>
           </div>
         </div>
       ))}
 
       {/* Menu Icon - Top Right */}
       <motion.button
+        ref={menuButtonRef}
         onClick={toggleMenu}
         className="fixed top-12 right-12 z-50 w-12 h-12 flex items-center justify-center transition-all duration-300 rounded-full"
         animate={getMagneticMovement()}
@@ -449,13 +549,22 @@ const ScrollLandingPage = () => {
           scale: { duration: 0.1, ease: "easeOut" },
         }}
       >
-        <svg
+        <motion.svg
           width="32"
           height="32"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           className={getIconColor()}
+          animate={{
+            rotate: isMenuHovered ? [0, 360] : 0,
+          }}
+          transition={{
+            duration: 2,
+            ease: "linear",
+            repeat: isMenuHovered ? Infinity : 0,
+            repeatType: "loop",
+          }}
         >
           <path
             d="M3 8H21M3 16H21"
@@ -464,7 +573,7 @@ const ScrollLandingPage = () => {
             strokeLinecap="round"
             strokeLinejoin="round"
           />
-        </svg>
+        </motion.svg>
       </motion.button>
 
       {/* Full Screen Menu Overlay */}
@@ -478,9 +587,37 @@ const ScrollLandingPage = () => {
         <div className="relative w-full h-full flex flex-col">
           {/* Top Left - Montassar */}
           <div className="absolute top-8 left-8">
-            <h1 className={`text-2xl font-light ${getTextColor()}`}>
-              Montassar
-            </h1>
+            <motion.div
+              className="flex items-center space-x-3"
+              animate={{
+                x: getMontassarMagneticMovement().x,
+                y: getMontassarMagneticMovement().y,
+              }}
+              transition={{
+                x: { type: "spring", stiffness: 150, damping: 15 },
+                y: { type: "spring", stiffness: 150, damping: 15 },
+              }}
+            >
+              <h1 className={`text-2xl font-light ${getTextColor()}`}>
+                Montassar
+              </h1>
+              <motion.img
+                src={yinYangSvg}
+                alt="Yin Yang"
+                className={`w-6 h-6 ${
+                  currentSlide === 1 ? "" : "filter invert"
+                }`}
+                animate={{
+                  rotate: isMontassarHovered ? [0, 360] : 0,
+                }}
+                transition={{
+                  duration: 2,
+                  ease: "linear",
+                  repeat: isMontassarHovered ? Infinity : 0,
+                  repeatType: "loop",
+                }}
+              />
+            </motion.div>
           </div>
 
           {/* Center - Navigation */}

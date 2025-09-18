@@ -24,9 +24,9 @@ const SectionF = () => {
     const chars = "!@#$%^&*()_+-=[]{}|;:,.<>?";
     let iterations = 0;
     const maxIterations = originalText.length;
-    
+
     if (!isCardHovered) return originalText;
-    
+
     return originalText
       .split("")
       .map((letter, index) => {
@@ -44,17 +44,17 @@ const SectionF = () => {
       const rect = cardRef.current.getBoundingClientRect();
       const cardCenterX = rect.left + rect.width / 2;
       const cardCenterY = rect.top + rect.height / 2;
-      
+
       const distanceX = e.clientX - cardCenterX;
       const distanceY = e.clientY - cardCenterY;
-      
+
       // Apply magnetic effect within 200px radius for better range
       const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
       if (distance < 200) {
         const strength = (200 - distance) / 200;
         setMousePosition({
           x: distanceX * strength * 0.4, // Increased strength
-          y: distanceY * strength * 0.4
+          y: distanceY * strength * 0.4,
         });
         setIsCardHovered(true); // Set hover state when in magnetic range
       } else {
@@ -65,8 +65,8 @@ const SectionF = () => {
   };
 
   useEffect(() => {
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   useEffect(() => {
@@ -93,7 +93,10 @@ const SectionF = () => {
             transition={{ duration: 0.6, delay: 0.8 }}
             className="mb-8"
           >
-            <FiArrowDownRight className="text-white text-6xl" />
+            <FiArrowDownRight
+              strokeWidth={1.5}
+              className="text-white text-6xl"
+            />
           </motion.div>
 
           {/* Freelance Text */}
@@ -137,17 +140,17 @@ const SectionF = () => {
         <motion.div
           ref={cardRef}
           initial={{ opacity: 0, x: 50 }}
-          animate={{ 
-            opacity: 1, 
+          animate={{
+            opacity: 1,
             x: 0,
             x: mousePosition.x,
-            y: mousePosition.y
+            y: mousePosition.y,
           }}
-          transition={{ 
-            duration: 0.8, 
+          transition={{
+            duration: 0.8,
             delay: 0.8,
             x: { type: "spring", stiffness: 150, damping: 15 },
-            y: { type: "spring", stiffness: 150, damping: 15 }
+            y: { type: "spring", stiffness: 150, damping: 15 },
           }}
           className="bg-[#272727] rounded-full px-8 py-6 w-80 h-30 flex items-center justify-between cursor-pointer"
         >
@@ -185,11 +188,11 @@ const SectionF = () => {
               animate={{
                 rotate: isCardHovered ? [0, 360] : 0,
               }}
-              transition={{ 
-                duration: 2, 
+              transition={{
+                duration: 2,
                 ease: "linear",
                 repeat: isCardHovered ? Infinity : 0,
-                repeatType: "loop"
+                repeatType: "loop",
               }}
             />
           </motion.div>
