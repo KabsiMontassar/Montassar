@@ -14,7 +14,6 @@ import translations from "./data/translations.json";
 
 function App() {
   const [language, setLanguage] = useState("en");
-  const [theme, setTheme] = useState("light");
   const [navOpen, setNavOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -91,12 +90,7 @@ function App() {
     }
   }, []);
 
-  useEffect(() => {
-    document.body.className =
-      theme === "dark"
-        ? "bg-secondary text-primary"
-        : "bg-primary text-secondary";
-  }, [theme]);
+
 
   // Custom cursor functionality
   useEffect(() => {
@@ -133,13 +127,7 @@ function App() {
   }, [handleMouseMove, handleMouseInteraction, handleKeyDown]);
 
   return (
-    <div
-      className={`relative ${
-        theme === "dark"
-          ? "bg-secondary text-primary"
-          : "bg-primary text-secondary"
-      }`}
-    >
+    <div className="relative bg-primary text-secondary">
       {/* Custom Cursor */}
       <div ref={cursorRef} className="custom-cursor"></div>
       {/* Fixed Buttons */}
@@ -164,8 +152,6 @@ function App() {
           onToggle={() => setSettingsOpen(!settingsOpen)}
           language={language}
           onLanguageChange={setLanguage}
-          theme={theme}
-          onThemeChange={setTheme}
         />
       </div>
       {/* Navigation Menu */}
@@ -175,7 +161,6 @@ function App() {
           onClose={() => setNavOpen(false)}
           navData={data.nav}
           onNavigate={handleNavigate}
-          theme={theme}
         />
       </div>
       {/* Contact Drawer */}
@@ -184,16 +169,16 @@ function App() {
           isOpen={contactOpen}
           onClose={() => setContactOpen(false)}
           contactData={data}
-          theme={theme}
         />
       </div>
       {/* Main Content */}{" "}
-      {/* <Hero data={data.hero} theme={theme} />
+      <Hero data={data.hero} />
+      {/*
       <WhatIDo data={data.whatido} theme={theme} />
       <MyWork data={data.mywork} theme={theme} />
       <About data={data.about} theme={theme} />
       <Contact data={data.contact} theme={theme} /> */}
-      <div className="flex items-center justify-center min-h-screen">hello</div>
+      {/* <div className="flex items-center justify-center min-h-screen">hello</div> */}
       {/* Overlay for drawers */}
       {(navOpen || contactOpen || settingsOpen) && (
         <div
