@@ -254,8 +254,8 @@ button {
   display: inline-block;
   transition: text-shadow .4s cubic-bezier(.4,.2,.2,1), transform .4s ease;
   will-change: text-shadow, transform;
-  margin: 0;
-  font-size: inherit;
+  margin: 0 ;
+  font-size: 5rem;
   vertical-align: top;
   color: #000000;
   font-weight: 900 !important;
