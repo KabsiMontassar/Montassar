@@ -33,7 +33,7 @@ const Section1 = () => (
       />
     </div>
 
-    <div className="absolute inset-0 bg-black" />
+    <div className="absolute inset-0 bg-black/50" />
     <div className="relative z-10 h-full flex items-center justify-center text-white">
       <div className="text-center max-w-6xl px-8">
         <motion.div
@@ -254,104 +254,66 @@ const Section3 = () => (
 
 const sections = [Section1, Section2, Section3];
 
-// Circular Animation Divider Component
-const CircularDivider = ({ isVisible, direction }) => (
-  <AnimatePresence>
-    {isVisible && (
-      <motion.div
-        className="fixed inset-0 z-40 pointer-events-none"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.3 }}
-      >
-        <div className="absolute inset-0 flex items-center justify-center">
-          {/* Outer rotating ring */}
-          <motion.div
-            className="w-32 h-32 border-4 border-white/20 rounded-full"
-            animate={{ rotate: 360 }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          />
+// Smart Cursor Component
+const SmartCursor = () => {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [cursorColor, setCursorColor] = useState('white');
 
-          {/* Middle pulsing ring */}
-          <motion.div
-            className="absolute w-24 h-24 border-2 border-white/40 rounded-full"
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.6, 1, 0.6],
-            }}
-            transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+      
+      // Get element under cursor to determine background color
+      const elementUnder = document.elementFromPoint(e.clientX, e.clientY);
+      if (elementUnder) {
+        const computedStyle = window.getComputedStyle(elementUnder);
+        const bgColor = computedStyle.backgroundColor;
+        
+        // Check if background is dark/black
+        if (bgColor === 'rgb(0, 0, 0)' || bgColor === 'rgba(0, 0, 0, 1)' || 
+            bgColor.includes('rgba(0, 0, 0,') || bgColor === 'transparent') {
+          setCursorColor('white');
+        } else {
+          setCursorColor('black');
+        }
+      }
+    };
 
-          {/* Inner spinning elements */}
-          <motion.div
-            className="absolute w-16 h-16"
-            animate={{ rotate: -360 }}
-            transition={{
-              duration: 1,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          >
-            <div className="w-full h-full border-2 border-white/60 rounded-full border-dashed" />
-          </motion.div>
+    document.addEventListener('mousemove', handleMouseMove);
+    return () => document.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
-          {/* Center dot */}
-          <motion.div
-            className="absolute w-3 h-3 bg-white rounded-full"
-            animate={{
-              scale: [1, 1.5, 1],
-              opacity: [0.8, 1, 0.8],
-            }}
-            transition={{
-              duration: 0.8,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-
-          {/* Directional arrows */}
-          <motion.div
-            className="absolute text-white/80 text-2xl"
-            animate={{
-              y: direction === "down" ? [0, 10, 0] : [0, -10, 0],
-            }}
-            transition={{
-              duration: 1,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          >
-            {direction === "down" ? "↓" : "↑"}
-          </motion.div>
-        </div>
-      </motion.div>
-    )}
-  </AnimatePresence>
-);
+  return (
+    <motion.div
+      className="fixed pointer-events-none z-50 w-3 h-3 rounded-full"
+      style={{
+        left: mousePosition.x - 6,
+        top: mousePosition.y - 6,
+        backgroundColor: cursorColor,
+        mixBlendMode: 'difference',
+      }}
+      animate={{
+        scale: [1, 1.2, 1],
+      }}
+      transition={{
+        duration: 0.3,
+        ease: "easeOut",
+      }}
+    />
+  );
+};
 
 const ParallaxLandingPage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [showDivider, setShowDivider] = useState(false);
-  const [dividerDirection, setDividerDirection] = useState("down");
   const containerRef = useRef(null);
 
   // Configuration
   const scrollSensitivity = 30;
-  const slideDuration = 800; // Smoother transition
-  const dividerDuration = 600;
+  const slideDuration = 150; // Optimized for instant feel
   const totalSlides = sections.length;
 
-  // Handle wheel/scroll events (no looping)
+  // Handle wheel/scroll events with optimized direction-based animations
   const handleScroll = useCallback(
     (event) => {
       if (isTransitioning) return;
@@ -377,38 +339,27 @@ const ParallaxLandingPage = () => {
       if (delta < 0) {
         // Scroll down - go to next slide (no looping)
         if (currentSlide < totalSlides - 1) {
-          setDividerDirection("down");
-          setShowDivider(true);
-          setTimeout(() => {
-            setCurrentSlide((prev) => prev + 1);
-            setShowDivider(false);
-          }, dividerDuration);
+          setCurrentSlide((prev) => prev + 1);
+        } else {
+          setIsTransitioning(false);
+          return;
         }
       } else {
         // Scroll up - go to previous slide (no looping)
         if (currentSlide > 0) {
-          setDividerDirection("up");
-          setShowDivider(true);
-          setTimeout(() => {
-            setCurrentSlide((prev) => prev - 1);
-            setShowDivider(false);
-          }, dividerDuration);
+          setCurrentSlide((prev) => prev - 1);
+        } else {
+          setIsTransitioning(false);
+          return;
         }
       }
 
       // Reset transition lock after slide duration
       setTimeout(() => {
         setIsTransitioning(false);
-      }, slideDuration + dividerDuration);
+      }, slideDuration);
     },
-    [
-      isTransitioning,
-      currentSlide,
-      totalSlides,
-      scrollSensitivity,
-      slideDuration,
-      dividerDuration,
-    ]
+    [isTransitioning, currentSlide, totalSlides, scrollSensitivity, slideDuration]
   );
 
   // Add event listeners
@@ -443,31 +394,15 @@ const ParallaxLandingPage = () => {
         event.preventDefault();
         if (currentSlide < totalSlides - 1) {
           setIsTransitioning(true);
-          setDividerDirection("down");
-          setShowDivider(true);
-          setTimeout(() => {
-            setCurrentSlide((prev) => prev + 1);
-            setShowDivider(false);
-          }, dividerDuration);
-          setTimeout(
-            () => setIsTransitioning(false),
-            slideDuration + dividerDuration
-          );
+          setCurrentSlide((prev) => prev + 1);
+          setTimeout(() => setIsTransitioning(false), slideDuration);
         }
       } else if (event.key === "ArrowUp" || event.key === "PageUp") {
         event.preventDefault();
         if (currentSlide > 0) {
           setIsTransitioning(true);
-          setDividerDirection("up");
-          setShowDivider(true);
-          setTimeout(() => {
-            setCurrentSlide((prev) => prev - 1);
-            setShowDivider(false);
-          }, dividerDuration);
-          setTimeout(
-            () => setIsTransitioning(false),
-            slideDuration + dividerDuration
-          );
+          setCurrentSlide((prev) => prev - 1);
+          setTimeout(() => setIsTransitioning(false), slideDuration);
         }
       }
     };
@@ -479,58 +414,56 @@ const ParallaxLandingPage = () => {
     currentSlide,
     totalSlides,
     slideDuration,
-    dividerDuration,
   ]);
 
-  // Animation variants for slides (matching CSS cubic-bezier)
+  // Optimized animation variants with direction-based motion
   const slideVariants = {
     enter: (direction) => ({
       y: direction > 0 ? "100%" : "-100%",
       transition: {
-        duration: 1,
-        ease: [0.5, 0, 0.5, 1], // cubic-bezier(0.5, 0, 0.5, 1)
+        duration: 0.4,
+        ease: [0.4, 0, 0.2, 1], // Optimized easing
       },
     }),
     center: {
       y: "0%",
       transition: {
-        duration: 1,
-        ease: [0.5, 0, 0.5, 1],
+        duration: 0.4,
+        ease: [0.4, 0, 0.2, 1],
       },
     },
     exit: (direction) => ({
       y: direction > 0 ? "-100%" : "100%",
       transition: {
-        duration: 1,
-        ease: [0.5, 0, 0.5, 1],
+        duration: 0.4,
+        ease: [0.4, 0, 0.2, 1],
       },
     }),
   };
 
   const contentVariants = {
     enter: {
-      y: "30vh",
-      opacity: 0,
+      y: "0vh",
+      opacity: 1,
       transition: {
-        duration: 1,
-        ease: [0.5, 0, 0.5, 1],
+        duration: 0.4,
+        ease: [0.4, 0, 0.2, 1],
       },
     },
     center: {
       y: "0vh",
       opacity: 1,
       transition: {
-        duration: 1,
-        ease: [0.5, 0, 0.5, 1],
-        delay: 0.2,
+        duration: 0.4,
+        ease: [0.4, 0, 0.2, 1],
       },
     },
     exit: {
-      y: "-20vh",
-      opacity: 0,
+      y: "0vh",
+      opacity: 1,
       transition: {
-        duration: 1,
-        ease: [0.5, 0, 0.5, 1],
+        duration: 0.4,
+        ease: [0.4, 0, 0.2, 1],
       },
     },
   };
@@ -553,59 +486,16 @@ const ParallaxLandingPage = () => {
               initial="enter"
               animate="center"
               exit="exit"
-              custom={index > currentSlide ? -1 : 1}
+              custom={currentSlide > index ? 1 : -1}
             >
-              <motion.div
-                className="w-full h-full"
-                variants={contentVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-              >
-                <SectionComponent />
-              </motion.div>
+              <SectionComponent />
             </motion.div>
           );
         })}
       </AnimatePresence>
 
-      {/* Circular Animation Divider */}
-      <CircularDivider isVisible={showDivider} direction={dividerDirection} />
-
-      {/* Scroll Hint (updated for non-looping) */}
-      <motion.div
-        className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 text-white/70 text-sm uppercase tracking-wider"
-        animate={{
-          opacity: [0.5, 1, 0.5],
-          y: [0, -5, 0],
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      >
-        {currentSlide === 0
-          ? "Scroll Down to Continue"
-          : currentSlide === totalSlides - 1
-          ? "Scroll Up to Go Back"
-          : "Scroll to Navigate"}{" "}
-        • {currentSlide + 1}/{totalSlides}
-      </motion.div>
-
-      {/* Loading Indicator During Transitions */}
-      <AnimatePresence>
-        {isTransitioning && (
-          <motion.div
-            className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-          >
-            <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Smart Cursor */}
+      <SmartCursor />
     </div>
   );
 };
