@@ -1,5 +1,10 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { gsap } from "gsap";
+import { Observer } from "gsap/Observer";
+
+// Register GSAP plugins
+gsap.registerPlugin(Observer);
 
 // Enhanced Section Components with distinct backgrounds
 const Section1 = () => (
@@ -10,7 +15,6 @@ const Section1 = () => (
         className="absolute top-20 left-20 w-32 h-32 bg-purple-500/20 rounded-full blur-xl"
         animate={{
           scale: [1, 1.2, 1],
-          opacity: [0.3, 0.6, 0.3],
         }}
         transition={{
           duration: 4,
@@ -189,7 +193,7 @@ const Section3 = () => (
         animate={{
           scale: [1, 1.3, 1],
           rotate: [0, 180, 360],
-          opacity: [0.2, 0.5, 0.2],
+          opacity: [1, 1, 1],
         }}
         transition={{
           duration: 10,
@@ -254,50 +258,41 @@ const Section3 = () => (
 
 const sections = [Section1, Section2, Section3];
 
-// Smart Cursor Component
-const SmartCursor = () => {
+// Custom Cursor with Circle Only
+const CustomCursor = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [cursorColor, setCursorColor] = useState('white');
 
   useEffect(() => {
     const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
-      
-      // Get element under cursor to determine background color
-      const elementUnder = document.elementFromPoint(e.clientX, e.clientY);
-      if (elementUnder) {
-        const computedStyle = window.getComputedStyle(elementUnder);
-        const bgColor = computedStyle.backgroundColor;
-        
-        // Check if background is dark/black
-        if (bgColor === 'rgb(0, 0, 0)' || bgColor === 'rgba(0, 0, 0, 1)' || 
-            bgColor.includes('rgba(0, 0, 0,') || bgColor === 'transparent') {
-          setCursorColor('white');
-        } else {
-          setCursorColor('black');
-        }
-      }
     };
 
     document.addEventListener('mousemove', handleMouseMove);
-    return () => document.removeEventListener('mousemove', handleMouseMove);
+    
+    // Hide default cursor
+    document.body.style.cursor = 'none';
+    
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.body.style.cursor = 'auto';
+    };
   }, []);
 
   return (
     <motion.div
-      className="fixed pointer-events-none z-50 w-3 h-3 rounded-full"
+      className="fixed pointer-events-none z-50 w-4 h-4 border-2 border-white rounded-full"
       style={{
-        left: mousePosition.x - 6,
-        top: mousePosition.y - 6,
-        backgroundColor: cursorColor,
+        left: mousePosition.x - 8,
+        top: mousePosition.y - 8,
         mixBlendMode: 'difference',
       }}
       animate={{
-        scale: [1, 1.2, 1],
+        scale: [1, 1.1, 1],
       }}
       transition={{
-        duration: 0.3,
-        ease: "easeOut",
+        duration: 0.8,
+        repeat: Infinity,
+        ease: "easeInOut",
       }}
     />
   );
@@ -305,197 +300,264 @@ const SmartCursor = () => {
 
 const ParallaxLandingPage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [scrollDirection, setScrollDirection] = useState(null);
+  const [previousSlide, setPreviousSlide] = useState(0);
   const containerRef = useRef(null);
+  const slideRefs = useRef([]);
+  const gsapTimeline = useRef(null);
 
   // Configuration
   const scrollSensitivity = 30;
-  const slideDuration = 150; // Optimized for instant feel
   const totalSlides = sections.length;
 
-  // Handle wheel/scroll events with optimized direction-based animations
-  const handleScroll = useCallback(
-    (event) => {
-      if (isTransitioning) return;
-
-      event.preventDefault();
-
-      let delta = 0;
-
-      // Cross-browser delta calculation
-      if (event.deltaY) {
-        delta = -event.deltaY;
-      } else if (event.wheelDelta) {
-        delta = event.wheelDelta;
-      } else if (event.detail) {
-        delta = event.detail * -120;
-      }
-
-      // Check scroll direction and sensitivity
-      if (Math.abs(delta) < scrollSensitivity) return;
-
-      setIsTransitioning(true);
-
-      if (delta < 0) {
-        // Scroll down - go to next slide (no looping)
-        if (currentSlide < totalSlides - 1) {
-          setCurrentSlide((prev) => prev + 1);
-        } else {
-          setIsTransitioning(false);
-          return;
-        }
-      } else {
-        // Scroll up - go to previous slide (no looping)
-        if (currentSlide > 0) {
-          setCurrentSlide((prev) => prev - 1);
-        } else {
-          setIsTransitioning(false);
-          return;
-        }
-      }
-
-      // Reset transition lock after slide duration
-      setTimeout(() => {
-        setIsTransitioning(false);
-      }, slideDuration);
-    },
-    [isTransitioning, currentSlide, totalSlides, scrollSensitivity, slideDuration]
-  );
-
-  // Add event listeners
+  // Initialize slides position and z-index
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    // Prevent default scrolling
-    const preventScroll = (e) => e.preventDefault();
-
-    container.addEventListener("wheel", handleScroll, { passive: false });
-    container.addEventListener("DOMMouseScroll", handleScroll, {
-      passive: false,
+    slideRefs.current.forEach((slide, index) => {
+      if (slide) {
+        gsap.set(slide, {
+          yPercent: index === currentSlide ? 0 : 100,
+          zIndex: index === currentSlide ? 20 : 0,
+          opacity: 1
+        });
+        
+        // Initialize slide image
+        const slideImage = slide.querySelector('.slide-image');
+        if (slideImage) {
+          gsap.set(slideImage, {
+            scaleY: 1,
+            opacity: 1,
+            transformOrigin: '50% 50%'
+          });
+        }
+        
+        // Initialize slide content
+        const slideContent = slide.querySelector('.slide-content');
+        if (slideContent) {
+          gsap.set(slideContent, {
+            yPercent: 0,
+            opacity: 1
+          });
+        }
+      }
     });
-    document.body.addEventListener("touchmove", preventScroll, {
-      passive: false,
+  }, [currentSlide]);
+
+  // GSAP-based navigation function
+  const navigate = useCallback((newPosition, direction) => {
+    if (isAnimating || newPosition === currentSlide) return;
+    
+    setIsAnimating(true);
+    setPreviousSlide(currentSlide);
+    setScrollDirection(direction);
+
+    const currentSlideEl = slideRefs.current[currentSlide];
+    const upcomingSlideEl = slideRefs.current[newPosition];
+    const currentImg = currentSlideEl?.querySelector('.slide-image');
+    const upcomingImg = upcomingSlideEl?.querySelector('.slide-image');
+    const currentContent = currentSlideEl?.querySelector('.slide-content');
+    const upcomingContent = upcomingSlideEl?.querySelector('.slide-content');
+
+    // Kill any existing timeline
+    if (gsapTimeline.current) {
+      gsapTimeline.current.kill();
+    }
+
+    // Reset all slides z-index before animation
+    slideRefs.current.forEach((slide, index) => {
+      if (slide) {
+        gsap.set(slide, {
+          zIndex: index === currentSlide ? 20 : index === newPosition ? 15 : 0
+        });
+      }
     });
 
-    return () => {
-      container.removeEventListener("wheel", handleScroll);
-      container.removeEventListener("DOMMouseScroll", handleScroll);
-      document.body.removeEventListener("touchmove", preventScroll);
-    };
-  }, [handleScroll]);
+    // Create GSAP timeline with power3.inOut easing
+    gsapTimeline.current = gsap.timeline({
+      defaults: {
+        duration: 1.6,
+        ease: 'power3.inOut'
+      },
+      onComplete: () => {
+        // Clean up z-indexes after animation
+        slideRefs.current.forEach((slide, index) => {
+          if (slide) {
+            gsap.set(slide, {
+              zIndex: index === newPosition ? 20 : 0
+            });
+          }
+        });
+        setIsAnimating(false);
+        setCurrentSlide(newPosition);
+      }
+    });
 
-  // Keyboard navigation (no looping)
+    // Timeline animations
+    gsapTimeline.current
+      .addLabel('start', 0)
+      
+      // Set transform origins for smoother scaling
+      .set([currentImg, upcomingImg], {
+        transformOrigin: '50% 50%'
+      }, 'start')
+      
+      // Position upcoming slide off-screen
+      .set(upcomingSlideEl, {
+        yPercent: direction === 'next' ? 100 : -100,
+        zIndex: 15
+      }, 'start')
+      
+      .set(upcomingContent, {
+        yPercent: direction === 'next' ? -50 : 50,
+        opacity: 0
+      }, 'start')
+      
+      // Animate current slide out with reduced scaling
+      .to(currentSlideEl, {
+        yPercent: direction === 'next' ? -100 : 100
+      }, 'start')
+      
+      .to(currentImg, {
+        scaleY: 1.1,
+        opacity: 1
+      }, 'start')
+      
+      .to(currentContent, {
+        yPercent: direction === 'next' ? -30 : 30,
+        opacity: 0
+      }, 'start')
+      
+      // Animate upcoming slide in with controlled scaling
+      .to(upcomingSlideEl, {
+        yPercent: 0
+      }, 'start')
+      
+      .to(upcomingImg, {
+        startAt: { scaleY: 1.1, opacity: 1 },
+        scaleY: 1,
+        opacity: 1,
+        ease: 'power2.inOut'
+      }, 'start+=0.2')
+      
+      .to(upcomingContent, {
+        yPercent: 0,
+        opacity: 1,
+        ease: 'power2.out'
+      }, 'start+=0.4')
+      
+      // Reset current slide position after animation
+      .set(currentSlideEl, {
+        yPercent: 0,
+        zIndex: 1
+      }, 'start+=1.6')
+      
+      .set(currentImg, {
+        scaleY: 1,
+        opacity: 1
+      }, 'start+=1.6');
+
+  }, [currentSlide, isAnimating]);
+
+  // Next slide function
+  const next = useCallback(() => {
+    const newPosition = currentSlide < totalSlides - 1 ? currentSlide + 1 : 0;
+    navigate(newPosition, 'next');
+  }, [currentSlide, totalSlides, navigate]);
+
+  // Previous slide function
+  const prev = useCallback(() => {
+    const newPosition = currentSlide > 0 ? currentSlide - 1 : totalSlides - 1;
+    navigate(newPosition, 'prev');
+  }, [currentSlide, totalSlides, navigate]);
+
+  // Initialize GSAP Observer for scroll detection
+  useEffect(() => {
+    const observer = Observer.create({
+      type: 'wheel,touch,pointer',
+      onDown: () => !isAnimating && prev(),
+      onUp: () => !isAnimating && next(),
+      wheelSpeed: -1,
+      tolerance: 10
+    });
+
+    return () => observer.kill();
+  }, [isAnimating, next, prev]);
+
+  // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (isTransitioning) return;
+      if (isAnimating) return;
 
       if (event.key === "ArrowDown" || event.key === "PageDown") {
         event.preventDefault();
-        if (currentSlide < totalSlides - 1) {
-          setIsTransitioning(true);
-          setCurrentSlide((prev) => prev + 1);
-          setTimeout(() => setIsTransitioning(false), slideDuration);
-        }
+        next();
       } else if (event.key === "ArrowUp" || event.key === "PageUp") {
         event.preventDefault();
-        if (currentSlide > 0) {
-          setIsTransitioning(true);
-          setCurrentSlide((prev) => prev - 1);
-          setTimeout(() => setIsTransitioning(false), slideDuration);
-        }
+        prev();
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [
-    isTransitioning,
-    currentSlide,
-    totalSlides,
-    slideDuration,
-  ]);
-
-  // Optimized animation variants with direction-based motion
-  const slideVariants = {
-    enter: (direction) => ({
-      y: direction > 0 ? "100%" : "-100%",
-      transition: {
-        duration: 0.4,
-        ease: [0.4, 0, 0.2, 1], // Optimized easing
-      },
-    }),
-    center: {
-      y: "0%",
-      transition: {
-        duration: 0.4,
-        ease: [0.4, 0, 0.2, 1],
-      },
-    },
-    exit: (direction) => ({
-      y: direction > 0 ? "-100%" : "100%",
-      transition: {
-        duration: 0.4,
-        ease: [0.4, 0, 0.2, 1],
-      },
-    }),
-  };
-
-  const contentVariants = {
-    enter: {
-      y: "0vh",
-      opacity: 1,
-      transition: {
-        duration: 0.4,
-        ease: [0.4, 0, 0.2, 1],
-      },
-    },
-    center: {
-      y: "0vh",
-      opacity: 1,
-      transition: {
-        duration: 0.4,
-        ease: [0.4, 0, 0.2, 1],
-      },
-    },
-    exit: {
-      y: "0vh",
-      opacity: 1,
-      transition: {
-        duration: 0.4,
-        ease: [0.4, 0, 0.2, 1],
-      },
-    },
-  };
+  }, [isAnimating, next, prev]);
 
   return (
     <div
       ref={containerRef}
       className="fixed inset-0 overflow-hidden"
-      style={{ height: "100vh", width: "100vw" }}
+      style={{ 
+        height: "100vh", 
+        width: "100vw",
+        perspective: "1000px",
+        backfaceVisibility: "hidden"
+      }}
     >
-      <AnimatePresence mode="sync" initial={false}>
-        {sections.map((SectionComponent, index) => {
-          if (index !== currentSlide) return null;
+      {/* GSAP-animated slides */}
+      {sections.map((SectionComponent, index) => (
+        <div
+          key={`slide-${index}`}
+          ref={el => slideRefs.current[index] = el}
+          className={`absolute inset-0 w-full h-screen overflow-hidden ${
+            index === currentSlide ? 'z-20' : 'z-0'
+          }`}
+          style={{
+            willChange: 'transform',
+            backfaceVisibility: 'hidden',
+            transform: 'translate3d(0,0,0)',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0
+          }}
+        >
+          {/* Slide image wrapper */}
+          <div 
+            className="slide-image absolute inset-0 w-full h-full overflow-hidden"
+            style={{ 
+              willChange: 'transform',
+              backfaceVisibility: 'hidden',
+              transform: 'translate3d(0,0,0)'
+            }}
+          >
+            <SectionComponent />
+          </div>
+          
+          {/* Slide content wrapper */}
+          <div 
+            className="slide-content absolute inset-0 w-full h-full pointer-events-none overflow-hidden"
+            style={{ 
+              willChange: 'transform',
+              backfaceVisibility: 'hidden',
+              transform: 'translate3d(0,0,0)'
+            }}
+          >
+            {/* Content will be handled by the SectionComponent */}
+          </div>
+        </div>
+      ))}
 
-          return (
-            <motion.div
-              key={`slide-${index}`}
-              className="absolute inset-0 w-full h-screen"
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              custom={currentSlide > index ? 1 : -1}
-            >
-              <SectionComponent />
-            </motion.div>
-          );
-        })}
-      </AnimatePresence>
-
-      {/* Smart Cursor */}
-      <SmartCursor />
+      {/* Custom Cursor */}
+      <CustomCursor />
     </div>
   );
 };
