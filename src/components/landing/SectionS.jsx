@@ -6,7 +6,7 @@ import { Observer } from "gsap/Observer";
 gsap.registerPlugin(Observer);
 
 const SectionS = () => (
-  <div className="relative w-full h-full bg-[#f4f4f4] overflow-hidden pt-16 md:pt-20 lg:pt-24">
+  <div className="relative w-full h-full bg-[#f4f4f4] overflow-hidden ">
     <div className="relative z-10 h-full flex items-center justify-center text-black">
       <div className="text-center w-full px-4 md:px-8 lg:px-16">
         <motion.div
@@ -25,15 +25,24 @@ const SectionS = () => (
             }}
           >
             Building playful, tactile experiences with{" "}
-            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+            <span
+              className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent inline-block align-baseline"
+              style={{ lineHeight: "1.2", verticalAlign: "baseline" }}
+            >
               AI
             </span>
             ,{" "}
-            <span className="bg-gradient-to-r from-green-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent">
+            <span
+              className="bg-gradient-to-r from-green-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent inline-block align-baseline"
+              style={{ lineHeight: "1.2", verticalAlign: "baseline" }}
+            >
               Cloud
             </span>
             ,{" "}
-            <span className="bg-gradient-to-r from-orange-600 via-red-600 to-pink-600 bg-clip-text text-transparent">
+            <span
+              className="bg-gradient-to-r from-orange-600 via-red-600 to-pink-600 bg-clip-text text-transparent inline-block align-baseline"
+              style={{ lineHeight: "1.2", verticalAlign: "baseline" }}
+            >
               DevOps
             </span>
             , and cutting-edge web technologies.
