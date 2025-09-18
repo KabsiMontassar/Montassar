@@ -134,47 +134,51 @@ function App() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      const element = document.getElementById('montassar-floating');
-      
+      const element = document.getElementById("montassar-floating");
+
       if (!element) return;
-      
+
       if (scrollY <= 100) {
         // Start position - large at bottom with more margin
-        element.style.top = `${window.innerHeight - 220}px`;
-        element.style.bottom = 'auto';
-        element.style.fontSize = '10rem';
-        element.style.transform = 'translateX(-50%)';
+        element.style.top = `${window.innerHeight - 300}px`;
+        element.style.bottom = "auto";
+        element.style.fontSize = "10rem";
+        element.style.transform = "translateX(-50%)";
+        element.style.webkitTextStroke = "2px black";
       } else if (scrollY >= 1000) {
         // End position - medium size at top, FIXED
-        element.style.bottom = 'auto';
-        element.style.top = '10px';
-        element.style.fontSize = '2.5rem';
-        element.style.transform = 'translateX(-50%)';
+        element.style.bottom = "auto";
+        element.style.top = "10px";
+        element.style.fontSize = "2.5rem";
+        element.style.transform = "translateX(-50%)";
+        element.style.webkitTextStroke = "1px black";
       } else {
         // Transition - smooth movement and scaling
         const progress = (scrollY - 100) / 900; // 900px transition
-        
-        // Calculate font size: 8rem to 2.5rem
-        const fontSize = 8 - (5.5 * progress);
-        
+
+        // Calculate font size: 10rem to 2.5rem
+        const fontSize = 10 - 7.5 * progress;
+
         // Calculate top position: smoothly move from initialTop to finalTop
         const initialTop = window.innerHeight - 300;
-        const currentTop = initialTop - (progress * (initialTop - 50));
-        
+        const currentTop = initialTop - progress * (initialTop - 50);
+
         element.style.top = `${currentTop}px`;
-        element.style.bottom = 'auto';
+        element.style.bottom = "auto";
+        element.style.fontSize = `${fontSize}rem`;
+        element.style.transform = "translateX(-50%)";
       }
     };
-    
+
     // Add scroll listener
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
     // Initial call
     handleScroll();
-    
+
     // Cleanup
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -182,12 +186,12 @@ function App() {
     <div className="relative bg-primary text-secondary">
       {/* Custom Cursor */}
       <div ref={cursorRef} className="custom-cursor"></div>
-      
+
       {/* Floating Montassar Text - Clean Implementation */}
       <div id="montassar-floating" className="montassar-floating">
         Montassar
       </div>
-      
+
       {/* Fixed Buttons */}
       <button
         onClick={() => setNavOpen(true)}

@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Rubik:500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Bungee&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
-@import url("./assets/Fonts/WEB/css/bespoke-serif.css");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -204,7 +204,7 @@ button {
   width: 100%;
   padding: 0;
   align-items: center;
-  min-height: 65vh;
+  min-height: 75vh;
 }
 
 .hero-text {
@@ -576,21 +576,19 @@ section {
   background-size: 40px 100%;
 }
 
-/* Floating Montassar Text */
-/* Montassar Floating Text - Clean Implementation */
 .montassar-floating {
   position: fixed;
   left: 50%;
-  top: calc(100vh - 300px); /* More bottom margin */
+  top: calc(100vh - 300px);
   transform: translateX(-50%);
-  font-family: 'BespokeSerif-Bold', 'Bespoke Serif', serif;
-  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
   color: white;
   -webkit-text-stroke: 2px black;
-  font-size: 8rem;
+  font-size: 10rem;
   text-align: center;
   white-space: nowrap;
-  z-index: 9999;
+  z-index: 5;
   pointer-events: none;
   transition: all 0.1s ease-out;
 }

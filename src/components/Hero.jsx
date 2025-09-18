@@ -3,7 +3,7 @@ const Hero = () => {
   return (
     <section
       id="hero"
-      className="relative flex fade-in bg-primary text-secondary min-h-screen"
+      className="relative flex fade-in bg-primary text-secondary"
     >
       <div className="hero-container">
         <div className="hero-text">
@@ -11,7 +11,7 @@ const Hero = () => {
             <div>
               <span className="text-black">A tech and cloud workshop</span>
             </div>
-            <div className="text-line-container">
+            <div className="text-line-container mt-4 mb-2">
               <span className="text-black">creating </span>
               <div className="colorful-text">
                 <div className="char char-1">F</div>
