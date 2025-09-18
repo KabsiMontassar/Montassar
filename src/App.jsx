@@ -155,16 +155,16 @@ function App() {
         element.style.fontSize = "10rem";
         element.style.transform = "translateX(-50%)";
         element.style.webkitTextStroke = "2px black";
-      } else if (scrollY >= 1000) {
-        // End position - medium size at top, FIXED
+      } else if (scrollY >= 300) {
+        // End position - medium size at top, FIXED (much faster transition)
         element.style.bottom = "auto";
         element.style.top = "10px";
         element.style.fontSize = "2.5rem";
         element.style.transform = "translateX(-50%)";
         element.style.webkitTextStroke = "1px black";
       } else {
-        // Transition - smooth movement and scaling
-        const progress = (scrollY - 100) / 900; // 900px transition
+        // Transition - smooth movement and scaling (300px range instead of 900px)
+        const progress = (scrollY - 100) / 200; // 300px transition - much faster!
 
         // Calculate font size: 10rem to 2.5rem
         const fontSize = 10 - 7.5 * progress;
