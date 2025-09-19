@@ -5,7 +5,7 @@ import { Observer } from "gsap/Observer";
 import SectionF from "../components/landing/SectionF";
 import SectionS from "../components/landing/SectionS";
 import SectionT from "../components/landing/SectionT";
-import yinYangSvg from "../assets/yin-yang.svg";
+import yinYangSvg from "../assets/images/yin-yang.svg";
 
 // Register GSAP plugin
 gsap.registerPlugin(Observer);

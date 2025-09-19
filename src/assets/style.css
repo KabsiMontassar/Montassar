@@ -10,12 +10,12 @@
     font-family: 'DT Getai Grotesk Display Black';
     font-style: normal;
     font-weight: normal;
-    src: local('DT Getai Grotesk Display Black'), url('DTGetaiGroteskDisplay-Black.woff') format('woff');
+    src: local('DT Getai Grotesk Display Black'), url('./fonts/DTGetaiGroteskDisplay-Black.woff') format('woff');
     }
 
     @font-face {
     font-family: 'Cloudy';
     font-style: normal;
     font-weight: normal;
-    src: local('Cloudy'), url('AlphaClouds.ttf') format('truetype');
+    src: local('Cloudy'), url('./fonts/AlphaClouds.ttf') format('truetype');
     }
