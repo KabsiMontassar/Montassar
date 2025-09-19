@@ -6,6 +6,9 @@
   src: url("./assets/DTGetaiGroteskDisplay-Black.woff") format("woff");
 }
 
+/* Bungee Font for Colorful Text */
+@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
+
 html {
   scroll-behavior: smooth;
 }
@@ -691,4 +694,132 @@ body {
 .cloud{
   stroke: 2px solid #87CEEB;
   border: #87CEEB;
+}
+
+/* Colorful Text Animation Styles */
+.colorful-text {
+  font-family: 'DTGetaiGroteskDisplay', Arial, sans-serif;
+  font-size: inherit;
+  display: inline-flex;
+  white-space: nowrap;
+  position: relative;
+  cursor: pointer;
+  will-change: text-shadow, transform;
+  align-items: baseline;
+  line-height: 1.2;
+  vertical-align: baseline;
+}
+
+.colorful-text .char {
+  display: inline-block;
+  transition: text-shadow 0.4s cubic-bezier(0.4, 0.2, 0.2, 1),
+    transform 0.4s ease;
+  will-change: text-shadow, transform;
+  margin: 0 -0.02em; /* Negative margin to bring letters closer */
+  font-size: inherit; /* Match parent font size */
+  vertical-align: baseline;
+  color: #000000;
+  font-weight: 900 !important;
+  line-height: 1.2;
+}
+
+/* Hover effects - subtle movement and colored text-shadows */
+.colorful-text:where(:hover, :focus-visible) .char {
+  transform: translate(-2px, -2px);
+}
+
+.colorful-text:where(:hover, :focus-visible) .char-1 {
+  text-shadow: 3px 3px 0 #ffdb26, 4px 4px 0 #ffdb26;
+}
+
+.colorful-text:where(:hover, :focus-visible) .char-2 {
+  text-shadow: 3px 3px 0 #661fff, 4px 4px 0 #661fff;
+}
+
+.colorful-text:where(:hover, :focus-visible) .char-3 {
+  text-shadow: 3px 3px 0 #f8376f, 4px 4px 0 #f8376f;
+}
+
+.colorful-text:where(:hover, :focus-visible) .char-4 {
+  text-shadow: 3px 3px 0 #00fba9, 4px 4px 0 #00fba9;
+}
+
+.colorful-text:where(:hover, :focus-visible) .char-5 {
+  text-shadow: 3px 3px 0 #ffdb26, 4px 4px 0 #ffdb26;
+}
+
+.colorful-text:where(:hover, :focus-visible) .char-6 {
+  text-shadow: 3px 3px 0 #661fff, 4px 4px 0 #661fff;
+}
+
+.colorful-text:where(:hover, :focus-visible) .char-7 {
+  text-shadow: 3px 3px 0 #f8376f, 4px 4px 0 #f8376f;
+}
+
+/* Auto-hover effect for colorful text */
+.colorful-text.auto-hover .char {
+  transform: translate(-2px, -2px);
+}
+
+.colorful-text.auto-hover .char-1 {
+  text-shadow: 3px 3px 0 #ffdb26, 4px 4px 0 #ffdb26;
+}
+
+.colorful-text.auto-hover .char-2 {
+  text-shadow: 3px 3px 0 #661fff, 4px 4px 0 #661fff;
+}
+
+.colorful-text.auto-hover .char-3 {
+  text-shadow: 3px 3px 0 #f8376f, 4px 4px 0 #f8376f;
+}
+
+.colorful-text.auto-hover .char-4 {
+  text-shadow: 3px 3px 0 #00fba9, 4px 4px 0 #00fba9;
+}
+
+.colorful-text.auto-hover .char-5 {
+  text-shadow: 3px 3px 0 #ffdb26, 4px 4px 0 #ffdb26;
+}
+
+.colorful-text.auto-hover .char-6 {
+  text-shadow: 3px 3px 0 #661fff, 4px 4px 0 #661fff;
+}
+
+.colorful-text.auto-hover .char-7 {
+  text-shadow: 3px 3px 0 #f8376f, 4px 4px 0 #f8376f;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+  .colorful-text:where(:hover, :focus-visible) .char {
+    transform: translate(-1px, -1px);
+  }
+
+  .colorful-text:where(:hover, :focus-visible) .char-1 {
+    text-shadow: 2px 2px 0 #ffdb26, 3px 3px 0 #ffdb26;
+  }
+
+  .colorful-text:where(:hover, :focus-visible) .char-2 {
+    text-shadow: 2px 2px 0 #661fff, 3px 3px 0 #661fff;
+  }
+
+  .colorful-text:where(:hover, :focus-visible) .char-3 {
+    text-shadow: 2px 2px 0 #f8376f, 3px 3px 0 #f8376f;
+  }
+
+  .colorful-text:where(:hover, :focus-visible) .char-4 {
+    text-shadow: 2px 2px 0 #00fba9, 3px 3px 0 #00fba9;
+  }
+
+  .colorful-text:where(:hover, :focus-visible) .char-5 {
+    text-shadow: 2px 2px 0 #ffdb26, 3px 3px 0 #ffdb26;
+  }
+
+  .colorful-text:where(:hover, :focus-visible) .char-6 {
+    text-shadow: 2px 2px 0 #661fff, 3px 3px 0 #661fff;
+  }
+
+  .colorful-text:where(:hover, :focus-visible) .char-7 {
+    text-shadow: 2px 2px 0 #f8376f, 3px 3px 0 #f8376f;
+  }
 }
