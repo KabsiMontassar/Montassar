@@ -4,7 +4,7 @@ import { Observer } from "gsap/Observer";
 import { useState, useEffect, useRef } from "react";
 import '../../assets/style.css';
 import Magnet from "../ui/Magnet";
-
+import Chevrons from "../ui/Chevrons";
 // Register GSAP plugins
 gsap.registerPlugin(Observer);
 
@@ -71,7 +71,17 @@ const SectionS = ({ onButtonHover }) => {
             >
               <span >
 
-                Transforming ideas into polished, meaningful experiences where design and technology work in harmony.
+                Transforming ideas into
+                polished  {/* Shuffle */}
+                ,
+                meaningful  {/* Fuzzy Text */}
+                experiences
+                <Chevrons />
+                where
+                design    {/* colourful */}    and
+                technology {/* orange rectangle */}
+                work in
+                harmony.{/* yin yang */}
 
               </span>
             </motion.h1>

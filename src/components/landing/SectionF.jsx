@@ -209,7 +209,7 @@ const SectionF = () => {
       <div className="flex items-end justify-center absolute bottom-0 left-0 right-0 w-full pb-4 z-20">
         <div className="w-full">
           <CurvedLoop
-            marqueeText="Kebsi Montassar ✦ Creative Developer ✦ Software Engineer ✦"
+            marqueeText="Kebsi Montassar ✦ Kebsi Montassar ✦ Kebsi Montassar ✦"
             speed={0.8}
             curveAmount={150}
             direction="left"
