@@ -77,18 +77,8 @@ const SectionF = () => {
     }
   };
 
-  const handleCardMouseMove = (e) => {
-    handleMouseMove(e);
-  };
 
-  const handleMouseLeave = () => {
-    setMousePosition({ x: 0, y: 0 });
-    setIsCardHovered(false);
-  };
 
-  const handleMouseEnter = () => {
-    setIsCardHovered(true);
-  };
 
   useEffect(() => {
     window.addEventListener("mousemove", handleMouseMove);

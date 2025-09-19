@@ -53,55 +53,11 @@ const SectionS = () => {
                 ease: [0.25, 0.46, 0.45, 0.94],
               }}
             >
-              Building{" "}
-              <div className={`colorful-text ${isAutoHovering ? 'auto-hover' : ''}`}>
-                <div className="char char-1">P</div>
-                <div className="char char-2">l</div>
-                <div className="char char-3">a</div>
-                <div className="char char-4">y</div>
-                <div className="char char-5">f</div>
-                <div className="char char-6">u</div>
-                <div className="char char-7">l</div>
-              </div>
-              ,{" "}
-              <div className="colorful-text-alt">
-                <div className="button-char button-char-1">T</div>
-                <div className="button-char button-char-2">A</div>
-                <div className="button-char button-char-3">C</div>
-                <div className="button-char button-char-4">T</div>
-                <div className="button-char button-char-5">I</div>
-                <div className="button-char button-char-6">L</div>
-                <div className="button-char button-char-7">E</div>
-              </div>
-              {" "}experiences with{" "}
-              <span
-                className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent inline-block align-baseline"
-                style={{ lineHeight: "1.2", verticalAlign: "baseline" }}
-              >
-                AI
+              <span >
+
+                Transforming ideas into polished, meaningful experiences where design and technology work in harmony.
+
               </span>
-              ,{" "}
-              <span
-                className={`bg-[#c0e9f9] bg-clip-text text-transparent inline-block align-baseline transition-transform duration-1000 ease-in-out ${
-                  cloudPosition === 'left' ? 'cloud-slide-left' :
-                  cloudPosition === 'right' ? 'cloud-slide-right' : ''
-                }`}
-                style={{
-                  lineHeight: "1.2",
-                  verticalAlign: "baseline",
-                  fontFamily: "'Cloudy', Arial, sans-serif"
-                }}
-              >
-                Cloud
-              </span>
-              ,{" "}
-              <span
-                className="bg-gradient-to-r from-orange-600 via-red-600 to-pink-600 bg-clip-text text-transparent inline-block align-baseline"
-                style={{ lineHeight: "1.2", verticalAlign: "baseline" }}
-              >
-                DevOps
-              </span>
-              , and cutting-edge web technologies.
             </motion.h1>
 
             <motion.button
