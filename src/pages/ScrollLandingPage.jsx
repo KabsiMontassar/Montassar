@@ -109,6 +109,7 @@ const ScrollLandingPage = () => {
   // Hover states
   const [isMenuHovered, setIsMenuHovered] = useState(false);
   const [isMontassarHovered, setIsMontassarHovered] = useState(false);
+  const [isSectionSButtonHovered, setIsSectionSButtonHovered] = useState(false);
   
   // Refs
   const containerRef = useRef(null);
@@ -124,6 +125,7 @@ const ScrollLandingPage = () => {
     menuBackground: currentSlide === 1 ? "bg-gradient-to-br from-black to-[#222121]" : "bg-[#f4f4f4]",
     textColor: currentSlide === 1 ? "text-[#f4f4f4]" : "text-black",
     iconColor: (() => {
+      if (currentSlide === 1 && isSectionSButtonHovered) return "text-white";
       switch (currentSlide) {
         case 0: return isMenuOpen ? "text-black" : "text-white";
         case 1: return isMenuOpen ? "text-[#f4f4f4]" : "text-black";
@@ -133,6 +135,7 @@ const ScrollLandingPage = () => {
     })(),
     hoverColor: "hover:text-[#ffe500]",
     filterClass: (() => {
+      if (currentSlide === 1 && isSectionSButtonHovered) return "filter invert";
       switch (currentSlide) {
         case 0: return isMenuOpen ? "" : "filter invert";
         case 1: return isMenuOpen ? "filter invert" : "";
@@ -140,7 +143,7 @@ const ScrollLandingPage = () => {
         default: return "";
       }
     })()
-  }), [currentSlide, isMenuOpen]);
+  }), [currentSlide, isMenuOpen, isSectionSButtonHovered]);
 
   // Time formatting
   const formatTime = useCallback((date) => {
@@ -396,7 +399,9 @@ const ScrollLandingPage = () => {
           }}
         >
           <div className="w-full h-full">
-            <SectionComponent />
+            <SectionComponent 
+              onButtonHover={index === 1 ? setIsSectionSButtonHovered : undefined}
+            />
           </div>
 
           <div className="absolute top-8 left-8 z-20 mobile-yin-yang tablet-yin-yang large-yin-yang">
