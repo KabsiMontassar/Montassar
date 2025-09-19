@@ -4,7 +4,7 @@ import { FiArrowDownRight } from "react-icons/fi";
 import CurvedLoop from "../ui/CurvedLoop";
 import yinYangSvg from "../../assets/images/yin-yang.svg";
 import Plasma from "../ui/Plasma";
-
+import Magnet from "../ui/Magnet.jsx";
 const titles = [
   "Reactjs Developer",
   "Cloud Engineer",
@@ -27,7 +27,7 @@ const SectionF = () => {
         const newIndex = (prevIndex + 1) % titles.length;
         return newIndex;
       });
-    }, 2000); // Change every 2 seconds
+    }, 2000);
 
     return () => clearInterval(interval);
   }, []);
@@ -36,7 +36,6 @@ const SectionF = () => {
   const decryptText = (originalText) => {
     const chars = "!@#$%^&*()_+-=[]{}|;:,.<>?";
     let iterations = 0;
-    const maxIterations = originalText.length;
 
     if (!isCardHovered) return originalText;
 
@@ -51,39 +50,9 @@ const SectionF = () => {
       .join("");
   };
 
-  // Mouse move handler for magnetic effect
-  const handleMouseMove = (e) => {
-    if (cardRef.current) {
-      const rect = cardRef.current.getBoundingClientRect();
-      const cardCenterX = rect.left + rect.width / 2;
-      const cardCenterY = rect.top + rect.height / 2;
-
-      const distanceX = e.clientX - cardCenterX;
-      const distanceY = e.clientY - cardCenterY;
-
-      // Apply magnetic effect within 200px radius for better range
-      const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-      if (distance < 200) {
-        const strength = (200 - distance) / 200;
-        setMousePosition({
-          x: distanceX * strength * 0.4, // Increased strength
-          y: distanceY * strength * 0.4,
-        });
-        setIsCardHovered(true); // Set hover state when in magnetic range
-      } else {
-        setMousePosition({ x: 0, y: 0 });
-        setIsCardHovered(false); // Remove hover state when out of range
-      }
-    }
-  };
 
 
 
-
-  useEffect(() => {
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
 
   return (
     <div className="relative w-full h-full bg-gradient-to-r from-black to-[#222121] overflow-hidden mobile-section-f">
@@ -167,9 +136,11 @@ const SectionF = () => {
         </motion.div>
       </div>
 
-      {/* Right side card */}
-      <div className="absolute right-8 md:right-30 bottom-20 md:top-2/5 md:bottom-auto transform z-10 w-full md:w-auto right-content">
-        <motion.div
+
+        <div className="absolute right-8 md:right-30 bottom-20 md:top-2/5 md:bottom-auto transform z-10 w-full md:w-auto right-content">
+          <Magnet padding={50} disabled={false} magnetStrength={3}>
+
+            <motion.div
           ref={cardRef}
           initial={{ opacity: 0, x: 50 }}
           animate={{
@@ -184,7 +155,9 @@ const SectionF = () => {
             y: { type: "spring", stiffness: 150, damping: 15 },
           }}
           className="bg-[#272727] rounded-full px-6 md:px-8 py-4 md:py-6 w-full md:w-80 h-auto md:h-30 flex items-center justify-between cursor-pointer work-card"
-        >
+          onMouseEnter={() => setIsCardHovered(true)}
+          onMouseLeave={() => setIsCardHovered(false)}
+            >
           {/* Text Content */}
           <div className="flex flex-col space-y-1">
             <motion.h3
@@ -203,6 +176,7 @@ const SectionF = () => {
             >
               {isCardHovered ? decryptText("My Work") : "My Work"}
             </motion.h2>
+
           </div>
 
           {/* Yin Yang SVG Icon */}
@@ -217,20 +191,21 @@ const SectionF = () => {
               alt="Yin Yang"
               className="w-12 h-12 md:w-16 md:h-16 filter invert yin-yang-icon"
               animate={{
-                rotate: isCardHovered ? 360 : 0,
+            rotate: isCardHovered ? 360 : 0,
               }}
               transition={{
-                duration: 2,
-                ease: "linear",
-                repeat: isCardHovered ? Infinity : 0,
-                repeatType: isCardHovered ? "loop" : undefined,
+            duration: 2,
+            ease: "linear",
+            repeat: isCardHovered ? Infinity : 0,
+            repeatType: isCardHovered ? "loop" : undefined,
               }}
             />
           </motion.div>
-        </motion.div>
-      </div>
+            </motion.div>
+          </Magnet>
 
-      {/* Curved Loop at Bottom */}
+        </div>
+
       <div className="flex items-end justify-center absolute bottom-0 left-0 right-0 w-full pb-4 z-20">
         <div className="w-full">
           <CurvedLoop

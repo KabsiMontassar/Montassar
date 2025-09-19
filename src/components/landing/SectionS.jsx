@@ -3,6 +3,7 @@ import { gsap } from "gsap";
 import { Observer } from "gsap/Observer";
 import { useState, useEffect, useRef } from "react";
 import '../../assets/style.css';
+import Magnet from "../ui/Magnet";
 
 // Register GSAP plugins
 gsap.registerPlugin(Observer);
@@ -74,29 +75,16 @@ const SectionS = ({ onButtonHover }) => {
 
               </span>
             </motion.h1>
+            <Magnet padding={100} disabled={false} magnetStrength={3}>
 
-            <motion.button
-              ref={buttonRef}
-              className="mt-6 md:mt-8 lg:mt-10 px-10 sm:px-12 md:px-14 lg:px-16 py-4 sm:py-5 md:py-6 bg-black text-white  font-semibold text-lg sm:text-xl md:text-2xl rounded-full hover:bg-white hover:text-black transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{
-                opacity: 1,
-                y: 0,
-                x: mousePosition.x,
-                y: mousePosition.y,
-              }}
-              transition={{
-                duration: 0.8,
-                delay: 0.6,
-                ease: [0.25, 0.46, 0.45, 0.94],
-                x: { type: "spring", stiffness: 150, damping: 15 },
-                y: { type: "spring", stiffness: 150, damping: 15 },
-              }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              View all Work
-            </motion.button>
+              <motion.button
+                className="mt-6 md:mt-8 lg:mt-10 px-10 sm:px-12 md:px-14 lg:px-16 py-4 sm:py-5 md:py-6 bg-black text-white  font-semibold text-lg sm:text-xl md:text-2xl rounded-full hover:bg-white hover:text-black transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+
+              >
+                <p>View All Work</p>
+              </motion.button>
+            </Magnet>
+
           </motion.div>
         </div>
       </div>
