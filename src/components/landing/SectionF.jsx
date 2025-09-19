@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { FiArrowDownRight } from "react-icons/fi";
 import CurvedLoop from "../ui/CurvedLoop";
 import yinYangSvg from "../../assets/images/yin-yang.svg";
-import Plasma from "../ui/Plasma";
+import Plasma from "../ui/Plasma.jsx";
 import Magnet from "../ui/Magnet.jsx";
 const titles = [
   "Reactjs Developer",
