@@ -127,7 +127,9 @@ const SectionF = () => {
           >
             <FiArrowDownRight
               strokeWidth={1.5}
-              className="text-white text-4xl md:text-6xl arrow-icon"
+              className={`text-white text-4xl md:text-6xl arrow-icon
+               hover:text-amber-300 transition-colors duration-300
+              `}
             />
           </motion.div>
 
