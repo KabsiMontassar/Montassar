@@ -6,7 +6,7 @@ import SectionF from "../components/landing/SectionF";
 import SectionS from "../components/landing/SectionS";
 import SectionT from "../components/landing/SectionT";
 import yinYangSvg from "../assets/images/yin-yang.svg";
-
+import Magnet from "../components/ui/Magnet.jsx";
 // Register GSAP plugin
 gsap.registerPlugin(Observer);
 
@@ -41,24 +41,24 @@ const MAGNETIC_TRANSITION = {
 };
 
 // Utility functions
-const calculateDistance = (x1, y1, x2, y2) => 
+const calculateDistance = (x1, y1, x2, y2) =>
   Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
 
 const calculateMagneticEffect = (mousePos, targetPos, radius = MAGNETIC_RADIUS, strength = MAGNETIC_STRENGTH) => {
   const distance = calculateDistance(mousePos.x, mousePos.y, targetPos.x, targetPos.y);
-  
+
   if (distance < radius) {
     const magneticStrength = (radius - distance) / radius;
     const deltaX = mousePos.x - targetPos.x;
     const deltaY = mousePos.y - targetPos.y;
-    
+
     return {
       x: deltaX * magneticStrength * strength,
       y: deltaY * magneticStrength * strength,
       inRange: true
     };
   }
-  
+
   return { x: 0, y: 0, inRange: false };
 };
 
@@ -105,22 +105,24 @@ const ScrollLandingPage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  
+
   // Hover states
   const [isMenuHovered, setIsMenuHovered] = useState(false);
   const [isMontassarHovered, setIsMontassarHovered] = useState(false);
   const [isSectionSButtonHovered, setIsSectionSButtonHovered] = useState(false);
-  
+
   // Refs
   const containerRef = useRef(null);
   const slideRefs = useRef([]);
   const gsapTimeline = useRef(null);
   const menuButtonRef = useRef(null);
   const montassarRefs = useRef([]);
+  const desktopYinYangRef = useRef(null);
+  const mobileYinYangRef = useRef(null);
 
   // Memoized values
   const totalSlides = SECTIONS.length;
-  
+
   const sectionStyles = useMemo(() => ({
     menuBackground: currentSlide === 1 ? "bg-gradient-to-br from-black to-[#222121]" : "bg-[#f4f4f4]",
     textColor: currentSlide === 1 ? "text-[#f4f4f4]" : "text-black",
@@ -162,16 +164,16 @@ const ScrollLandingPage = () => {
   // Magnetic effect calculations
   const getMagneticMovement = useCallback(() => {
     if (!menuButtonRef.current) return { x: 0, y: 0, scale: 1, inRange: false };
-    
+
     const rect = menuButtonRef.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
-    
+
     const effect = calculateMagneticEffect(
       mousePosition,
       { x: centerX, y: centerY }
     );
-    
+
     return {
       x: effect.x * 0.5,
       y: effect.y * 0.5,
@@ -179,22 +181,6 @@ const ScrollLandingPage = () => {
       inRange: effect.inRange
     };
   }, [mousePosition]);
-
-  const getMontassarMagneticMovement = useCallback(() => {
-    const currentMontassarRef = montassarRefs.current[currentSlide];
-    if (!currentMontassarRef) return { x: 0, y: 0 };
-
-    const rect = currentMontassarRef.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-
-    const effect = calculateMagneticEffect(
-      mousePosition,
-      { x: centerX, y: centerY }
-    );
-
-    return { x: effect.x, y: effect.y };
-  }, [mousePosition, currentSlide]);
 
   // Navigation functions
   const navigate = useCallback((newPosition, direction) => {
@@ -291,14 +277,67 @@ const ScrollLandingPage = () => {
         const centerY = rect.top + rect.height / 2;
         const distance = calculateDistance(e.clientX, e.clientY, centerX, centerY);
         setIsMontassarHovered(distance < MAGNETIC_RADIUS);
+      } else if (isMenuOpen && desktopYinYangRef.current) {
+        // Check desktop menu yin-yang when menu is open
+        const rect = desktopYinYangRef.current.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const distance = calculateDistance(e.clientX, e.clientY, centerX, centerY);
+        setIsMontassarHovered(distance < MAGNETIC_RADIUS);
+      } else if (mobileYinYangRef.current) {
+        // Check mobile yin-yang
+        const rect = mobileYinYangRef.current.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const distance = calculateDistance(e.clientX, e.clientY, centerX, centerY);
+        setIsMontassarHovered(distance < MAGNETIC_RADIUS);
       } else {
         setIsMontassarHovered(false);
       }
     };
 
+    const handleTouchStart = (e) => {
+      // For mobile, detect touch on yin-yang
+      const touch = e.touches[0];
+      const currentMontassarRef = montassarRefs.current[currentSlide];
+      if (currentMontassarRef) {
+        const rect = currentMontassarRef.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const distance = calculateDistance(touch.clientX, touch.clientY, centerX, centerY);
+        setIsMontassarHovered(distance < MAGNETIC_RADIUS);
+      } else if (isMenuOpen && desktopYinYangRef.current) {
+        // Check desktop menu yin-yang when menu is open
+        const rect = desktopYinYangRef.current.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const distance = calculateDistance(touch.clientX, touch.clientY, centerX, centerY);
+        setIsMontassarHovered(distance < MAGNETIC_RADIUS);
+      } else if (mobileYinYangRef.current) {
+        // Check mobile yin-yang
+        const rect = mobileYinYangRef.current.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const distance = calculateDistance(touch.clientX, touch.clientY, centerX, centerY);
+        setIsMontassarHovered(distance < MAGNETIC_RADIUS);
+      }
+    };
+
+    const handleTouchEnd = () => {
+      // Reset hover state when touch ends
+      setTimeout(() => setIsMontassarHovered(false), 100);
+    };
+
     document.addEventListener("mousemove", handleMouseMove);
-    return () => document.removeEventListener("mousemove", handleMouseMove);
-  }, [currentSlide]);
+    document.addEventListener("touchstart", handleTouchStart);
+    document.addEventListener("touchend", handleTouchEnd);
+    
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("touchstart", handleTouchStart);
+      document.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, [currentSlide, isMenuOpen]);
 
   useEffect(() => {
     const handleEscape = (event) => {
@@ -315,7 +354,7 @@ const ScrollLandingPage = () => {
     const preventClickScroll = (e) => {
       const target = e.target;
       const isInteractive = target.closest('button, a, input, select, textarea, [role="button"]');
-      
+
       if (!isInteractive && e.button === 0) {
         e.preventDefault();
       }
@@ -389,9 +428,8 @@ const ScrollLandingPage = () => {
         <div
           key={`slide-${index}`}
           ref={(el) => (slideRefs.current[index] = el)}
-          className={`absolute inset-0 w-full h-screen overflow-hidden ${
-            index === currentSlide ? "z-10" : "z-0"
-          }`}
+          className={`absolute inset-0 w-full h-screen overflow-hidden ${index === currentSlide ? "z-10" : "z-0"
+            }`}
           style={{
             willChange: "transform",
             backfaceVisibility: "hidden",
@@ -399,7 +437,7 @@ const ScrollLandingPage = () => {
           }}
         >
           <div className="w-full h-full">
-            <SectionComponent 
+            <SectionComponent
               onButtonHover={index === 1 ? setIsSectionSButtonHovered : undefined}
             />
           </div>
@@ -408,14 +446,6 @@ const ScrollLandingPage = () => {
             <motion.div
               ref={(el) => (montassarRefs.current[index] = el)}
               className="flex items-center space-x-1"
-              animate={{
-                x: index === currentSlide ? getMontassarMagneticMovement().x : 0,
-                y: index === currentSlide ? getMontassarMagneticMovement().y : 0,
-              }}
-              transition={{
-                x: MAGNETIC_TRANSITION.spring,
-                y: MAGNETIC_TRANSITION.spring,
-              }}
             >
               <motion.img
                 src={yinYangSvg}
@@ -440,43 +470,37 @@ const ScrollLandingPage = () => {
         ref={menuButtonRef}
         onClick={toggleMenu}
         className="fixed top-12 right-12 z-50 w-12 h-12 flex items-center justify-center transition-all duration-300 rounded-full mobile-menu-button tablet-menu-button"
-        animate={getMagneticMovement()}
-        transition={{
-          x: getMagneticMovement().inRange ? MAGNETIC_TRANSITION.smooth : MAGNETIC_TRANSITION.elastic,
-          y: getMagneticMovement().inRange ? MAGNETIC_TRANSITION.smooth : MAGNETIC_TRANSITION.elastic,
-          scale: MAGNETIC_TRANSITION.smooth,
-        }}
+
       >
-        <motion.svg
-          width="32"
-          height="32"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className={sectionStyles.iconColor}
-          transition={{
-            duration: 2,
-            ease: "linear",
-            repeat: isMenuHovered ? Infinity : 0,
-            repeatType: isMenuHovered ? "loop" : undefined,
-          }}
-        >
-          <path
-            d="M3 8H21M3 16H21"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </motion.svg>
+        <Magnet padding={50} disabled={false} magnetStrength={3}>
+
+          <motion.svg
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className={sectionStyles.iconColor}
+
+          >
+            <path
+              d="M3 8H21M3 16H21"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </motion.svg>
+        </Magnet>
+
       </motion.button>
 
       {/* Mobile Drawer Menu */}
       <div className="md:hidden">
         {/* Overlay */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, visibility: "hidden" }}
-          animate={{ 
+          animate={{
             opacity: isMenuOpen ? 1 : 0,
             visibility: isMenuOpen ? "visible" : "hidden"
           }}
@@ -484,7 +508,7 @@ const ScrollLandingPage = () => {
           className="mobile-drawer-overlay"
           onClick={() => setIsMenuOpen(false)}
         />
-        
+
         {/* Drawer */}
         <motion.div
           initial={{ x: "100%" }}
@@ -496,6 +520,7 @@ const ScrollLandingPage = () => {
             {/* Header */}
             <div className="mobile-drawer-header">
               <motion.img
+                ref={mobileYinYangRef}
                 src={yinYangSvg}
                 alt="Yin Yang"
                 className={`w-8 h-8 ${sectionStyles.filterClass}`}
@@ -509,12 +534,12 @@ const ScrollLandingPage = () => {
                   repeatType: isMontassarHovered ? "loop" : undefined,
                 }}
               />
-              <button 
+              <button
                 onClick={() => setIsMenuOpen(false)}
                 className={`mobile-drawer-close ${sectionStyles.textColor}`}
               >
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </button>
             </div>
@@ -527,9 +552,9 @@ const ScrollLandingPage = () => {
                   onClick={() => navigateToSection(index)}
                   className={`${sectionStyles.textColor} ${sectionStyles.hoverColor} transition-colors duration-300`}
                   initial={{ opacity: 0, x: 20 }}
-                  animate={{ 
+                  animate={{
                     opacity: isMenuOpen ? 1 : 0,
-                    x: isMenuOpen ? 0 : 20 
+                    x: isMenuOpen ? 0 : 20
                   }}
                   transition={{ delay: 0.1 + index * 0.1, duration: 0.3 }}
                 >
@@ -582,15 +607,8 @@ const ScrollLandingPage = () => {
         <div className="relative w-full h-full flex flex-col">
           <div className="absolute top-8 left-8 tablet-yin-yang">
             <motion.div
+              ref={desktopYinYangRef}
               className="flex items-center"
-              animate={{
-                x: getMontassarMagneticMovement().x,
-                y: getMontassarMagneticMovement().y,
-              }}
-              transition={{
-                x: MAGNETIC_TRANSITION.spring,
-                y: MAGNETIC_TRANSITION.spring,
-              }}
             >
               <h1 className={`text-2xl p-0 font-light ${sectionStyles.textColor}`}></h1>
               <motion.img
