@@ -830,8 +830,9 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
- 
-  margin: 0 0.25em;
+  font-size: 1.2em; /* Changed from fixed 3rem to relative scaling */
+  gap: 0.05em;
+  margin: 0 0.15em;
 }
 
 .button-char {
@@ -843,7 +844,7 @@ body {
   outline: none;
   border: 0;
   text-decoration: none;
-  font-size: 0.6em;
+  font-size: 0.8em; /* Increased from 0.6em for better mobile visibility */
   font-family: 'Fira Code', ui-monospace, 'SFMono-Regular', 'Consolas',
     'Liberation Mono', 'Menlo', monospace;
   font-weight: 600;
@@ -907,8 +908,243 @@ body {
     min-height: 0.6em;
   }
 
+ 
+}
+
+/* Cloud Sliding Animation Classes */
+.cloud-slide-left {
+  transform: translateX(-20px);
+}
+
+.cloud-slide-right {
+  transform: translateX(20px);
+}
+
+/* Tablet Styles */
+@media (max-width: 1024px) {
+  .colorful-text {
+    font-size: 0.8em;
+  }
+
+  .colorful-text .char {
+    font-size: 3rem;
+    margin: 0 -0.03em;
+  }
+
+
+
+  .button-char {
+    font-size: 0.55em;
+    padding: 0.09em 0.28em;
+    min-width: 0.7em;
+    min-height: 0.7em;
+  }
+
+  /* Reduce cloud sliding distance on tablets */
+  .cloud-slide-left {
+    transform: translateX(-15px) !important;
+  }
+
+  .cloud-slide-right {
+    transform: translateX(15px) !important;
+  }
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .colorful-text {
+    font-size: 0.9em; /* Increased from 0.7em */
+  }
+
+  .colorful-text .char {
+    font-size: 2.2rem; /* Reduced from 3.5rem for better mobile proportion */
+    margin: 0 -0.03em; /* Adjusted spacing */
+  }
+
   .colorful-text-alt {
+    font-size: 1.3em; /* Reduced from 1.5em for better mobile proportion */
+    gap: 0.08em; /* Increased gap */
+    margin: 0 0.2em;
+  }
+
+  .button-char {
+    font-size: 0.75em; /* Increased from 0.65em for better mobile readability */
+    padding: 0.12em 0.35em; /* Increased padding */
+    min-width: 0.85em; /* Increased min-width */
+    min-height: 0.85em; /* Increased min-height */
+  }
+
+  /* Reduce cloud sliding distance on mobile */
+  .cloud-slide-left {
+    transform: translateX(-12px) !important; /* Increased from -10px */
+  }
+
+  .cloud-slide-right {
+    transform: translateX(12px) !important; /* Increased from 10px */
+  }
+
+  /* Reduce hover effects on mobile for better performance */
+  .colorful-text:where(:hover, :focus-visible) .char {
+    transform: translate(-1px, -1px);
+  }
+
+  .button-char:hover {
+    transform: translate(0, 0.06em);
+  }
+
+  .button-char:hover::before {
+    transform: translate3d(0, 0.12em, -1em);
+  }
+}
+
+/* Tablet Styles */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .colorful-text {
+    font-size: 0.9em; /* Slightly larger than mobile */
+  }
+
+  .colorful-text .char {
+    font-size: 2.8rem; /* Reduced from 3.8rem for better tablet proportion */
+    margin: 0 -0.025em;
+  }
+
+  .colorful-text-alt {
+    font-size: 1.3em; /* Moderate size for tablet */
+    gap: 0.06em;
+    margin: 0 0.18em;
+  }
+
+  .button-char {
+    font-size: 0.7em; /* Moderate size for tablet */
+    padding: 0.11em 0.32em;
+    min-width: 0.78em;
+    min-height: 0.78em;
+  }
+
+  /* Moderate cloud sliding distance on tablet */
+  .cloud-slide-left {
+    transform: translateX(-14px) !important;
+  }
+
+  .cloud-slide-right {
+    transform: translateX(14px) !important;
+  }
+}
+
+/* Desktop Styles */
+@media (min-width: 1025px) {
+  .colorful-text {
+    font-size: 0.8em; /* Smaller on large screens to prevent overwhelming size */
+  }
+
+  .colorful-text .char {
+    font-size: 3.2rem; /* Reduced from 4.2rem for better desktop proportion */
+    margin: 0 -0.02em;
+  }
+
+  .colorful-text-alt {
+    font-size: 1.1em; /* Smaller on desktop to maintain proportion */
     gap: 0.05em;
     margin: 0 0.15em;
+  }
+
+  .button-char {
+    font-size: 0.65em; /* Smaller on desktop for better proportion */
+    padding: 0.1em 0.3em;
+    min-width: 0.75em;
+    min-height: 0.75em;
+  }
+
+  /* Standard cloud sliding distance on desktop */
+  .cloud-slide-left {
+    transform: translateX(-16px) !important;
+  }
+
+  .cloud-slide-right {
+    transform: translateX(16px) !important;
+  }
+}
+
+/* Small Mobile Styles */
+@media (max-width: 480px) {
+  .colorful-text {
+    font-size: 0.75em; /* Increased from 0.6em */
+  }
+
+  .colorful-text .char {
+    font-size: 1.8rem; /* Reduced from 2.8rem for better proportion on small screens */
+    margin: 0 -0.02em; /* Adjusted spacing */
+  }
+
+  .colorful-text-alt {
+    font-size: 1.2em; /* Reduced from 1.8em - too big on very small screens */
+    gap: 0.05em; /* Increased gap */
+    margin: 0 0.15em; /* Increased margin */
+  }
+
+  .button-char {
+    font-size: 0.65em; /* Reduced from 0.8em for better proportion on small screens */
+    padding: 0.08em 0.25em; /* Reduced padding for smaller screens */
+    min-width: 0.7em; /* Reduced min-width */
+    min-height: 0.7em; /* Reduced min-height */
+  }
+
+  /* Minimal cloud sliding on very small screens */
+  .cloud-slide-left {
+    transform: translateX(-5px) !important;
+  }
+
+  .cloud-slide-right {
+    transform: translateX(5px) !important;
+  }
+
+  /* Disable hover effects on very small screens to prevent accidental triggers */
+  .colorful-text:where(:hover, :focus-visible) .char {
+    transform: none;
+  }
+
+  .button-char:hover {
+    transform: none;
+  }
+
+  .button-char:hover::before {
+    transform: translate3d(0, 0.15em, -1em);
+  }
+
+  /* Ensure text doesn't overflow on small screens */
+  .colorful-text,
+  .colorful-text-alt {
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+}
+
+/* Large Desktop Styles */
+@media (min-width: 1281px) {
+  .colorful-text {
+    font-size: 1.1em;
+  }
+
+  .colorful-text .char {
+    font-size: 6rem;
+    margin: 0 -0.04em;
+  }
+
+ 
+
+  .button-char {
+    font-size: 0.7em;
+    padding: 0.12em 0.35em;
+    min-width: 0.9em;
+    min-height: 0.9em;
+  }
+
+  /* Increase cloud sliding distance on large screens */
+  .cloud-slide-left {
+    transform: translateX(-25px) !important;
+  }
+
+  .cloud-slide-right {
+    transform: translateX(25px) !important;
   }
 }
