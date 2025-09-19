@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import { Observer } from "gsap/Observer";
+import '../../assets/style.css';
 
 // Register GSAP plugins
 gsap.registerPlugin(Observer);
@@ -24,7 +25,17 @@ const SectionS = () => (
               ease: [0.25, 0.46, 0.45, 0.94],
             }}
           >
-            Building playful, tactile experiences with{" "}
+            Building{" "}
+            <div className="colorful-text">
+              <div className="char char-1">P</div>
+              <div className="char char-2">L</div>
+              <div className="char char-3">A</div>
+              <div className="char char-4">Y</div>
+              <div className="char char-5">F</div>
+              <div className="char char-6">U</div>
+              <div className="char char-7">L</div>
+            </div>
+            , tactile experiences with{" "}
             <span
               className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent inline-block align-baseline"
               style={{ lineHeight: "1.2", verticalAlign: "baseline" }}
@@ -33,8 +44,12 @@ const SectionS = () => (
             </span>
             ,{" "}
             <span
-              className="bg-gradient-to-r from-green-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent inline-block align-baseline"
-              style={{ lineHeight: "1.2", verticalAlign: "baseline" }}
+              className="bg-[#87CEEB] bg-clip-text text-transparent inline-block align-baseline"
+              style={{ 
+                lineHeight: "1.2", 
+                verticalAlign: "baseline",
+                fontFamily: "'Cloudy', Arial, sans-serif"
+              }}
             >
               Cloud
             </span>
