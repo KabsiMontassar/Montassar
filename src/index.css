@@ -6,9 +6,6 @@
   src: url("./assets/DTGetaiGroteskDisplay-Black.woff") format("woff");
 }
 
-/* Bungee Font for Colorful Text */
-@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
-
 html {
   scroll-behavior: smooth;
 }
@@ -689,16 +686,14 @@ body {
   }
 }
 
-
-
-.cloud{
-  stroke: 2px solid #87CEEB;
-  border: #87CEEB;
+.cloud {
+  stroke: 2px solid #87ceeb;
+  border: #87ceeb;
 }
 
 /* Colorful Text Animation Styles */
 .colorful-text {
-  font-family: 'DTGetaiGroteskDisplay', Arial, sans-serif;
+  font-family: "DTGetaiGroteskDisplay", Arial, sans-serif;
   font-size: inherit;
   display: inline-flex;
   white-space: nowrap;
@@ -707,7 +702,7 @@ body {
   will-change: text-shadow, transform;
   align-items: baseline;
   line-height: 1.2;
- 
+
   vertical-align: baseline;
 }
 
@@ -845,8 +840,8 @@ body {
   border: 0;
   text-decoration: none;
   font-size: 0.8em; /* Increased from 0.6em for better mobile visibility */
-  font-family: 'Fira Code', ui-monospace, 'SFMono-Regular', 'Consolas',
-    'Liberation Mono', 'Menlo', monospace;
+  font-family: "Fira Code", ui-monospace, "SFMono-Regular", "Consolas",
+    "Liberation Mono", "Menlo", monospace;
   font-weight: 600;
   color: #000;
   text-transform: uppercase;
@@ -907,8 +902,6 @@ body {
     min-width: 0.6em;
     min-height: 0.6em;
   }
-
- 
 }
 
 /* Cloud Sliding Animation Classes */
@@ -930,8 +923,6 @@ body {
     font-size: 3rem;
     margin: 0 -0.03em;
   }
-
-
 
   .button-char {
     font-size: 0.55em;
@@ -1129,8 +1120,6 @@ body {
     font-size: 6rem;
     margin: 0 -0.04em;
   }
-
- 
 
   .button-char {
     font-size: 0.7em;
