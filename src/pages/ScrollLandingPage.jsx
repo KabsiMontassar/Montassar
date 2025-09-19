@@ -97,14 +97,21 @@ const ScrollLandingPage = () => {
           {/* Yin-Yang for each slide */}
           <div className="absolute top-8 left-8 z-20 mobile-yin-yang tablet-yin-yang large-yin-yang">
             <Magnet padding={100} disabled={false} magnetStrength={3}>
-              <YinYang
-                src={yinYangSvg}
-                isHovered={index === currentSlide && isMontassarHovered}
-                filterClass={sectionStyles.filterClass}
-                className="space-x-1"
-                onMouseEnter={() => setIsMontassarHovered(true)}
-                onMouseLeave={() => setIsMontassarHovered(false)}
-              />
+              <motion.div
+                animate={{
+                  filter: getSectionStyles(index, isMenuOpen, isSectionSButtonHovered).filterClass.includes('invert') ? 'invert(1)' : 'invert(0)'
+                }}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
+              >
+                <YinYang
+                  src={yinYangSvg}
+                  isHovered={index === currentSlide && isMontassarHovered}
+                  filterClass="" // Remove static filter class since we're animating it
+                  className="space-x-1"
+                  onMouseEnter={() => setIsMontassarHovered(true)}
+                  onMouseLeave={() => setIsMontassarHovered(false)}
+                />
+              </motion.div>
             </Magnet>
           </div>
         </div>
@@ -113,9 +120,21 @@ const ScrollLandingPage = () => {
       {/* Menu Button */}
       <div className="fixed top-12 right-12 z-50">
         <Magnet padding={50} disabled={false} magnetStrength={3}>
-          <button
+          <motion.button
             onClick={toggleMenu}
-            className=" w-12 h-12 flex items-center justify-center transition-all duration-300 rounded-full mobile-menu-button tablet-menu-button"
+            className="w-12 h-12 flex items-center justify-center transition-all duration-300 rounded-full mobile-menu-button tablet-menu-button"
+            animate={{
+              color: (() => {
+                if (currentSlide === 1 && isSectionSButtonHovered) return "#ffffff";
+                switch (currentSlide) {
+                  case 0: return isMenuOpen ? "#000000" : "#ffffff";
+                  case 1: return isMenuOpen ? "#f4f4f4" : "#000000";
+                  case 2: return isMenuOpen ? "#000000" : "#ffffff";
+                  default: return "#000000";
+                }
+              })()
+            }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
           >
             <svg
               width="32"
@@ -123,7 +142,6 @@ const ScrollLandingPage = () => {
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className={sectionStyles.iconColor}
             >
               <path
                 d="M3 8H21M3 16H21"
@@ -133,7 +151,7 @@ const ScrollLandingPage = () => {
                 strokeLinejoin="round"
               />
             </svg>
-          </button>
+          </motion.button>
         </Magnet>
       </div>
 
