@@ -1,5 +1,5 @@
 import React from "react";
-import ScrollLandingPage from "./components/ScrollLandingPage";
+import ScrollLandingPage from "./pages/ScrollLandingPage";
 
 function App() {
   return (

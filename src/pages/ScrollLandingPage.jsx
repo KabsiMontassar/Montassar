@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef, useCallback, useMemo } from "react"
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import { Observer } from "gsap/Observer";
-import SectionF from "./landing/SectionF";
-import SectionS from "./landing/SectionS";
-import SectionT from "./landing/SectionT";
+import SectionF from "../components/landing/SectionF";
+import SectionS from "../components/landing/SectionS";
+import SectionT from "../components/landing/SectionT";
 import yinYangSvg from "../assets/yin-yang.svg";
 
 // Register GSAP plugin

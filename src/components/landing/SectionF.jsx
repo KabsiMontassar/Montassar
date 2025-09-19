@@ -1,9 +1,9 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import { FiArrowDownRight } from "react-icons/fi";
-import CurvedLoop from "../CurvedLoop";
+import CurvedLoop from "../ui/CurvedLoop";
 import yinYangSvg from "../../assets/yin-yang.svg";
-import Plasma from "../Plasma";
+import Plasma from "../ui/Plasma";
 
 const titles = [
   "Reactjs Developer",
