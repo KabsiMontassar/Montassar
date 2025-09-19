@@ -707,6 +707,7 @@ body {
   will-change: text-shadow, transform;
   align-items: baseline;
   line-height: 1.2;
+ 
   vertical-align: baseline;
 }
 
@@ -821,5 +822,93 @@ body {
 
   .colorful-text:where(:hover, :focus-visible) .char-7 {
     text-shadow: 2px 2px 0 #f8376f, 3px 3px 0 #f8376f;
+  }
+}
+
+/* Keyboard Button Animation Styles */
+.colorful-text-alt {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+ 
+  margin: 0 0.25em;
+}
+
+.button-char {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+  border: 0;
+  text-decoration: none;
+  font-size: 0.6em;
+  font-family: 'Fira Code', ui-monospace, 'SFMono-Regular', 'Consolas',
+    'Liberation Mono', 'Menlo', monospace;
+  font-weight: 600;
+  color: #000;
+  text-transform: uppercase;
+  padding: 0.1em 0.3em;
+  background: #ffffff;
+  border: 1px solid #000;
+  border-radius: 0.25em;
+  transform-style: preserve-3d;
+  transition: transform 150ms cubic-bezier(0, 0, 0.58, 1),
+    background 150ms cubic-bezier(0, 0, 0.58, 1);
+  min-width: 0.8em;
+  min-height: 0.8em;
+  box-shadow: 0 2px 0 #ccc;
+}
+
+.button-char::before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #e0e0e0;
+  border-radius: inherit;
+  box-shadow: 0 0 0 1px #000;
+  transform: translate3d(0, 0.15em, -1em);
+  transition: transform 150ms cubic-bezier(0, 0, 0.58, 1);
+  z-index: -1;
+}
+
+.button-char:hover {
+  transform: translate(0, 0.08em);
+  box-shadow: 0 1px 0 #ccc;
+}
+
+.button-char:hover::before {
+  transform: translate3d(0, 0.1em, -1em);
+}
+
+.button-char:active {
+  background: #f0f0f0;
+  transform: translate(0em, 0.15em);
+  box-shadow: 0 0 0 #ccc;
+}
+
+.button-char:active::before {
+  box-shadow: 0 0 0 1px #000, 0 0 #d0d0d0;
+  transform: translate3d(0, 0, -1em);
+}
+
+/* Responsive adjustments for button chars */
+@media (max-width: 768px) {
+  .button-char {
+    font-size: 0.5em;
+    padding: 0.08em 0.25em;
+    min-width: 0.6em;
+    min-height: 0.6em;
+  }
+
+  .colorful-text-alt {
+    gap: 0.05em;
+    margin: 0 0.15em;
   }
 }

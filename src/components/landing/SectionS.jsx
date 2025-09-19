@@ -63,7 +63,17 @@ const SectionS = () => {
                 <div className="char char-6">u</div>
                 <div className="char char-7">l</div>
               </div>
-              , tactile experiences with{" "}
+              ,{" "}
+              <div className="colorful-text-alt">
+                <div className="button-char button-char-1">T</div>
+                <div className="button-char button-char-2">A</div>
+                <div className="button-char button-char-3">C</div>
+                <div className="button-char button-char-4">T</div>
+                <div className="button-char button-char-5">I</div>
+                <div className="button-char button-char-6">L</div>
+                <div className="button-char button-char-7">E</div>
+              </div>
+              {" "}experiences with{" "}
               <span
                 className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent inline-block align-baseline"
                 style={{ lineHeight: "1.2", verticalAlign: "baseline" }}
@@ -77,8 +87,8 @@ const SectionS = () => {
                   lineHeight: "1.2", 
                   verticalAlign: "baseline",
                   fontFamily: "'Cloudy', Arial, sans-serif",
-                  transform: cloudPosition === 'left' ? 'translateX(-20px)' : 
-                            cloudPosition === 'right' ? 'translateX(20px)' : 'translateX(0)',
+                  transform: cloudPosition === 'left' ? 'translateX(-15px)' : 
+                            cloudPosition === 'right' ? 'translateX(15px)' : 'translateX(0)',
                   display: 'inline-block'
                 }}
               >
