@@ -114,47 +114,46 @@ const ScrollLandingPage = () => {
               </motion.div>
             </Magnet>
           </div>
+
+          {/* Menu Button for each slide */}
+          <div className="absolute top-12 right-12 z-20">
+            <Magnet padding={50} disabled={false} magnetStrength={3}>
+              <motion.button
+                onClick={toggleMenu}
+                className="w-12 h-12 flex items-center justify-center transition-all duration-300 rounded-full mobile-menu-button tablet-menu-button"
+                animate={{
+                  color: (() => {
+                    if (index === 1 && isSectionSButtonHovered) return "#ffffff";
+                    switch (index) {
+                      case 0: return isMenuOpen ? "#000000" : "#ffffff";
+                      case 1: return isMenuOpen ? "#f4f4f4" : "#000000";
+                      case 2: return isMenuOpen ? "#000000" : "#ffffff";
+                      default: return "#000000";
+                    }
+                  })()
+                }}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
+              >
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3 8H21M3 16H21"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </motion.button>
+            </Magnet>
+          </div>
         </div>
       ))}
-
-      {/* Menu Button */}
-      <div className="fixed top-12 right-12 z-50">
-        <Magnet padding={50} disabled={false} magnetStrength={3}>
-          <motion.button
-            onClick={toggleMenu}
-            className="w-12 h-12 flex items-center justify-center transition-all duration-300 rounded-full mobile-menu-button tablet-menu-button"
-            animate={{
-              color: (() => {
-                if (currentSlide === 1 && isSectionSButtonHovered) return "#ffffff";
-                switch (currentSlide) {
-                  case 0: return isMenuOpen ? "#000000" : "#ffffff";
-                  case 1: return isMenuOpen ? "#f4f4f4" : "#000000";
-                  case 2: return isMenuOpen ? "#000000" : "#ffffff";
-                  default: return "#000000";
-                }
-              })()
-            }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
-          >
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3 8H21M3 16H21"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </motion.button>
-        </Magnet>
-      </div>
-
 
       {/* Mobile Navigation Menu */}
       <MobileNavigationMenu
