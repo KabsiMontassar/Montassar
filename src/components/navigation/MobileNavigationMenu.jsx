@@ -67,7 +67,7 @@ const MobileNavigationMenu = ({
               <motion.button
                 key={item.name}
                 onClick={() => navigateToSection(item.index)}
-                className={`${sectionStyles.textColor} ${sectionStyles.hoverColor} transition-colors duration-300`}
+                className={`${sectionStyles.textColor} ${sectionStyles.hoverColor} transition-colors duration-300 text-center w-full`}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ 
                   opacity: isMenuOpen ? 1 : 0,

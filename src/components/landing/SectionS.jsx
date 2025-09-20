@@ -163,7 +163,7 @@ const SectionS = ({ onButtonHover }) => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="flex justify-center pt-2 sm:pt-4 md:pt-6 lg:pt-8"
+              className="flex justify-center pt-6 sm:pt-8 md:pt-10 lg:pt-1 "
             >
               <div
                 className="relative rounded-full"
@@ -175,11 +175,9 @@ const SectionS = ({ onButtonHover }) => {
                   <motion.button
                     ref={buttonRef}
                     className={`
-                 
-                  
-                    px-8 sm:px-10 md:px-12 lg:px-16 xl:px-20
-                    py-4 sm:py-5 md:py-6 lg:py-7
-                    text-base sm:text-lg md:text-xl lg:text-2xl
+                    px-6 sm:px-8 md:px-10 lg:px-14 xl:px-18
+                    py-3 sm:py-4 md:py-5 lg:py-6
+                    text-sm sm:text-base md:text-lg lg:text-xl
                     font-semibold rounded-full
                     transition-all duration-300 ease-out
                     shadow-lg hover:shadow-2xl

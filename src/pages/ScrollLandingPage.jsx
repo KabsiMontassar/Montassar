@@ -94,8 +94,8 @@ const ScrollLandingPage = () => {
             />
           </div>
 
-          {/* Yin-Yang for each slide - Fixed positioning to match menu button */}
-          <div className="absolute top-12 left-12 z-20 mobile-yin-yang tablet-yin-yang large-yin-yang">
+          {/* Yin-Yang for each slide - Fixed positioning with better mobile spacing */}
+          <div className="absolute top-12 left-12 sm:top-14 sm:left-14 md:top-16 md:left-16 lg:top-12 lg:left-12 z-20 mobile-yin-yang tablet-yin-yang large-yin-yang">
             <Magnet padding={50} disabled={false} magnetStrength={3}>
               <motion.div
                 animate={{
@@ -117,7 +117,7 @@ const ScrollLandingPage = () => {
           </div>
 
           {/* Menu Button for each slide */}
-          <div className="absolute border-none top-12 right-12 z-50">
+          <div className="absolute border-none top-12 right-12 sm:top-14 sm:right-14 md:top-16 md:right-16 lg:top-12 lg:right-12 z-50">
             <Magnet padding={50} disabled={false} magnetStrength={3}>
               <motion.button
                 onClick={toggleMenu}
@@ -158,7 +158,7 @@ const ScrollLandingPage = () => {
 
       {/* Additional Menu Button - Only visible when menu is open */}
       {isMenuOpen && (
-        <div className="fixed top-12 right-12 z-60">
+        <div className="fixed top-12 right-12 sm:top-14 sm:right-14 md:top-16 md:right-16 lg:top-12 lg:right-12 z-60">
           <Magnet padding={50} disabled={false} magnetStrength={3}>
             <motion.button
               initial={{ opacity: 0, scale: 0.8 }}
