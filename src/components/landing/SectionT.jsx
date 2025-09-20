@@ -11,6 +11,8 @@ const SectionT = () => {
   const [isHovering, setIsHovering] = useState(false);
   const [isInitialLaunch, setIsInitialLaunch] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
+  const [contactHovered, setContactHovered] = useState(false);
+  const [justLeftContact, setJustLeftContact] = useState(false);
 
   const containerRef = useRef(null);
   const timeIntervalRef = useRef(null);
@@ -72,6 +74,10 @@ const SectionT = () => {
       const posX = isMobile ? `${base.y}vh` : `${base.x}vw`;
       const posY = isMobile ? `${base.x}vw` : `${base.y}vh`;
 
+      // Calculate relative position to contact button (0,0 is center)
+      const relativeX = isMobile ? base.y : base.x;
+      const relativeY = isMobile ? base.x : base.y;
+
       logosArray.push({
         id: `logo-${i}`,
         src: logo.src,
@@ -79,6 +85,8 @@ const SectionT = () => {
         size: isMobile ? 140 : 230,
         x: posX,
         y: posY,
+        relativeX: relativeX, // Store relative x position for repulsion
+        relativeY: relativeY, // Store relative y position for repulsion
         rotate: i * 5,
         delay: i * 0.1,
       });
@@ -90,6 +98,17 @@ const SectionT = () => {
 
   const handleMouseEnter = () => setIsHovering(true);
   const handleMouseLeave = () => setIsHovering(false);
+
+  const handleContactMouseEnter = () => {
+    setContactHovered(true);
+    setJustLeftContact(false);
+  };
+  const handleContactMouseLeave = () => {
+    setContactHovered(false);
+    setJustLeftContact(true);
+    // Reset the flag after a short delay
+    setTimeout(() => setJustLeftContact(false), 350);
+  };
 
   /** ✅ Motion variants for logos */
   const logoVariants = useCallback(
@@ -123,6 +142,26 @@ const SectionT = () => {
           scale: 1,
           rotate: logo.rotate || 0,
           transition: { duration: 0.4, ease: "easeOut" },
+        },
+        repelled: {
+          x: logo.relativeX > 0 
+            ? `calc(${logo.x} + 10px)` // Move right logos further right
+            : `calc(${logo.x} - 10px)`, // Move left logos further left
+          y: logo.relativeY > 0 
+            ? `calc(${logo.y} + 10px)` // Move bottom logos further down
+            : `calc(${logo.y} - 10px)`, // Move top logos further up
+          opacity: 1,
+          scale: 1,
+          rotate: logo.rotate || 0,
+          transition: { duration: 0.3, ease: "easeOut" },
+        },
+        return: {
+          x: logo.x,
+          y: logo.y,
+          opacity: 1,
+          scale: 1,
+          rotate: logo.rotate || 0,
+          transition: { duration: 0.3, ease: "easeOut", delay: 0 }, // No delay for simultaneous return
         },
       };
     },
@@ -159,7 +198,17 @@ const SectionT = () => {
           key={logo.id}
           variants={logoVariants(logo)}
           initial="hidden"
-          animate={!launched ? "hidden" : isHovering ? "scattered" : "visible"}
+          animate={
+            !launched 
+              ? "hidden" 
+              : contactHovered 
+                ? "repelled" 
+                : justLeftContact
+                  ? "return"
+                  : isHovering 
+                    ? "scattered" 
+                    : "visible"
+          }
           className="absolute z-10"
           style={{
             left: "50%",
@@ -194,23 +243,23 @@ const SectionT = () => {
         }}
       >
         <Magnet
-          magnetStrength={3}
+          magnetStrength={7}
           padding={150}
           wrapperClassName="relative"
           innerClassName="transition-transform duration-300 ease-out"
         >
           <div
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            className="
-            w-[256px] h-[256px]
+            onMouseEnter={handleContactMouseEnter}
+            onMouseLeave={handleContactMouseLeave}
+            className={`
+          w-[128px] h-[128px]  sm:w-[128px] sm:h-[128px] md:w-[256px] md:h-[256px] 
               rounded-full flex items-center justify-center text-white font-bold
               relative cursor-pointer
               shadow-[0_0_80px_30px_rgba(255,255,255,0.15)]
             
               border border-[rgba(255,255,255,0.2)]
               backdrop-blur-md
-            "
+            `}
            
           >
             <span className="text-2xl md:text-4xl font-extrabold tracking-wide">
