@@ -8,8 +8,49 @@ const SectionT = () => {
   const [formattedTime, setFormattedTime] = useState(formatTime(new Date()));
   const [launched, setLaunched] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
+  const [isInitialLaunch, setIsInitialLaunch] = useState(true);
   const [shapes, setShapes] = useState([]);
   const containerRef = useRef(null);
+
+/**  
+ 
+ 
+
+FRAMER 
+Figma 
+next 
+react 
+kubernetes 
+
+docker 
+firebase 
+angular 
+nestjs 
+typescript
+
+openai
+chakraui
+ansible
+GSAP
+motion.dev
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   // Update local time every minute
   useEffect(() => {
@@ -82,8 +123,8 @@ const SectionT = () => {
     setShapes(generateShapes());
   }, []);
 
-  // Variants for shapes
-  const shapeVariants = (shape) => ({
+  // Variants for shapes with conditional delays
+  const shapeVariants = (shape, isInitialLaunch) => ({
     hidden: {
       x: "0vw",
       y: typeof window !== "undefined" ? `${window.innerHeight / 2 + 200}px` : "600px",
@@ -99,7 +140,7 @@ const SectionT = () => {
       rotate: shape.rotate,
       transition: {
         duration: 1,
-        delay: shape.delay,
+        delay: isInitialLaunch ? shape.delay : 0, // Delay only for initial launch
         ease: [0.22, 1, 0.36, 1]
       }
     },
@@ -111,6 +152,7 @@ const SectionT = () => {
       rotate: shape.rotate,
       transition: {
         duration: 0.3,
+        delay: 0, // No delay for simultaneous movement
         ease: "easeOut"
       }
     }
@@ -135,8 +177,10 @@ const SectionT = () => {
           if (entry.isIntersecting) {
             setShapes(generateShapes());
             setLaunched(true);
+            setIsInitialLaunch(true);
           } else {
             setLaunched(false);
+            setIsInitialLaunch(false);
           }
         });
       },
@@ -152,7 +196,7 @@ const SectionT = () => {
       {shapes.map((shape) => (
         <motion.div
           key={shape.id}
-          variants={shapeVariants(shape)}
+          variants={shapeVariants(shape, isInitialLaunch)}
           initial="hidden"
           animate={
             !launched
@@ -205,8 +249,14 @@ const SectionT = () => {
             <div
               className="w-64 h-64 rounded-full flex items-center justify-center text-white font-bold shadow-2xl relative overflow-hidden backdrop-blur-sm cursor-pointer"
               style={{ background: "hsla(0,0%,100%,.08)", border: "1px solid hsla(0,0%,100%,.1)" }}
-              onMouseEnter={() => setIsHovering(true)}
-              onMouseLeave={() => setIsHovering(false)}
+              onMouseEnter={() => {
+                setIsHovering(true);
+                setIsInitialLaunch(false);
+              }}
+              onMouseLeave={() => {
+                setIsHovering(false);
+                setIsInitialLaunch(false);
+              }}
             >
               <span className="text-xl font-bold z-10 relative tracking-wide">Contact.</span>
               <div
