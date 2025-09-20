@@ -53,27 +53,15 @@ const Technologie = () => {
     return (
         <span
             style={{
-                textTransform: "uppercase",
-                fontFamily: "DT Grotesk Display, sans-serif",
                 lineHeight: "1.2",
                 textAlign: "center",
-                fontSize: "6rem",
-                fontWeight: "900",
-                boxSizing: "border-box",
-                WebkitFontSmoothing: "antialiased",
-                WebkitAppearance: "none",
-                color: "inherit",
                 backgroundPosition: "50%",
                 backgroundSize: "cover",
                 width: "1em",
                 height: "1em",
-                marginLeft: "1rem",
-                marginRight: "1rem",
                 display: "inline-block",
-                position: "relative",
                 backgroundImage:
                     'url("https://cdn.prod.website-files.com/66fb0e86356d0ec4d059d333/66fb1dc2860f829926fa6ed0_tech.svg")',
-                opacity: 1,
                 transform: getTransform(),
                 transformStyle: 'preserve-3d',
                 transition: getTransition(),

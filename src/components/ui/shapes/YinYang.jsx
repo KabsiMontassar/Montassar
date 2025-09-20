@@ -7,7 +7,7 @@ import { YIN_YANG_ROTATION } from "../../../utils/constants";
  */
 const YinYang = ({ 
   src, 
-  isHovered, 
+  isHovered = true, 
   className = "", 
   size = "w-10 h-10",
   filterClass = "",

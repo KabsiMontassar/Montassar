@@ -9,39 +9,13 @@ import YinYang from "../ui/shapes/YinYang";
 import yinYangSvg from "../../assets/images/yin-yang.svg";
 import ColourfulText from "../ui/typography/colourful-text";
 import Technologie from "../ui/shapes/Technologie";
+import Keys from "../ui/typography/Keys";
 // Register GSAP plugins
 gsap.registerPlugin(Observer);
 
 const SectionS = ({ onButtonHover }) => {
   const [isButtonHovered, setIsButtonHovered] = useState(false);
-  const [isYinYangHovered, setIsYinYangHovered] = useState(false);
-  const buttonRef = useRef(null);
 
-  // Mouse move handler for magnetic effect
-  const handleMouseMove = (e) => {
-    if (buttonRef.current) {
-      const rect = buttonRef.current.getBoundingClientRect();
-      const buttonCenterX = rect.left + rect.width / 2;
-      const buttonCenterY = rect.top + rect.height / 2;
-
-      const distanceX = e.clientX - buttonCenterX;
-      const distanceY = e.clientY - buttonCenterY;
-
-      // Apply magnetic effect within 200px radius
-      const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-      if (distance < 200) {
-
-        setIsButtonHovered(true);
-      } else {
-        setIsButtonHovered(false);
-      }
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
 
   useEffect(() => {
     if (onButtonHover) {
@@ -68,7 +42,13 @@ const SectionS = ({ onButtonHover }) => {
                 ease: [0.25, 0.46, 0.45, 0.94],
               }}
             >
-              Transforming  ideas into  ,polished experiences  <Chevrons /> where
+              <Keys text="Transforming"
+                color="#101828"
+                fontSize="4vw"
+               />
+            
+
+              ideas into  ,polished experiences  <Chevrons /> where
               <span className="inline-block mx-5">
                 <ColourfulText text="design" />
               </span>
@@ -77,9 +57,6 @@ const SectionS = ({ onButtonHover }) => {
                 src={yinYangSvg}
                 size={"w-18 h-18 inline-block ml-3  "}
                 style={{ verticalAlign: 'baseline' }}
-                isHovered={isYinYangHovered}
-                onMouseEnter={() => setIsYinYangHovered(true)}
-                onMouseLeave={() => setIsYinYangHovered(false)}
               />
 
 
