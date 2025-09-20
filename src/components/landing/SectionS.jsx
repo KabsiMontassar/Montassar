@@ -15,7 +15,33 @@ gsap.registerPlugin(Observer);
 
 const SectionS = ({ onButtonHover }) => {
   const [isButtonHovered, setIsButtonHovered] = useState(false);
+  const buttonRef = useRef(null);
 
+  // Mouse move handler for magnetic effect
+  const handleMouseMove = (e) => {
+    if (buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      const buttonCenterX = rect.left + rect.width / 2;
+      const buttonCenterY = rect.top + rect.height / 2;
+
+      const distanceX = e.clientX - buttonCenterX;
+      const distanceY = e.clientY - buttonCenterY;
+
+      // Apply magnetic effect within 200px radius
+      const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+      if (distance < 200) {
+
+        setIsButtonHovered(true);
+      } else {
+        setIsButtonHovered(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   useEffect(() => {
     if (onButtonHover) {
