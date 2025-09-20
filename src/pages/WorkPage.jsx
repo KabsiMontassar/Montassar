@@ -17,11 +17,9 @@ import YinYang from "../components/ui/shapes/YinYang";
 // Hooks
 import { useSlideNavigation } from "../hooks/useSlideNavigation";
 import { useEventListeners } from "../hooks/useEventListeners";
-import { useTime } from "../hooks/useTime";
 
 // Assets
 import yinYangSvg from "../assets/images/yin-yang.svg";
-import PageTransition from "../components/PageTransition";
 
 // Constants
 const WORK_SECTIONS = [WorkSection1, WorkSection2, WorkSection3, WorkSection4, WorkSection5];
@@ -36,17 +34,8 @@ const WorkPage = () => {
 
   // Custom hooks
   const { currentSlide, isAnimating, slideRefs, navigateToSection, next, prev } = useSlideNavigation(WORK_SECTIONS.length);
-  const { formattedTime } = useTime();
 
-  // Menu handlers
-  const toggleMenu = useCallback(() => {
-    setIsMenuOpen(prev => !prev);
-  }, []);
 
-  const handleNavigateToSection = useCallback((sectionIndex) => {
-    navigateToSection(sectionIndex);
-    setIsMenuOpen(false);
-  }, [navigateToSection]);
 
   const handleNavigateHome = useCallback(() => {
     navigate('/');
@@ -63,6 +52,13 @@ const WorkPage = () => {
     setIsMenuOpen,
     setIsMontassarHovered
   });
+
+
+
+  const getSectionStyles = (index) => {
+    if (index % 2 === 0) return true
+    return false
+  };
 
   // Keyboard navigation
   useEffect(() => {
@@ -129,7 +125,7 @@ const WorkPage = () => {
             <Magnet padding={50} disabled={false} magnetStrength={3}>
               <motion.div
                 animate={{
-                  filter: 'invert(0)'
+                  filter: getSectionStyles(index) ? "invert(1)" : "invert(0)",
                 }}
                 transition={{ duration: 0.6, ease: "easeInOut" }}
               >
@@ -146,12 +142,16 @@ const WorkPage = () => {
             </Magnet>
           </div>
 
+         
+
           {/* Back to Home Button */}
           <div className="absolute top-12 right-12 sm:top-14 sm:right-14 md:top-16 md:right-16 lg:top-12 lg:right-12 z-50">
             <Magnet padding={50} disabled={false} magnetStrength={3}>
               <motion.button
                 onClick={handleNavigateHome}
-                className="w-12 h-12 flex items-center justify-center transition-all duration-300 border-none bg-white/10 backdrop-blur-sm rounded-full hover:bg-white/20"
+                className={`w-12 h-12 flex items-center justify-center transition-all duration-300 border-none
+                 bg-${getSectionStyles(index) ? "white" : "black"}/10 backdrop-blur-sm rounded-full
+                  hover:bg-${getSectionStyles(index) ? "white" : "black"}/20`}
               >
                 <svg
                   width="24"
@@ -159,7 +159,7 @@ const WorkPage = () => {
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
-                  className="text-white"
+                  className={getSectionStyles(index) ? "text-white" : "text-black"}
                 >
                   <path
                     d="M19 12H5M12 19L5 12L12 5"
@@ -171,27 +171,30 @@ const WorkPage = () => {
                 </svg>
               </motion.button>
             </Magnet>
-          </div>
+          </div>  
 
-          {/* Section Counter */}
-          <div className="absolute top-12 left-1/2 transform -translate-x-1/2 z-20">
-            <div className="bg-black/20 backdrop-blur-sm rounded-full px-4 py-2">
-              <span className="text-white font-medium">
-                {currentSlide + 1} / {WORK_SECTIONS.length}
-              </span>
-            </div>
-          </div>
-
-          {/* Navigation Instructions */}
-          <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 z-20">
-            <div className="text-center text-white/60 text-sm">
-              <p>Use arrow keys or scroll to navigate • Press ESC to go home</p>
+          {/* Progress Indicator */}
+          <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20">
+            <div className="flex items-end justify-center gap-6">
+              {WORK_SECTIONS.map((_, index) => (
+                <motion.div
+                  key={index}
+                  className={`w-1 rounded-full transition-all duration-300 ${
+                    index === currentSlide
+                      ? `h-10 bg-${getSectionStyles(currentSlide) ? "white" : "black"}`
+                      : `h-4 bg-${getSectionStyles(currentSlide) ? "white" : "black"}/40`
+                  }`}
+                  initial={{ scaleY: 0 }}
+                  animate={{ scaleY: 1 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                />
+              ))}
             </div>
           </div>
         </div>
       ))}
 
-      {/* Custom Cursor */}
+   
       <CustomCursor mousePosition={mousePosition} />
     </div>
   );

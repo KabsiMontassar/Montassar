@@ -11,7 +11,6 @@ import YinYang from "../components/ui/shapes/YinYang";
 import Magnet from "../components/ui/Magnet";
 import MobileNavigationMenu from "../components/navigation/MobileNavigationMenu";
 import DesktopNavigationMenu from "../components/navigation/DesktopNavigationMenu";
-import PageTransition from "../components/PageTransition";
 
 // Hooks
 import { useSlideNavigation } from "../hooks/useSlideNavigation";

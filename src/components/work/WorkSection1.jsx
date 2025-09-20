@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 const WorkSection1 = () => {
   return (
-    <div className="relative w-full min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 flex items-center justify-center">
+    <div className="relative w-full min-h-screen bg-gradient-to-r from-black to-[#222121] flex items-center justify-center">
       <div className="text-center text-white max-w-4xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
