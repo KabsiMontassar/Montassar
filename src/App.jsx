@@ -7,7 +7,7 @@ import WorkPage from "./pages/WorkPage";
 function App() {
   return (
     <Router 
-      basename="/portfolio"
+      basename="/portfolio/"
       future={{
         v7_startTransition: true,
         v7_relativeSplatPath: true
