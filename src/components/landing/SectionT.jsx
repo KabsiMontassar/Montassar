@@ -90,6 +90,13 @@ const SectionT = () => {
         delay: i * 0.1,
       });
     }
+
+    // Sort logos by X position from right to left and reassign delays
+    logosArray.sort((a, b) => b.relativeX - a.relativeX);
+    logosArray.forEach((logo, index) => {
+      logo.delay = index * 0.1;
+    });
+
     return logosArray;
   }, [isMobile]);
 
