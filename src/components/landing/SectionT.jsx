@@ -5,36 +5,25 @@ import { SOCIAL_LINKS } from "../../utils/constants";
 import Magnet from "../ui/Magnet";
 import { logos as logoData } from "../../assets/logo/index.js";
 
-const bottomVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0 },
-};
-
 const SectionT = () => {
   const [formattedTime, setFormattedTime] = useState(() => formatTime(new Date()));
   const [launched, setLaunched] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const [isInitialLaunch, setIsInitialLaunch] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
 
   const containerRef = useRef(null);
-  const observerRef = useRef(null);
   const timeIntervalRef = useRef(null);
 
-  /** Add gradient keyframes only once */
+  /** ✅ Detect screen size */
   useEffect(() => {
-    const style = document.createElement("style");
-    style.textContent = `
-      @keyframes gradientShift {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-      }
-    `;
-    document.head.appendChild(style);
-    return () => document.head.removeChild(style);
+    const checkSize = () => setIsMobile(window.innerWidth < 768);
+    checkSize();
+    window.addEventListener("resize", checkSize);
+    return () => window.removeEventListener("resize", checkSize);
   }, []);
 
-  /** Update local time every minute */
+  /** ✅ Update local time every minute */
   useEffect(() => {
     timeIntervalRef.current = setInterval(
       () => setFormattedTime(formatTime(new Date())),
@@ -43,7 +32,7 @@ const SectionT = () => {
     return () => clearInterval(timeIntervalRef.current);
   }, []);
 
-  /** Generate scattered logos */
+  /** ✅ Generate scattered logos */
   const generateLogos = useCallback(() => {
     if (!logoData?.length) return [];
     const logosArray = [];
@@ -79,27 +68,30 @@ const SectionT = () => {
       const base = basePositions[i % basePositions.length];
       const logo = shuffled[i];
       if (!logo?.src) continue;
+
+      const posX = isMobile ? `${base.y}vh` : `${base.x}vw`;
+      const posY = isMobile ? `${base.x}vw` : `${base.y}vh`;
+
       logosArray.push({
         id: `logo-${i}`,
         src: logo.src,
         name: logo.name || `Logo ${i}`,
-        size: 250,
-        x: `${base.x}vw`,
-        y: `${base.y}vh`,
+        size: isMobile ? 140 : 230,
+        x: posX,
+        y: posY,
         rotate: i * 5,
         delay: i * 0.1,
       });
     }
-
     return logosArray;
-  }, []);
+  }, [isMobile]);
 
   const logos = useMemo(() => (launched ? generateLogos() : []), [launched, generateLogos]);
 
   const handleMouseEnter = () => setIsHovering(true);
   const handleMouseLeave = () => setIsHovering(false);
 
-  /** Motion variants for logos */
+  /** ✅ Motion variants for logos */
   const logoVariants = useCallback(
     (logo) => {
       const safeH = typeof window !== "undefined" ? window.innerHeight : 800;
@@ -137,7 +129,7 @@ const SectionT = () => {
     [isInitialLaunch]
   );
 
-  /** Trigger launch when visible */
+  /** ✅ Trigger launch when section visible */
   useEffect(() => {
     const node = containerRef.current;
     if (!node) return;
@@ -147,15 +139,18 @@ const SectionT = () => {
           setLaunched(e.isIntersecting);
           setIsInitialLaunch(e.isIntersecting);
         }),
-      { threshold: 0.35 }
+      { threshold: 0.15 }
     );
     obs.observe(node);
-    observerRef.current = obs;
     return () => obs.disconnect();
   }, []);
 
+  /** ✅ Big round Contact circle size */
+  const circleSize = isMobile ? 280 : 460;
+
   return (
-    <div className="relative w-full h-full bg-gradient-to-r from-black to-[#222121] overflow-hidden">
+    <div className="relative w-full h-full min-h-screen bg-gradient-to-r from-black to-[#222121] overflow-hidden">
+      {/* Background dim */}
       <div className="absolute inset-0 opacity-30" />
 
       {/* ✅ Animated Logos */}
@@ -169,8 +164,8 @@ const SectionT = () => {
           style={{
             left: "50%",
             top: "50%",
-            marginLeft: `-${(logo.size || 250) / 2}px`,
-            marginTop: `-${(logo.size || 250) / 2}px`,
+            marginLeft: `-${logo.size / 2}px`,
+            marginTop: `-${logo.size / 2}px`,
             width: logo.size,
             height: logo.size,
           }}
@@ -186,16 +181,16 @@ const SectionT = () => {
         </motion.div>
       ))}
 
-      {/* ✅ Contact button (always visible, no animation) */}
+      {/* ✅ Big Round Contact Button */}
       <div
-        className="absolute z-20"
+        className="absolute z-20 flex items-center justify-center"
         style={{
           left: "50%",
           top: "50%",
-          marginLeft: "-128px",
-          marginTop: "-128px",
-          width: "256px",
-          height: "256px",
+          width: `${circleSize}px`,
+          height: `${circleSize}px`,
+          marginLeft: `-${circleSize / 2}px`,
+          marginTop: `-${circleSize / 2}px`,
         }}
       >
         <Magnet
@@ -207,57 +202,59 @@ const SectionT = () => {
           <div
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            className="w-64 h-64 rounded-full flex items-center justify-center text-white font-bold relative cursor-pointer shadow-2xl"
-            style={{
-              background: "rgba(255, 255, 255, 0.1)",
-              border: "1px solid rgba(255, 255, 255, 0.2)",
-              backdropFilter: "blur(10%)",
-              WebkitBackdropFilter: "blur(10%)",
-            }}
+            className="
+            w-[256px] h-[256px]
+              rounded-full flex items-center justify-center text-white font-bold
+              relative cursor-pointer
+              shadow-[0_0_80px_30px_rgba(255,255,255,0.15)]
+            
+              border border-[rgba(255,255,255,0.2)]
+              backdrop-blur-md
+            "
+           
           >
-            <span className="text-3xl font-bold tracking-wide">Contact
-              <span  className="text-[#ffe500]">.</span>
+            <span className="text-2xl md:text-4xl font-extrabold tracking-wide">
+              Contact<span className="text-[#ffe500]">.</span>
             </span>
           </div>
         </Magnet>
       </div>
 
-      {/* Bottom Info */}
+      {/* ✅ Bottom Info */}
       <motion.div
         ref={containerRef}
-        className="absolute bottom-8 left-8 right-8 flex justify-between items-end z-30"
-        variants={bottomVariants}
-        initial="hidden"
-        animate={launched ? "visible" : "hidden"}
-        transition={{ duration: 0.8, delay: 1.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+        className="absolute bottom-6 md:bottom-8 left-4 right-4 flex flex-col md:flex-row justify-between items-center md:items-end z-30 gap-4 text-white"
+        initial={{ opacity: 0, y: 40 }}
+        animate={launched ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+        transition={{ duration: 0.8, delay: 1.2 }}
       >
-        <div className="flex space-x-8">
-          <div className="text-left text-white">
-            <div className="text-lg font-bold mb-1">LOCAL TIME</div>
-            <div className="text-lg font-bold">{formattedTime}</div>
+        <div className="flex flex-col md:flex-row gap-6 md:gap-8">
+          <div>
+            <div className="text-sm md:text-lg font-bold mb-1">LOCAL TIME</div>
+            <div className="text-sm md:text-lg font-bold">{formattedTime}</div>
           </div>
-          <div className="text-left text-white">
-            <div className="text-lg mb-1">OPEN SOURCE</div>
+          <div>
+            <div className="text-sm md:text-lg mb-1">OPEN SOURCE</div>
             <a
               href="https://github.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-lg font-bold hover:text-gray-300 transition-colors"
+              className="text-sm md:text-lg font-bold hover:text-gray-300 transition-colors"
             >
               View on GitHub
             </a>
           </div>
         </div>
 
-        <div className="text-right text-white">
-          <div className="text-base font-bold mb-1">SOCIALS</div>
-          <div className="flex space-x-3">
+        <div className="text-center md:text-right">
+          <div className="text-sm md:text-base font-bold mb-1">SOCIALS</div>
+          <div className="flex gap-3 justify-center md:justify-end">
             {SOCIAL_LINKS?.map(({ name, href, external }) => (
               <a
                 key={name}
                 href={href}
                 {...(external && { target: "_blank", rel: "noopener noreferrer" })}
-                className="text-xs font-semibold hover:text-gray-300 transition-colors"
+                className="text-xs md:text-sm font-semibold hover:text-gray-300 transition-colors"
               >
                 {name}
               </a>
