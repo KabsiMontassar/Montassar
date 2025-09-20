@@ -185,7 +185,7 @@ const SectionT = () => {
   }, []);
 
   /** ✅ Big round Contact circle size */
-  const circleSize = isMobile ? 280 : 460;
+  const circleSize = isMobile ? 230 : 380;
 
   return (
     <div className="relative w-full h-full min-h-screen bg-gradient-to-r from-black to-[#222121] overflow-hidden">
@@ -252,7 +252,7 @@ const SectionT = () => {
             onMouseEnter={handleContactMouseEnter}
             onMouseLeave={handleContactMouseLeave}
             className={`
-          w-[128px] h-[128px]  sm:w-[128px] sm:h-[128px] md:w-[256px] md:h-[256px] 
+          w-[128px] h-[128px]  sm:w-[128px] sm:h-[128px] md:w-[230px] md:h-[230px] 
               rounded-full flex items-center justify-center text-white font-bold
               relative cursor-pointer
               shadow-[0_0_80px_30px_rgba(255,255,255,0.15)]
