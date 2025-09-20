@@ -4,12 +4,18 @@ import { formatTime } from "../../utils/helpers";
 import { SOCIAL_LINKS } from "../../utils/constants";
 import Magnet from "../ui/Magnet";
 
+import { logos as logoData } from '../../assets/logo/index.js';
+
+
+
+
+
 const SectionT = () => {
   const [formattedTime, setFormattedTime] = useState(formatTime(new Date()));
   const [launched, setLaunched] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const [isInitialLaunch, setIsInitialLaunch] = useState(true);
-  const [shapes, setShapes] = useState([]);
+  const [logos, setLogos] = useState([]);
   const containerRef = useRef(null);
 
 /**  
@@ -24,8 +30,10 @@ kubernetes
 
 docker 
 firebase 
+nestjs
+
 angular 
-nestjs 
+ 
 typescript
 
 openai
@@ -40,20 +48,6 @@ https://www.vipulkumar.dev/#third
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   // Update local time every minute
   useEffect(() => {
     const interval = setInterval(() => {
@@ -62,20 +56,10 @@ https://www.vipulkumar.dev/#third
     return () => clearInterval(interval);
   }, []);
 
-  // Random color generator
-  const generateRandomColor = () => {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  };
-
-  // Generate shapes with oriented positions
-  const generateShapes = () => {
-    const shapesArray = [];
-    const numShapes = 15;
+  // Generate logos with oriented positions
+  const generateLogos = () => {
+    const logosArray = [];
+    const numLogos = 14; // Changed from 15 to 14
     const basePositions = [];
     const pointCount = 5;
     const minDistance = 8;
@@ -92,7 +76,7 @@ https://www.vipulkumar.dev/#third
       const zonePoints = [];
       while (zonePoints.length < count) {
         const x = randRange(xMin, xMax);
-        const y = randRange(-20, 20);
+        const y = randRange(-10, 10);
         if (isFarEnough(x, y, zonePoints)) {
           zonePoints.push({ x, y });
         }
@@ -104,54 +88,59 @@ https://www.vipulkumar.dev/#third
     basePositions.push(...generateZone(-5, 5, pointCount));
     basePositions.push(...generateZone(10, 40, pointCount));
 
-    for (let i = 0; i < numShapes; i++) {
+    // Shuffle the logo data array for randomization
+    const shuffledLogos = [...logoData].sort(() => Math.random() - 0.5);
+
+    for (let i = 0; i < numLogos; i++) {
       const base = basePositions[i % basePositions.length];
-      shapesArray.push({
-        id: `circle-${i + 1}`,
-        color: generateRandomColor(),
-        size: 250,
+      const logo = shuffledLogos[i % shuffledLogos.length];
+      logosArray.push({
+        id: `logo-${i + 1}`,
+        src: logo.src,
+        name: logo.name,
+        size: 250, // Set to 250px as requested
         x: `${base.x}vw`,
         y: `${base.y}vh`,
-        rotate: i * 24,
+        rotate: i * 5,
         delay: i * 0.1
       });
     }
 
-    return shapesArray;
+    return logosArray;
   };
 
-  // Generate shapes on mount
+  // Generate logos on mount
   useEffect(() => {
-    setShapes(generateShapes());
+    setLogos(generateLogos());
   }, []);
 
-  // Variants for shapes with conditional delays
-  const shapeVariants = (shape, isInitialLaunch) => ({
+  // Variants for logos with conditional delays
+  const logoVariants = (logo, isInitialLaunch) => ({
     hidden: {
       x: "0vw",
       y: typeof window !== "undefined" ? `${window.innerHeight / 2 + 200}px` : "600px",
       opacity: 0,
       scale: 0.8,
-      rotate: shape.rotate
+      rotate: logo.rotate
     },
     visible: {
-      x: shape.x,
-      y: shape.y,
+      x: logo.x,
+      y: logo.y,
       opacity: 1,
       scale: 1,
-      rotate: shape.rotate,
+      rotate: logo.rotate,
       transition: {
         duration: 1,
-        delay: isInitialLaunch ? shape.delay : 0, // Delay only for initial launch
+        delay: isInitialLaunch ? logo.delay : 0, // Delay only for initial launch
         ease: [0.22, 1, 0.36, 1]
       }
     },
     scattered: {
-      x: `calc(${shape.x} + ${parseFloat(shape.x) > 0 ? '15px' : '-15px'})`,
-      y: `calc(${shape.y} + ${parseFloat(shape.y) > 0 ? '15px' : '-15px'})`,
+      x: `calc(${logo.x} + ${parseFloat(logo.x) > 0 ? '15px' : '-15px'})`,
+      y: `calc(${logo.y} + ${parseFloat(logo.y) > 0 ? '15px' : '-15px'})`,
       opacity: 1,
       scale: 1,
-      rotate: shape.rotate,
+      rotate: logo.rotate,
       transition: {
         duration: 0.3,
         delay: 0, // No delay for simultaneous movement
@@ -177,7 +166,7 @@ https://www.vipulkumar.dev/#third
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setShapes(generateShapes());
+            setLogos(generateLogos());
             setLaunched(true);
             setIsInitialLaunch(true);
           } else {
@@ -194,11 +183,11 @@ https://www.vipulkumar.dev/#third
 
   return (
     <div className="relative w-full h-full bg-black overflow-hidden">
-      {/* Shapes */}
-      {shapes.map((shape) => (
+      {/* Logos */}
+      {logos.map((logo) => (
         <motion.div
-          key={shape.id}
-          variants={shapeVariants(shape, isInitialLaunch)}
+          key={logo.id}
+          variants={logoVariants(logo, isInitialLaunch)}
           initial="hidden"
           animate={
             !launched
@@ -211,23 +200,26 @@ https://www.vipulkumar.dev/#third
           style={{
             left: "50%",
             top: "50%",
-            marginLeft: `${-shape.size / 2}px`,
-            marginTop: `${-shape.size / 2}px`,
-            width: shape.size,
-            height: shape.size
+            marginLeft: `${-logo.size / 2}px`,
+            marginTop: `${-logo.size / 2}px`,
+            width: logo.size,
+            height: logo.size
           }}
         >
-          <div
-            className="w-full h-full rounded-full"
-            style={{
-              background: shape.color,
-              boxShadow: `0 0 30px ${shape.color}60`
-            }}
-          />
+          <div className="w-full h-full flex items-center justify-center">
+            <img
+              src={logo.src}
+              alt={logo.name}
+              className="w-full h-full object-contain"
+              style={{
+                width: '250px',
+                height: '250px',
+                filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.1))'
+              }}
+            />
+          </div>
         </motion.div>
-      ))}
-
-      {/* Central Contact Button */}
+      ))}      {/* Central Contact Button */}
       <div className="relative z-20 h-full flex items-center justify-center text-white">
         <motion.div
           variants={magnetVariants}
