@@ -55,7 +55,7 @@ const SectionF = () => {
 
 
   return (
-    <div className="relative w-full h-full bg-gradient-to-r from-black to-[#222121] overflow-hidden mobile-section-f">
+    <div className="relative w-full h-screen bg-gradient-to-r from-black to-[#222121] overflow-hidden">
       {/* Plasma Background Effect */}
       <div className="absolute inset-0 z-0 opacity-70">
         <Plasma
@@ -68,145 +68,256 @@ const SectionF = () => {
         />
       </div>
 
-      {/* Left side content */}
-      <div className="absolute left-8 md:left-30 top-1/2 md:top-2/5 transform -translate-y-1/2 z-20 text-white left-content">
-        <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex flex-col items-start space-y-4 md:space-y-6"
-          style={{ zIndex: 20, position: "relative" }}
-        >
-          {/* Arrow Icon */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="mb-4 md:mb-8"
-          >
-            <FiArrowDownRight
-              strokeWidth={1.5}
-              className={`text-white text-4xl md:text-6xl arrow-icon
-               hover:text-amber-300 transition-colors duration-300
-              `}
-            />
-          </motion.div>
-
-          {/* Freelance Text */}
-          <motion.h2
-            className="text-3xl md:text-4xl lg:text-6xl text-white mb-2 freelance-text"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.0 }}
-          >
-            Freelance
-          </motion.h2>
-
-          {/* Animated Job Titles */}
-          <motion.div
-            className="flex items-center space-x-2"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.2 }}
-          >
-            <div className="relative overflow-hidden h-8 md:h-12 w-full max-w-full job-titles">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
-                  className="absolute w-full text-lg md:text-2xl lg:text-3xl font-semibold text-gray-300 flex items-center h-8 md:h-12 text-content z-20"
-                  style={{
-                    visibility: "visible",
-                    display: "flex",
-                    position: "relative",
-                    zIndex: 20,
-                  }}
-                >
-                  <span className="truncate pr-1 text-gray-300">
-                    {titles[index]}
-                  </span>
-                  <span className="text-yellow-400 flex-shrink-0">.</span>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-          </motion.div>
-        </motion.div>
-      </div>
-
-
-        <div className="absolute right-8 md:right-30 bottom-20 md:top-2/5 md:bottom-auto transform z-10 w-full md:w-auto right-content">
-          <Magnet padding={50} disabled={false} magnetStrength={3}>
-
+      {/* Mobile Layout (< 768px) */}
+      <div className="md:hidden relative h-full z-20 text-white">
+        {/* Mobile content container */}
+        <div className="flex flex-col h-full px-4 sm:px-6">
+          
+          {/* Top section - Arrow and titles */}
+          <div className="flex-1 flex flex-col justify-center items-center text-center space-y-6">
+            
+            {/* Arrow Icon */}
             <motion.div
-          ref={cardRef}
-          initial={{ opacity: 0, x: 50 }}
-          animate={{
-            opacity: 1,
-            x: mousePosition.x,
-            y: mousePosition.y,
-          }}
-          transition={{
-            duration: 0.8,
-            delay: 0.8,
-            x: { type: "spring", stiffness: 150, damping: 15 },
-            y: { type: "spring", stiffness: 150, damping: 15 },
-          }}
-          className="bg-[#272727] rounded-full px-6 md:px-8 py-4 md:py-6 w-full md:w-80 h-auto md:h-30 flex items-center justify-between cursor-pointer work-card"
-          onMouseEnter={() => setIsCardHovered(true)}
-          onMouseLeave={() => setIsCardHovered(false)}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              className="mb-4"
             >
-          {/* Text Content */}
-          <div className="flex flex-col space-y-1">
-            <motion.h3
-              className="text-base md:text-lg font-semibold text-gray-300 work-card-text"
+              <FiArrowDownRight
+                strokeWidth={1.5}
+                className="text-white text-5xl sm:text-6xl hover:text-amber-300 transition-colors duration-300"
+              />
+            </motion.div>
+
+            {/* Freelance Text */}
+            <motion.h2
+              className="text-4xl sm:text-5xl text-white font-bold"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.0 }}
             >
-              {isCardHovered ? decryptText("Check out") : "Check out"}
-            </motion.h3>
-            <motion.h2
-              className="text-lg md:text-xl font-bold text-white work-card-title"
+              Freelance
+            </motion.h2>
+
+            {/* Animated Job Titles */}
+            <motion.div
+              className="flex items-center justify-center"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.2 }}
             >
-              {isCardHovered ? decryptText("My Work") : "My Work"}
-            </motion.h2>
-
+              <div className="relative overflow-hidden h-10 w-full max-w-sm flex items-center justify-center">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.3 }}
+                    className="absolute w-full text-xl sm:text-2xl font-semibold text-gray-300 flex items-center justify-center h-10"
+                  >
+                    <span className="truncate text-gray-300">
+                      {titles[index]}
+                    </span>
+                    <span className="text-yellow-400 ml-1">.</span>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </motion.div>
           </div>
 
-          {/* Yin Yang SVG Icon */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 1.4 }}
-            className="flex-shrink-0"
-          >
-            <motion.img
-              src={yinYangSvg}
-              alt="Yin Yang"
-              className="w-12 h-12 md:w-16 md:h-16 filter invert yin-yang-icon"
-              animate={{
-            rotate: isCardHovered ? 360 : 0,
-              }}
-              transition={{
-            duration: 2,
-            ease: "linear",
-            repeat: isCardHovered ? Infinity : 0,
-            repeatType: isCardHovered ? "loop" : undefined,
-              }}
-            />
-          </motion.div>
-            </motion.div>
-          </Magnet>
+          {/* Bottom section - Work card */}
+          <div className="pb-20 flex justify-center">
+            <Magnet padding={50} disabled={false} magnetStrength={2}>
+              <motion.div
+                ref={cardRef}
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.8 }}
+                className="bg-[#272727] rounded-full px-6 py-4 w-72 sm:w-80 h-auto flex items-center justify-between cursor-pointer"
+                onMouseEnter={() => setIsCardHovered(true)}
+                onMouseLeave={() => setIsCardHovered(false)}
+              >
+                {/* Text Content */}
+                <div className="flex flex-col space-y-1">
+                  <motion.h3
+                    className="text-base font-semibold text-gray-300"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 1.0 }}
+                  >
+                    {isCardHovered ? decryptText("Check out") : "Check out"}
+                  </motion.h3>
+                  <motion.h2
+                    className="text-lg font-bold text-white"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 1.2 }}
+                  >
+                    {isCardHovered ? decryptText("My Work") : "My Work"}
+                  </motion.h2>
+                </div>
 
+                {/* Yin Yang Icon */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.6, delay: 1.4 }}
+                  className="flex-shrink-0"
+                >
+                  <motion.img
+                    src={yinYangSvg}
+                    alt="Yin Yang"
+                    className="w-12 h-12 filter invert"
+                    animate={{
+                      rotate: isCardHovered ? 360 : 0,
+                    }}
+                    transition={{
+                      duration: 2,
+                      ease: "linear",
+                      repeat: isCardHovered ? Infinity : 0,
+                      repeatType: isCardHovered ? "loop" : undefined,
+                    }}
+                  />
+                </motion.div>
+              </motion.div>
+            </Magnet>
+          </div>
+        </div>
+      </div>
+
+      {/* Desktop Layout (>= 768px) */}
+      <div className="hidden md:block relative h-full">
+        
+        {/* Left side content */}
+        <div className="absolute left-6 lg:left-12 xl:left-20 top-1/2 transform -translate-y-1/2 z-20 text-white">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="flex flex-col items-start space-y-4 lg:space-y-6"
+          >
+            {/* Arrow Icon */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              className="mb-6 lg:mb-8"
+            >
+              <FiArrowDownRight
+                strokeWidth={1.5}
+                className="text-white text-5xl lg:text-6xl xl:text-7xl hover:text-amber-300 transition-colors duration-300"
+              />
+            </motion.div>
+
+            {/* Freelance Text */}
+            <motion.h2
+              className="text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl text-white mb-2 font-bold"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.0 }}
+            >
+              Freelance
+            </motion.h2>
+
+            {/* Animated Job Titles */}
+            <motion.div
+              className="flex items-center space-x-2"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.2 }}
+            >
+              <div className="relative overflow-hidden h-10 lg:h-12 xl:h-14 w-full max-w-md lg:max-w-lg">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.3 }}
+                    className="absolute w-full text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold text-gray-300 flex items-center h-10 lg:h-12 xl:h-14"
+                  >
+                    <span className="truncate pr-1 text-gray-300">
+                      {titles[index]}
+                    </span>
+                    <span className="text-yellow-400 flex-shrink-0">.</span>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </motion.div>
+          </motion.div>
         </div>
 
-      <div className="flex items-end justify-center absolute bottom-0 left-0 right-0 w-full pb-4 z-20">
+        {/* Right side - Work card */}
+        <div className="absolute right-6 lg:right-12 xl:right-20 top-1/2 transform -translate-y-1/2 z-20">
+          <Magnet padding={50} disabled={false} magnetStrength={3}>
+            <motion.div
+              ref={cardRef}
+              initial={{ opacity: 0, x: 50 }}
+              animate={{
+                opacity: 1,
+                x: mousePosition.x,
+                y: mousePosition.y,
+              }}
+              transition={{
+                duration: 0.8,
+                delay: 0.8,
+                x: { type: "spring", stiffness: 150, damping: 15 },
+                y: { type: "spring", stiffness: 150, damping: 15 },
+              }}
+              className="bg-[#272727] rounded-full px-6 lg:px-8 py-4 lg:py-6 w-72 lg:w-80 xl:w-96 h-auto flex items-center justify-between cursor-pointer"
+              onMouseEnter={() => setIsCardHovered(true)}
+              onMouseLeave={() => setIsCardHovered(false)}
+            >
+              {/* Text Content */}
+              <div className="flex flex-col space-y-1">
+                <motion.h3
+                  className="text-base lg:text-lg font-semibold text-gray-300"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 1.0 }}
+                >
+                  {isCardHovered ? decryptText("Check out") : "Check out"}
+                </motion.h3>
+                <motion.h2
+                  className="text-lg lg:text-xl xl:text-2xl font-bold text-white"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 1.2 }}
+                >
+                  {isCardHovered ? decryptText("My Work") : "My Work"}
+                </motion.h2>
+              </div>
+
+              {/* Yin Yang Icon */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 1.4 }}
+                className="flex-shrink-0"
+              >
+                <motion.img
+                  src={yinYangSvg}
+                  alt="Yin Yang"
+                  className="w-12 h-12 lg:w-14 lg:h-14 xl:w-16 xl:h-16 filter invert"
+                  animate={{
+                    rotate: isCardHovered ? 360 : 0,
+                  }}
+                  transition={{
+                    duration: 2,
+                    ease: "linear",
+                    repeat: isCardHovered ? Infinity : 0,
+                    repeatType: isCardHovered ? "loop" : undefined,
+                  }}
+                />
+              </motion.div>
+            </motion.div>
+          </Magnet>
+        </div>
+      </div>
+
+      {/* Curved Loop - Bottom */}
+      <div className="flex items-end justify-center absolute bottom-0 left-0 right-0 w-full pb-2 sm:pb-4 z-20">
         <div className="w-full">
           <CurvedLoop
             marqueeText="Kebsi Montassar ✦ Kebsi Montassar ✦ Kebsi Montassar ✦"
@@ -218,6 +329,7 @@ const SectionF = () => {
         </div>
       </div>
     </div>
+             
   );
 };
 
