@@ -44,7 +44,7 @@ export const NAVIGATION_ITEMS = [
 
 // Social links
 export const SOCIAL_LINKS = [
-  { name: "Email", href: "mailto:your.email@example.com" },
-  { name: "GitHub", href: "https://github.com", external: true },
-  { name: "LinkedIn", href: "https://linkedin.com", external: true }
+  { name: "Email", href: "mailto:kebsimontassar@gmail.com", external: true  },
+  { name: "GitHub", href: "https://github.com/KabsiMontassar", external: true },
+  { name: "LinkedIn", href: "https://www.linkedin.com/in/montassarkabsi", external: true }
 ];

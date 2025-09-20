@@ -18,7 +18,6 @@ const SectionT = () => {
   const containerRef = useRef(null);
   const timeIntervalRef = useRef(null);
 
-  /** ✅ Detect screen size */
   useEffect(() => {
     const checkSize = () => setIsMobile(window.innerWidth < 768);
     checkSize();
@@ -26,7 +25,6 @@ const SectionT = () => {
     return () => window.removeEventListener("resize", checkSize);
   }, []);
 
-  /** ✅ Update local time every minute */
   useEffect(() => {
     timeIntervalRef.current = setInterval(
       () => setFormattedTime(formatTime(new Date())),
@@ -35,7 +33,6 @@ const SectionT = () => {
     return () => clearInterval(timeIntervalRef.current);
   }, []);
 
-  /** ✅ Generate scattered logos */
   const generateLogos = useCallback(() => {
     if (!logoData?.length) return [];
     const logosArray = [];
@@ -97,8 +94,6 @@ const SectionT = () => {
 
   const logos = useMemo(() => (launched ? generateLogos() : []), [launched, generateLogos]);
 
-  const handleMouseEnter = () => setIsHovering(true);
-  const handleMouseLeave = () => setIsHovering(false);
 
   const handleContactMouseEnter = () => {
     setContactHovered(true);
@@ -111,7 +106,6 @@ const SectionT = () => {
     setTimeout(() => setJustLeftContact(false), 350);
   };
 
-  /** ✅ Motion variants for logos */
   const logoVariants = useCallback(
     (logo) => {
       const safeH = typeof window !== "undefined" ? window.innerHeight : 800;
@@ -145,10 +139,10 @@ const SectionT = () => {
           transition: { duration: 0.4, ease: "easeOut" },
         },
         repelled: {
-          x: logo.relativeX > 0 
+          x: logo.relativeX > 0
             ? `calc(${logo.x} + 10px)` // Move right logos further right
             : `calc(${logo.x} - 10px)`, // Move left logos further left
-          y: logo.relativeY > 0 
+          y: logo.relativeY > 0
             ? `calc(${logo.y} + 10px)` // Move bottom logos further down
             : `calc(${logo.y} - 10px)`, // Move top logos further up
           opacity: 1,
@@ -170,8 +164,8 @@ const SectionT = () => {
           opacity: 0,
           scale: 0.8,
           rotate: logo.rotate || 0,
-          transition: { 
-            duration: 0.8, 
+          transition: {
+            duration: 0.8,
             ease: [0.25, 0.46, 0.45, 0.94],
             delay: logo.delay * 0.1 // Staggered exit animation
           },
@@ -181,7 +175,6 @@ const SectionT = () => {
     [isInitialLaunch]
   );
 
-  /** ✅ Trigger launch when section visible and handle exit animation */
   useEffect(() => {
     const node = containerRef.current;
     if (!node) return;
@@ -215,7 +208,7 @@ const SectionT = () => {
       if (!node) return;
       const rect = node.getBoundingClientRect();
       const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-      
+
       if (!isVisible && isCurrentlyVisible) {
         // Section just left viewport
         setIsExiting(true);
@@ -229,22 +222,19 @@ const SectionT = () => {
 
     obs.observe(node);
     window.addEventListener('scroll', handleScroll, { passive: true });
-    
+
     return () => {
       obs.disconnect();
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
-  /** ✅ Big round Contact circle size */
   const circleSize = isMobile ? 230 : 380;
 
   return (
     <div className="relative w-full h-full min-h-screen bg-gradient-to-r from-black to-[#222121] overflow-hidden">
-      {/* Background dim */}
       <div className="absolute inset-0 opacity-30" />
 
-      {/* ✅ Animated Logos */}
       {logos.map((logo) => (
         <motion.div
           key={logo.id}
@@ -253,14 +243,14 @@ const SectionT = () => {
           animate={
             isExiting
               ? "exit"
-              : !launched 
-                ? "hidden" 
-                : contactHovered 
-                  ? "repelled" 
+              : !launched
+                ? "hidden"
+                : contactHovered
+                  ? "repelled"
                   : justLeftContact
                     ? "return"
-                    : isHovering 
-                      ? "scattered" 
+                    : isHovering
+                      ? "scattered"
                       : "visible"
           }
           className="absolute z-10"
@@ -284,8 +274,9 @@ const SectionT = () => {
         </motion.div>
       ))}
 
-      {/* ✅ Big Round Contact Button */}
       <div
+      //external
+        onClick={() => window.open('https://www.linkedin.com/in/montassarkabsi', '_blank')}
         className="absolute z-20 flex items-center justify-center"
         style={{
           left: "50%",
@@ -303,61 +294,73 @@ const SectionT = () => {
           innerClassName="transition-transform duration-300 ease-out"
         >
           <div
-            onMouseEnter={handleContactMouseEnter}
-            onMouseLeave={handleContactMouseLeave}
-            className={`
+        onMouseEnter={handleContactMouseEnter}
+        onMouseLeave={handleContactMouseLeave}
+        className={`
           w-[128px] h-[128px]  sm:w-[128px] sm:h-[128px] md:w-[230px] md:h-[230px] 
-              rounded-full flex items-center justify-center text-white font-bold
-              relative cursor-pointer
-              shadow-[0_0_80px_30px_rgba(255,255,255,0.15)]
-            
-              border border-[rgba(255,255,255,0.2)]
-              backdrop-blur-md
-            `}
-           
+          rounded-full flex items-center justify-center text-white font-bold
+          relative cursor-pointer
+          bg-gradient-to-tr from-[#6f6f6f1e] to-[#d2d2d26d]
+          shadow-[0_0_80px_30px_rgba(255,255,255,0.15)] backdrop-blur-md
+        `}
+
           >
-            <span className="text-2xl md:text-4xl font-extrabold tracking-wide">
-              Contact<span className="text-[#ffe500]">.</span>
-            </span>
+        <span className="text-2xl md:text-4xl font-extrabold tracking-wide">
+          Contact<span className="text-[#ffe500]">.</span>
+        </span>
           </div>
         </Magnet>
       </div>
 
-      {/* ✅ Bottom Info */}
+     
       <motion.div
         ref={containerRef}
-        className="absolute bottom-6 md:bottom-8 left-4 right-4 flex flex-col md:flex-row justify-between items-center md:items-end z-30 gap-4 text-white"
+        className=" absolute bottom-6 md:bottom-8 px-30 left-4 right-4 flex flex-col md:flex-row justify-between items-center md:items-end z-30 gap-4 text-white"
         initial={{ opacity: 0, y: 40 }}
         animate={launched ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
         transition={{ duration: 0.8, delay: 1.2 }}
       >
-        <div className="flex flex-col md:flex-row gap-6 md:gap-8">
+        <div className="md:flex flex-col md:flex-row gap-6 md:gap-8 hidden sm:hidden  ">
           <div>
-            <div className="text-sm md:text-lg font-bold mb-1">LOCAL TIME</div>
-            <div className="text-sm md:text-lg font-bold">{formattedTime}</div>
+            <div className="text-sm md:text-md mb-1   bg-gradient-to-r from-white to-gray-300
+                clip-text text-transparent bg-clip-text">LOCAL TIME</div>
+            <div className="text-sm md:text-md   bg-gradient-to-r from-white to-gray-300
+                clip-text text-transparent bg-clip-text"
+              style={{ letterSpacing: '1px' }}
+            >{formattedTime}</div>
           </div>
           <div>
-            <div className="text-sm md:text-lg mb-1">OPEN SOURCE</div>
-            <a
-              href="https://github.com"
-              target="_blank"
+            <div className="text-sm md:text-md mb-1   bg-gradient-to-r from-white to-gray-300
+                clip-text text-transparent bg-clip-text">OPEN SOURCE</div>
+
+            <div
               rel="noopener noreferrer"
-              className="text-sm md:text-lg font-bold hover:text-gray-300 transition-colors"
+              className="text-sm md:text-md  transition-colors   bg-gradient-to-r from-white to-gray-300
+                clip-text text-transparent bg-clip-text"
             >
-              View on GitHub
-            </a>
+              <a href="https://github.com/KabsiMontassar/portfolio"
+                style={{ letterSpacing: '1px' }}
+                target="_blank">
+                View on GitHub
+              </a>
+
+            </div>
           </div>
         </div>
 
         <div className="text-center md:text-right">
-          <div className="text-sm md:text-base font-bold mb-1">SOCIALS</div>
-          <div className="flex gap-3 justify-center md:justify-end">
+          <div className="text-sm md:text-base font-bold mb-1 text-left   bg-gradient-to-r from-white to-gray-300
+                clip-text text-transparent bg-clip-text">SOCIALS</div>
+          <div className="flex gap-7 justify-center md:justify-end ">
             {SOCIAL_LINKS?.map(({ name, href, external }) => (
               <a
                 key={name}
                 href={href}
                 {...(external && { target: "_blank", rel: "noopener noreferrer" })}
-                className="text-xs md:text-sm font-semibold hover:text-gray-300 transition-colors"
+                className="text-xs md:text-sm 
+              bg-gradient-to-r from-white to-gray-300
+                clip-text text-transparent bg-clip-text
+                font-semibold  transition-colors"
               >
                 {name}
               </a>

@@ -12,6 +12,8 @@ import Technologie from "../ui/shapes/Technologie";
 import Keys from "../ui/typography/Keys";
 import Circle from "../ui/shapes/Circle";
 import ShadowText from "../ui/typography/ShadowText";
+import { FaArrowRight } from "react-icons/fa6";
+
 // Register GSAP plugins
 gsap.registerPlugin(Observer);
 
@@ -94,7 +96,7 @@ const SectionS = ({ onButtonHover }) => {
               <div className="inline-block mx-0 sm:mx-1 md:mx-2">
                 <ShadowText
                   text="ideas"
-                  textColor={isButtonHovered ? "#ffffff" : "#101828"}
+                  textColor={isButtonHovered ? "#ffe500" : "#101828"}
                   shadowColor={isButtonHovered ? "#000000" : "#ffe500"}
                   fontSize="clamp(1.35rem, 4vw, 6rem)"
                 />
@@ -111,8 +113,6 @@ const SectionS = ({ onButtonHover }) => {
                 <Circle />
               </span>
 
-              {/* Mobile line break */}
-              <br className="block sm:block md:hidden" />
 
               {/* "polished experiences" */}
               <span className="mx-0 sm:mx-1">polished experiences</span>
@@ -192,7 +192,15 @@ const SectionS = ({ onButtonHover }) => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    View All Work
+                    View All Work 
+
+                    <span >
+                      <FaArrowRight strokeWidth={15}
+                      className="inline-block align-middle ml-2 "
+                       />
+                    </span>
+
+
                   </motion.button>
                 </Magnet>
               </div>
