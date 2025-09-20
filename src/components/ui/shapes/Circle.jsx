@@ -73,10 +73,7 @@ const Circle = () => {
                 backgroundImage: 'url("https://cdn.prod.website-files.com/66fb0e86356d0ec4d059d333/66fb1dc2cfbcddffd587f7b6_life.svg")',
                 backgroundPosition: '50%',
                 backgroundSize: 'cover',
-                width: '1em',
-                height: '1em',
-                marginLeft: '1rem',
-                marginRight: '1rem',
+              
                 display: 'inline-block',
                 position: 'relative',
                 cursor: 'pointer',
