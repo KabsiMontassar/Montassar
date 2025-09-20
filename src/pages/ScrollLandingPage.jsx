@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
 // Components
@@ -32,9 +33,11 @@ const ScrollLandingPage = () => {
   const [isMontassarHovered, setIsMontassarHovered] = useState(false);
   const [isSectionSButtonHovered, setIsSectionSButtonHovered] = useState(false);
 
+  const navigate = useNavigate();
+  const { formattedTime } = useTime();
+
   // Custom hooks
   const { currentSlide, isAnimating, slideRefs, navigateToSection, next, prev } = useSlideNavigation(SECTIONS.length);
-  const { formattedTime } = useTime();
 
   // Menu handlers
   const toggleMenu = useCallback(() => {
@@ -45,6 +48,10 @@ const ScrollLandingPage = () => {
     navigateToSection(sectionIndex);
     setIsMenuOpen(false);
   }, [navigateToSection]);
+
+  const handleNavigateToWork = useCallback(() => {
+    navigate('/work');
+  }, [navigate]);
 
   // Event listeners
   useEventListeners({
@@ -91,6 +98,7 @@ const ScrollLandingPage = () => {
           <div className="w-full h-full">
             <SectionComponent
               onButtonHover={index === 1 ? setIsSectionSButtonHovered : undefined}
+              onNavigateToWork={index === 1 ? handleNavigateToWork : undefined}
             />
           </div>
 

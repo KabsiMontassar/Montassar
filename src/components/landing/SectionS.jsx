@@ -17,7 +17,7 @@ import { FaArrowRight } from "react-icons/fa6";
 // Register GSAP plugins
 gsap.registerPlugin(Observer);
 
-const SectionS = ({ onButtonHover }) => {
+const SectionS = ({ onButtonHover, onNavigateToWork }) => {
   const [isButtonHovered, setIsButtonHovered] = useState(false);
   const buttonRef = useRef(null);
 
@@ -187,6 +187,7 @@ const SectionS = ({ onButtonHover }) => {
                         : 'bg-black text-white border-2 border-black hover:bg-white hover:text-black'
                       }
                   `}
+                    onClick={onNavigateToWork}
                     onMouseEnter={() => setIsButtonHovered(true)}
                     onMouseLeave={() => setIsButtonHovered(false)}
                     whileHover={{ scale: 1.05 }}
