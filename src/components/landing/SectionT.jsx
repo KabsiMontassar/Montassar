@@ -13,6 +13,7 @@ const SectionT = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [contactHovered, setContactHovered] = useState(false);
   const [justLeftContact, setJustLeftContact] = useState(false);
+  const [isExiting, setIsExiting] = useState(false);
 
   const containerRef = useRef(null);
   const timeIntervalRef = useRef(null);
@@ -163,25 +164,76 @@ const SectionT = () => {
           rotate: logo.rotate || 0,
           transition: { duration: 0.3, ease: "easeOut", delay: 0 }, // No delay for simultaneous return
         },
+        exit: {
+          x: "0vw",
+          y: `${typeof window !== "undefined" ? window.innerHeight / 2 + 200 : 600}px`,
+          opacity: 0,
+          scale: 0.8,
+          rotate: logo.rotate || 0,
+          transition: { 
+            duration: 0.8, 
+            ease: [0.25, 0.46, 0.45, 0.94],
+            delay: logo.delay * 0.1 // Staggered exit animation
+          },
+        },
       };
     },
     [isInitialLaunch]
   );
 
-  /** ✅ Trigger launch when section visible */
+  /** ✅ Trigger launch when section visible and handle exit animation */
   useEffect(() => {
     const node = containerRef.current;
     if (!node) return;
+
+    let isCurrentlyVisible = false;
+
     const obs = new IntersectionObserver(
-      (entries) =>
-        entries.forEach((e) => {
-          setLaunched(e.isIntersecting);
-          setIsInitialLaunch(e.isIntersecting);
-        }),
-      { threshold: 0.15 }
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setLaunched(true);
+            setIsInitialLaunch(true);
+            setIsExiting(false);
+            isCurrentlyVisible = true;
+          } else if (isCurrentlyVisible) {
+            // Section just left viewport - trigger exit immediately
+            setIsExiting(true);
+            isCurrentlyVisible = false;
+            setTimeout(() => {
+              setLaunched(false);
+              setIsExiting(false);
+            }, 800);
+          }
+        });
+      },
+      { threshold: 0.1 } // Lower threshold for faster detection
     );
+
+    // Additional scroll listener for faster detection
+    const handleScroll = () => {
+      if (!node) return;
+      const rect = node.getBoundingClientRect();
+      const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+      
+      if (!isVisible && isCurrentlyVisible) {
+        // Section just left viewport
+        setIsExiting(true);
+        isCurrentlyVisible = false;
+        setTimeout(() => {
+          setLaunched(false);
+          setIsExiting(false);
+        }, 800);
+      }
+    };
+
     obs.observe(node);
-    return () => obs.disconnect();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    return () => {
+      obs.disconnect();
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   /** ✅ Big round Contact circle size */
@@ -199,15 +251,17 @@ const SectionT = () => {
           variants={logoVariants(logo)}
           initial="hidden"
           animate={
-            !launched 
-              ? "hidden" 
-              : contactHovered 
-                ? "repelled" 
-                : justLeftContact
-                  ? "return"
-                  : isHovering 
-                    ? "scattered" 
-                    : "visible"
+            isExiting
+              ? "exit"
+              : !launched 
+                ? "hidden" 
+                : contactHovered 
+                  ? "repelled" 
+                  : justLeftContact
+                    ? "return"
+                    : isHovering 
+                      ? "scattered" 
+                      : "visible"
           }
           className="absolute z-10"
           style={{
