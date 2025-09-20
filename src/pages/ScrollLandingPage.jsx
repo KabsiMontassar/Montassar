@@ -6,7 +6,7 @@ import SectionF from "../components/landing/SectionF";
 import SectionS from "../components/landing/SectionS";
 import SectionT from "../components/landing/SectionT";
 import CustomCursor from "../components/ui/CustomCursor";
-import YinYang from "../components/ui/YinYang";
+import YinYang from "../components/ui/shapes/YinYang";
 import Magnet from "../components/ui/Magnet";
 import MobileNavigationMenu from "../components/navigation/MobileNavigationMenu";
 import DesktopNavigationMenu from "../components/navigation/DesktopNavigationMenu";

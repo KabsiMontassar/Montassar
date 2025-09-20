@@ -4,13 +4,11 @@ import { Observer } from "gsap/Observer";
 import { useState, useEffect, useRef } from "react";
 import '../../assets/style.css';
 import Magnet from "../ui/Magnet";
-import Chevrons from "../ui/Chevrons";
-import YinYang from "../ui/YinYang";
+import Chevrons from "../ui/shapes/Chevrons";
+import YinYang from "../ui/shapes/YinYang";
 import yinYangSvg from "../../assets/images/yin-yang.svg";
-import ColourfulText from "../ui/Colourful-text";
-import FuzzyText from "../ui/FuzzyText";
-import Shuffle from "../ui/Shuffle";
-import Technologie from "../ui/Technologie";
+import ColourfulText from "../ui/typography/colourful-text";
+import Technologie from "../ui/shapes/Technologie";
 // Register GSAP plugins
 gsap.registerPlugin(Observer);
 
@@ -18,7 +16,6 @@ const SectionS = ({ onButtonHover }) => {
   const [isButtonHovered, setIsButtonHovered] = useState(false);
   const [isYinYangHovered, setIsYinYangHovered] = useState(false);
   const buttonRef = useRef(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   // Mouse move handler for magnetic effect
   const handleMouseMove = (e) => {
@@ -33,14 +30,9 @@ const SectionS = ({ onButtonHover }) => {
       // Apply magnetic effect within 200px radius
       const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
       if (distance < 200) {
-        const strength = (200 - distance) / 200;
-        setMousePosition({
-          x: distanceX * strength * 0.4,
-          y: distanceY * strength * 0.4,
-        });
+
         setIsButtonHovered(true);
       } else {
-        setMousePosition({ x: 0, y: 0 });
         setIsButtonHovered(false);
       }
     }
@@ -67,7 +59,7 @@ const SectionS = ({ onButtonHover }) => {
             transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             <motion.h1
-              className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold mb-6 md:mb-8 lg:mb-10 leading-tight max-w-6xl mx-auto px-2 ${isButtonHovered ? 'text-white' : 'text-gray-900'}`}
+              className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold mb-6 md:mb-8 lg:mb-10 leading-tight max-w-6xl mx-auto px-2 ${isButtonHovered ? 'text-white' : 'text-gray-900'}`}
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
@@ -76,27 +68,15 @@ const SectionS = ({ onButtonHover }) => {
                 ease: [0.25, 0.46, 0.45, 0.94],
               }}
             >
-
-
-              Transforming ideas into
-              ,polished
-
-              experiences
-              <Chevrons />
-              where
+              Transforming  ideas into  ,polished experiences  <Chevrons /> where
               <span className="inline-block mx-5">
                 <ColourfulText text="design" />
               </span>
-              and
-              technology
-              <Technologie />
-              work in
-
-
-              harmony
+              and technology <Technologie /> work in harmony
               <YinYang
                 src={yinYangSvg}
-                size={"w-22 h-22 inline-block ml-5"}
+                size={"w-18 h-18 inline-block ml-3  "}
+                style={{ verticalAlign: 'baseline' }}
                 isHovered={isYinYangHovered}
                 onMouseEnter={() => setIsYinYangHovered(true)}
                 onMouseLeave={() => setIsYinYangHovered(false)}

@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { YIN_YANG_ROTATION } from "../../utils/constants";
+import { YIN_YANG_ROTATION } from "../../../utils/constants";
 
 /**
  * Reusable YinYang component with rotation animation

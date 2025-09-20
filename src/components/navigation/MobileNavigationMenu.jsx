@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import YinYang from "../ui/YinYang";
+import YinYang from "../ui/shapes/YinYang";
 import Magnet from "../ui/Magnet";
 import { NAVIGATION_ITEMS, SOCIAL_LINKS } from "../../utils/constants";
 

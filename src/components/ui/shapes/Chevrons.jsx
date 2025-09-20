@@ -59,7 +59,6 @@ const Chevrons = () => {
         height: '1em',
         display: 'inline-block',
         width: '2em',
-        margin: '0 1rem',
         transform: getTransform(),
         transformStyle: 'preserve-3d',
         transition: getTransition(),
