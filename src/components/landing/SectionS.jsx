@@ -12,7 +12,6 @@ import Technologie from "../ui/shapes/Technologie";
 import Keys from "../ui/typography/Keys";
 import Circle from "../ui/shapes/Circle";
 import ShadowText from "../ui/typography/ShadowText";
-import { Shadow } from "@react-three/drei";
 // Register GSAP plugins
 gsap.registerPlugin(Observer);
 
@@ -54,18 +53,18 @@ const SectionS = ({ onButtonHover }) => {
 
   return (
     <div className={`relative w-full min-h-screen overflow-hidden transition-all duration-500 ${isButtonHovered ? 'bg-gradient-to-r from-black to-[#222121]' : 'bg-[#f4f4f4]'}`}>
-      {/* Responsive padding container */}
-      <div className="relative z-10 w-full h-full flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 2xl:px-24">
-        <div className="text-center w-full max-w-8xl mx-auto py-8 sm:py-12 md:py-16 lg:py-20">
+      {/* Responsive padding container - Fixed mobile centering with proper boundaries */}
+      <div className="relative z-10 w-full min-h-screen flex items-center justify-center px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
+        <div className="text-center w-full max-w-sm sm:max-w-md md:max-w-4xl lg:max-w-6xl xl:max-w-8xl mx-auto py-4 sm:py-8 md:py-16 lg:py-20 px-4 sm:px-6 md:px-8">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="space-y-6 sm:space-y-8 md:space-y-10 lg:space-y-12"
+            className="space-y-4 sm:space-y-6 md:space-y-8 lg:space-y-12"
           >
             {/* Main heading with responsive typography */}
             <motion.div
-              className={`font-bold leading-[0.9] sm:leading-[0.95] md:leading-[1] lg:leading-[1.05] max-w-7xl mx-auto ${isButtonHovered ? 'text-white' : 'text-gray-900'}`}
+              className={`font-bold leading-[0.85] sm:leading-[0.9] md:leading-[0.95] lg:leading-[1] max-w-full mx-auto ${isButtonHovered ? 'text-white' : 'text-gray-900'}`}
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
@@ -74,77 +73,85 @@ const SectionS = ({ onButtonHover }) => {
                 ease: [0.25, 0.46, 0.45, 0.94],
               }}
               style={{
-                fontSize: 'clamp(1.75rem, 4.5vw, 6rem)',
+                fontSize: 'clamp(1.35rem, 4vw, 6rem)',
+                wordBreak: 'break-word',
+                overflowWrap: 'break-word',
               }}
             >
               {/* Keys component - responsive */}
-              <div className="inline-block mb-2 sm:mb-3 md:mb-4">
-                <Keys 
+              <div className="inline-block mb-1 sm:mb-2 md:mb-3">
+                <Keys
                   text="Transforming"
                   color={isButtonHovered ? "#ffffff" : "#101828"}
-                  fontSize="clamp(1.75rem, 4.5vw, 6rem)"
+                  fontSize="clamp(1.35rem, 4vw, 6rem)"
                 />
               </div>
 
-              {/* Break for mobile readability */}
-              <br className="block sm:hidden" />
+              {/* Space for mobile readability */}
+              <span className="inline-block w-2 sm:w-3"></span>
 
               {/* ShadowText component - responsive */}
-              <div className="inline-block mx-1 sm:mx-2 md:mx-3">
+              <div className="inline-block mx-0 sm:mx-1 md:mx-2">
                 <ShadowText
                   text="ideas"
                   textColor={isButtonHovered ? "#ffffff" : "#101828"}
                   shadowColor={isButtonHovered ? "#000000" : "#ffe500"}
-                  fontSize="clamp(1.75rem, 4.5vw, 6rem)"
+                  fontSize="clamp(1.35rem, 4vw, 6rem)"
                 />
               </div>
 
+              {/* Break for mobile layout optimization */}
+              <br className="block sm:block md:hidden" />
+
               {/* "into" text */}
-              <span className="mx-1 sm:mx-2 md:mx-3">into</span>
+              <span className="mx-0 sm:mx-1 md:mx-2">into</span>
 
               {/* Circle with responsive sizing */}
-              <span className="inline-block mx-1 sm:mx-2 md:mx-3 align-middle">
+              <span className="inline-block align-middle">
                 <Circle />
               </span>
 
-              {/* Break for better mobile layout */}
-              <br className="block sm:hidden" />
+              {/* Mobile line break */}
+              <br className="block sm:block md:hidden" />
 
               {/* "polished experiences" */}
-              <span className="mx-1 sm:mx-2">polished experiences</span>
+              <span className="mx-0 sm:mx-1">polished experiences</span>
 
               {/* Chevrons with spacing */}
-              <span className="inline-block mx-1 sm:mx-2 md:mx-3 align-middle">
+              <span className="inline-block mx-0 sm:mx-1 md:mx-2 align-middle">
                 <Chevrons />
               </span>
 
-              {/* "where" */}
-              <span className="mx-1 sm:mx-2">where</span>
+              {/* Mobile line break */}
+              <br className="block sm:block md:hidden" />
 
-              {/* Break for mobile */}
-              <br className="block md:hidden" />
+              {/* "where" */}
+              <span className="mx-0 sm:mx-1">where</span>
 
               {/* ColourfulText - responsive */}
-              <span className="inline-block mx-2 sm:mx-3 md:mx-4">
+              <span className="inline-block mx-1 sm:mx-2 md:mx-3">
                 <ColourfulText text="design" />
               </span>
 
               {/* "and technology" */}
-              <span className="mx-1 sm:mx-2">and technology</span>
+              <span className="mx-0 sm:mx-1">and technology</span>
 
               {/* Technologie component */}
-              <span className="inline-block mx-1 sm:mx-2 md:mx-3 align-middle">
+              <span className="inline-block mx-0 sm:mx-1 md:mx-2 align-middle">
                 <Technologie />
               </span>
 
+              {/* Mobile line break */}
+              <br className="block sm:block md:hidden" />
+
               {/* "work in harmony" */}
-              <span className="mx-1 sm:mx-2">work in harmony</span>
+              <span className="mx-0 sm:mx-1">work in harmony</span>
 
               {/* YinYang with responsive sizing */}
-              <span className="inline-block ml-2 sm:ml-3 md:ml-4 align-middle">
+              <span className="inline-block ml-1 sm:ml-2 md:ml-3 align-middle">
                 <YinYang
                   src={yinYangSvg}
-                  size="w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 lg:w-18 lg:h-18"
+                  size="w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 lg:w-16 lg:h-16"
                   style={{ verticalAlign: 'middle' }}
                   filterClass={isButtonHovered ? "invert" : ""}
                 />
@@ -156,12 +163,20 @@ const SectionS = ({ onButtonHover }) => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="flex justify-center pt-4 sm:pt-6 md:pt-8 lg:pt-12"
+              className="flex justify-center pt-2 sm:pt-4 md:pt-6 lg:pt-8"
             >
-              <Magnet padding={80} disabled={false} magnetStrength={2.5}>
-                <motion.button
-                  ref={buttonRef}
-                  className={`
+              <div
+                className="relative rounded-full"
+                style={{
+                  filter: 'drop-shadow(0 0 7px rgba(255, 229, 0, 0.6)) drop-shadow(0 0 8px rgba(255, 229, 0, 0.3))',
+                }}
+              >
+                <Magnet padding={80} disabled={false} magnetStrength={2.5}>
+                  <motion.button
+                    ref={buttonRef}
+                    className={`
+                 
+                  
                     px-8 sm:px-10 md:px-12 lg:px-16 xl:px-20
                     py-4 sm:py-5 md:py-6 lg:py-7
                     text-base sm:text-lg md:text-xl lg:text-2xl
@@ -169,19 +184,20 @@ const SectionS = ({ onButtonHover }) => {
                     transition-all duration-300 ease-out
                     shadow-lg hover:shadow-2xl
                     transform hover:scale-105 active:scale-95
-                    ${isButtonHovered 
-                      ? 'bg-white text-black border-2 border-white' 
-                      : 'bg-black text-white border-2 border-black hover:bg-white hover:text-black'
-                    }
+                    ${isButtonHovered
+                        ? 'bg-white text-black border-2 border-white'
+                        : 'bg-black text-white border-2 border-black hover:bg-white hover:text-black'
+                      }
                   `}
-                  onMouseEnter={() => setIsButtonHovered(true)}
-                  onMouseLeave={() => setIsButtonHovered(false)}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  View All Work
-                </motion.button>
-              </Magnet>
+                    onMouseEnter={() => setIsButtonHovered(true)}
+                    onMouseLeave={() => setIsButtonHovered(false)}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    View All Work
+                  </motion.button>
+                </Magnet>
+              </div>
             </motion.div>
           </motion.div>
         </div>

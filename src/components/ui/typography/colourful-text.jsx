@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 
-export default function ColourfulText({ text }) {
+export default function ColourfulText({ 
+  text, 
+  fontSize = "clamp(1.3rem, 4.5vw, 6rem)",
+  className = "" 
+}) {
   const colors = [
     "rgb(131, 179, 32)",
     "rgb(47, 195, 106)",
@@ -29,7 +33,15 @@ export default function ColourfulText({ text }) {
   }, []);
 
   return (
-    <>
+    <span 
+      className={`inline-block ${className}`}
+      style={{
+        fontSize: fontSize,
+        fontFamily: 'DTGetaiGroteskDisplay, sans-serif',
+        fontWeight: 900,
+        lineHeight: 1,
+      }}
+    >
       {text.split("").map((char, index) => (
         <motion.span
           key={`${char}-${count}-${index}`}
@@ -45,11 +57,14 @@ export default function ColourfulText({ text }) {
             duration: 0.5,
             delay: index * 0.05,
           }}
-          className="inline-block whitespace-pre font-sans tracking-tight"
+          className="inline-block whitespace-pre tracking-tight"
+          style={{
+            willChange: 'transform, color, filter, opacity',
+          }}
         >
           {char}
         </motion.span>
       ))}
-    </>
+    </span>
   );
 }

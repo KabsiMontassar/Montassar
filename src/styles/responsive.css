@@ -1,0 +1,104 @@
+/* Global Responsive Optimizations */
+
+/* Prevent horizontal scrolling on mobile */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Optimize animations for better performance */
+* {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  perspective: 1000;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Mobile performance optimizations */
+@media (max-width: 768px) {
+  /* Reduce animation complexity on mobile */
+  .key {
+    animation-duration: 3s !important;
+  }
+  
+  /* Optimize transforms */
+  [style*="transform"] {
+    transform-style: flat;
+    will-change: transform;
+  }
+  
+  /* Reduce blur effects intensity on mobile for performance */
+  [style*="blur"] {
+    filter: none !important;
+  }
+}
+
+/* Touch optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Increase tap targets for mobile */
+  button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Disable hover states on touch devices */
+  .hover\\:scale-105:hover {
+    transform: none;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+  /* Optimize for retina displays */
+  .shadow-text {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Landscape mobile optimizations */
+@media (max-height: 600px) and (orientation: landscape) {
+  /* Reduce vertical spacing in landscape */
+  .space-y-6 > * + * {
+    margin-top: 1rem !important;
+  }
+  
+  .space-y-8 > * + * {
+    margin-top: 1.5rem !important;
+  }
+}
+
+/* Ultra-wide screen optimizations */
+@media (min-width: 1920px) {
+  /* Prevent content from getting too spread out */
+  .max-w-8xl {
+    max-width: 90rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  /* Hide interactive elements when printing */
+  button,
+  .cursor-pointer {
+    display: none !important;
+  }
+  
+  /* Ensure readable text */
+  * {
+    color: black !important;
+    background: white !important;
+  }
+}

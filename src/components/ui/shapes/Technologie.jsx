@@ -57,8 +57,10 @@ const Technologie = () => {
                 textAlign: "center",
                 backgroundPosition: "50%",
                 backgroundSize: "cover",
-                width: "1em",
-                height: "1em",
+                width: "clamp(0.8em, 1em, 1.2em)",
+                height: "clamp(0.8em, 1em, 1.2em)",
+                marginLeft: "clamp(0.25rem, 0.5rem, 1rem)",
+                marginRight: "clamp(0.25rem, 0.5rem, 1rem)",
                 display: "inline-block",
                 backgroundImage:
                     'url("https://cdn.prod.website-files.com/66fb0e86356d0ec4d059d333/66fb1dc2860f829926fa6ed0_tech.svg")',

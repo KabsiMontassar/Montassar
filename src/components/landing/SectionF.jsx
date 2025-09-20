@@ -115,6 +115,7 @@ const SectionF = () => {
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.3 }}
                     className="absolute w-full text-xl sm:text-2xl font-semibold text-gray-300 flex items-center justify-center h-10"
+                    style={{ zIndex: 10 }}
                   >
                     <span className="truncate text-gray-300">
                       {titles[index]}
@@ -236,6 +237,7 @@ const SectionF = () => {
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.3 }}
                     className="absolute w-full text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold text-gray-300 flex items-center h-10 lg:h-12 xl:h-14"
+                    style={{ zIndex: 10 }}
                   >
                     <span className="truncate pr-1 text-gray-300">
                       {titles[index]}

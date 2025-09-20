@@ -56,16 +56,19 @@ const Chevrons = () => {
       className="span-image _2"
       onMouseEnter={handleMouseEnter}
       style={{
-        height: '1em',
+        height: 'clamp(0.8em, 1em, 1.2em)',
         display: 'inline-block',
-        width: '2em',
+        width: 'clamp(1.6em, 2em, 2.4em)',
+        marginLeft: 'clamp(0.25rem, 0.5rem, 1rem)',
+        marginRight: 'clamp(0.25rem, 0.5rem, 1rem)',
         transform: getTransform(),
         transformStyle: 'preserve-3d',
         transition: getTransition(),
         backgroundImage: 'url("https://cdn.prod.website-files.com/66fb0e86356d0ec4d059d333/66fb1dc210836b0eb2badb2d_success.svg")',
         backgroundPosition: '50%',
         backgroundRepeat: 'no-repeat',
-        backgroundSize: 'contain'
+        backgroundSize: 'contain',
+        cursor: 'pointer'
       }}
     >
     </span>

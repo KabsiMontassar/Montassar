@@ -19,10 +19,10 @@ const ShadowText = ({
             font-family: 'DTGetaiGroteskDisplay', sans-serif;
             font-weight: 900;
             line-height: 1;
-            margin: 0 1rem;
+            margin: 0 clamp(0.1rem, 0.25vw, 0.5rem);
             padding: 0;
             display: inline-block;
-
+            will-change: auto;
           }
 
           .shadow-text::after {
@@ -52,6 +52,20 @@ const ShadowText = ({
           @keyframes shadowSlide {
             0%   { background-position: 200% -200%; }
             100% { background-position: -200% 200%; }
+          }
+
+          /* Reduce motion for accessibility */
+          @media (prefers-reduced-motion: reduce) {
+            .shadow-text::after {
+              animation: none;
+            }
+          }
+
+          /* Performance optimizations for mobile */
+          @media (max-width: 768px) {
+            .shadow-text::after {
+              animation-duration: 24s; /* Slower on mobile to reduce CPU load */
+            }
           }
         `}
       </style>

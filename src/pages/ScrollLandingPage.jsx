@@ -94,9 +94,9 @@ const ScrollLandingPage = () => {
             />
           </div>
 
-          {/* Yin-Yang for each slide */}
-          <div className="absolute top-8 left-8 z-20 mobile-yin-yang tablet-yin-yang large-yin-yang">
-            <Magnet padding={100} disabled={false} magnetStrength={3}>
+          {/* Yin-Yang for each slide - Fixed positioning to match menu button */}
+          <div className="absolute top-12 left-12 z-20 mobile-yin-yang tablet-yin-yang large-yin-yang">
+            <Magnet padding={50} disabled={false} magnetStrength={3}>
               <motion.div
                 animate={{
                   filter: getSectionStyles(index, isMenuOpen, isSectionSButtonHovered).filterClass.includes('invert') ? 'invert(1)' : 'invert(0)'
@@ -108,6 +108,7 @@ const ScrollLandingPage = () => {
                   isHovered={index === currentSlide && isMontassarHovered}
                   filterClass="" // Remove static filter class since we're animating it
                   className="space-x-1"
+                  size="w-8 h-8" // Match menu button size
                   onMouseEnter={() => setIsMontassarHovered(true)}
                   onMouseLeave={() => setIsMontassarHovered(false)}
                 />

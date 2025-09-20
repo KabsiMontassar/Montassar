@@ -79,7 +79,12 @@ const Circle = () => {
                 marginRight: '1rem',
                 display: 'inline-block',
                 position: 'relative',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                // Responsive sizing - Reduced mobile margins
+                width: 'clamp(0.8em, 1em, 1.2em)',
+                height: 'clamp(0.8em, 1em, 1.2em)',
+                marginLeft: 'clamp(0.25rem, 0.5rem, 1rem)',
+                marginRight: 'clamp(0.25rem, 0.5rem, 1rem)',
             }}
         >
             &nbsp;
