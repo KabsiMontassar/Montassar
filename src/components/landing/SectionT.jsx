@@ -14,6 +14,7 @@ const SectionT = () => {
   const [contactHovered, setContactHovered] = useState(false);
   const [justLeftContact, setJustLeftContact] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
+  const [initialAnimationComplete, setInitialAnimationComplete] = useState(false);
 
   const containerRef = useRef(null);
   const timeIntervalRef = useRef(null);
@@ -93,6 +94,24 @@ const SectionT = () => {
   }, [isMobile]);
 
   const logos = useMemo(() => (launched ? generateLogos() : []), [launched, generateLogos]);
+
+  // Set initial animation complete after the longest animation delay
+  useEffect(() => {
+    if (launched && isInitialLaunch) {
+      const maxDelay = Math.max(...logos.map(logo => logo.delay));
+      const animationDuration = 1; // 1 second animation duration
+      const bufferTime = 0.2; // 200ms buffer
+      const totalTime = (maxDelay + animationDuration + bufferTime) * 1000;
+
+      const timer = setTimeout(() => {
+        setInitialAnimationComplete(true);
+      }, totalTime);
+
+      return () => clearTimeout(timer);
+    } else if (!launched) {
+      setInitialAnimationComplete(false);
+    }
+  }, [launched, isInitialLaunch, logos]);
 
 
   const handleContactMouseEnter = () => {
@@ -188,6 +207,7 @@ const SectionT = () => {
             setLaunched(true);
             setIsInitialLaunch(true);
             setIsExiting(false);
+            setInitialAnimationComplete(false); // Reset for new launch
             isCurrentlyVisible = true;
           } else if (isCurrentlyVisible) {
             // Section just left viewport - trigger exit immediately
@@ -216,6 +236,7 @@ const SectionT = () => {
         setTimeout(() => {
           setLaunched(false);
           setIsExiting(false);
+          setInitialAnimationComplete(false); // Reset when leaving
         }, 800);
       }
     };
@@ -245,13 +266,15 @@ const SectionT = () => {
               ? "exit"
               : !launched
                 ? "hidden"
-                : contactHovered
-                  ? "repelled"
-                  : justLeftContact
-                    ? "return"
-                    : isHovering
-                      ? "scattered"
-                      : "visible"
+                : !initialAnimationComplete
+                  ? "visible" // Force visible state during initial animation
+                  : contactHovered
+                    ? "repelled"
+                    : justLeftContact
+                      ? "return"
+                      : isHovering
+                        ? "scattered"
+                        : "visible"
           }
           className="absolute z-10"
           style={{
