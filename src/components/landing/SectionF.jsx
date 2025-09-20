@@ -1,5 +1,6 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { FiArrowDownRight } from "react-icons/fi";
 import CurvedLoop from "../ui/CurvedLoop";
 import yinYangSvg from "../../assets/images/yin-yang.svg";
@@ -16,6 +17,7 @@ const titles = [
 const SectionF = () => {
   const [isCardHovered, setIsCardHovered] = useState(false);
   const cardRef = useRef(null);
+  const navigate = useNavigate();
 
   // Magnetic effect state
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -112,6 +114,7 @@ const SectionF = () => {
                 className="bg-[#272727] rounded-full px-6 py-4 w-72 sm:w-80 h-auto flex items-center justify-between cursor-pointer"
                 onMouseEnter={() => setIsCardHovered(true)}
                 onMouseLeave={() => setIsCardHovered(false)}
+                onClick={() => navigate('/work')}
               >
                 {/* Text Content */}
                 <div className="flex flex-col space-y-1">
@@ -230,6 +233,7 @@ const SectionF = () => {
               className="bg-[#272727] rounded-full px-6 lg:px-8 py-4 lg:py-6 w-72 lg:w-80 xl:w-96 h-auto flex items-center justify-between cursor-pointer"
               onMouseEnter={() => setIsCardHovered(true)}
               onMouseLeave={() => setIsCardHovered(false)}
+              onClick={() => navigate('/work')}
             >
               {/* Text Content */}
               <div className="flex flex-col space-y-1">

@@ -21,6 +21,7 @@ import { useTime } from "../hooks/useTime";
 
 // Assets
 import yinYangSvg from "../assets/images/yin-yang.svg";
+import PageTransition from "../components/PageTransition";
 
 // Constants
 const WORK_SECTIONS = [WorkSection1, WorkSection2, WorkSection3, WorkSection4, WorkSection5];
