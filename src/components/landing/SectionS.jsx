@@ -10,6 +10,7 @@ import yinYangSvg from "../../assets/images/yin-yang.svg";
 import ColourfulText from "../ui/typography/colourful-text";
 import Technologie from "../ui/shapes/Technologie";
 import Keys from "../ui/typography/Keys";
+import Circle from "../ui/shapes/Circle";
 // Register GSAP plugins
 gsap.registerPlugin(Observer);
 
@@ -69,12 +70,17 @@ const SectionS = ({ onButtonHover }) => {
               }}
             >
               <Keys text="Transforming"
-                color="#101828"
+                color={isButtonHovered ? "#ffffff" : "#101828"}
                 fontSize="4vw"
-               />
-            
+              />
 
-              ideas into  ,polished experiences  <Chevrons /> where
+
+              ideas
+              into
+              <Circle />
+
+              polished
+              experiences  <Chevrons /> where
               <span className="inline-block mx-5">
                 <ColourfulText text="design" />
               </span>
@@ -90,8 +96,10 @@ const SectionS = ({ onButtonHover }) => {
             <Magnet padding={100} disabled={false} magnetStrength={3}>
 
               <motion.button
-                className="mt-6 md:mt-8 lg:mt-10 px-10 sm:px-12 md:px-14 lg:px-16 py-4 sm:py-5 md:py-6 bg-black text-white  font-semibold text-lg sm:text-xl md:text-2xl rounded-full hover:bg-white hover:text-black transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
-
+                ref={buttonRef}
+                className="mt-6 md:mt-8 lg:mt-10 px-10 sm:px-12 md:px-14 lg:px-16 py-4 sm:py-5 md:py-6 bg-black text-white font-semibold text-lg sm:text-xl md:text-2xl rounded-full hover:bg-white hover:text-black transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                onMouseEnter={() => setIsButtonHovered(true)}
+                onMouseLeave={() => setIsButtonHovered(false)}
               >
                 <p>View All Work</p>
               </motion.button>
