@@ -193,15 +193,9 @@ const SectionS = ({ onButtonHover, onNavigateToWork }) => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    View All Work 
-
-                    <span >
-                      <FaArrowRight strokeWidth={15}
+                    View All Work  <FaArrowRight strokeWidth={15}
                       className="inline-block align-middle ml-2 "
-                       />
-                    </span>
-
-
+                    />
                   </motion.button>
                 </Magnet>
               </div>
