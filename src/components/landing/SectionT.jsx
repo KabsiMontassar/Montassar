@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useRef } from "react";
 import { formatTime } from "../../utils/helpers";
 import { SOCIAL_LINKS } from "../../utils/constants";
 import Magnet from "../ui/Magnet";
@@ -7,8 +7,11 @@ import Magnet from "../ui/Magnet";
 const SectionT = () => {
   const [formattedTime, setFormattedTime] = useState(formatTime(new Date()));
   const [launched, setLaunched] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
+  const [shapes, setShapes] = useState([]);
   const containerRef = useRef(null);
 
+  // Update local time every minute
   useEffect(() => {
     const interval = setInterval(() => {
       setFormattedTime(formatTime(new Date()));
@@ -16,6 +19,7 @@ const SectionT = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Random color generator
   const generateRandomColor = () => {
     const letters = '0123456789ABCDEF';
     let color = '#';
@@ -25,42 +29,37 @@ const SectionT = () => {
     return color;
   };
 
-  // Define shapes with fixed horizontal positions and stacked start
-  const shapes = useMemo(() => {
+  // Generate shapes with oriented positions
+  const generateShapes = () => {
     const shapesArray = [];
     const numShapes = 15;
-const basePositions = [];
-const pointCount = 5; // points per zone
-const minDistance = 8; // minimum distance between points
+    const basePositions = [];
+    const pointCount = 5;
+    const minDistance = 8;
 
-function randRange(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-// Helper to check distance
-function isFarEnough(x, y, points) {
-  return points.every(p => Math.hypot(p.x - x, p.y - y) >= minDistance);
-}
-
-// Function to generate points for a zone
-function generateZone(xMin, xMax, count) {
-  const zonePoints = [];
-  while (zonePoints.length < count) {
-    const x = randRange(xMin, xMax);
-    const y = randRange(-20, 20);
-    if (isFarEnough(x, y, zonePoints)) {
-      zonePoints.push({ x, y });
+    function randRange(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
     }
-  }
-  return zonePoints;
-}
 
-// Left, Middle, Right zones
-basePositions.push(...generateZone(-40, -10, pointCount));
-basePositions.push(...generateZone(-5, 5, pointCount));
-basePositions.push(...generateZone(10, 40, pointCount));
+    function isFarEnough(x, y, points) {
+      return points.every(p => Math.hypot(p.x - x, p.y - y) >= minDistance);
+    }
 
+    function generateZone(xMin, xMax, count) {
+      const zonePoints = [];
+      while (zonePoints.length < count) {
+        const x = randRange(xMin, xMax);
+        const y = randRange(-20, 20);
+        if (isFarEnough(x, y, zonePoints)) {
+          zonePoints.push({ x, y });
+        }
+      }
+      return zonePoints;
+    }
 
+    basePositions.push(...generateZone(-40, -10, pointCount));
+    basePositions.push(...generateZone(-5, 5, pointCount));
+    basePositions.push(...generateZone(10, 40, pointCount));
 
     for (let i = 0; i < numShapes; i++) {
       const base = basePositions[i % basePositions.length];
@@ -76,30 +75,46 @@ basePositions.push(...generateZone(10, 40, pointCount));
     }
 
     return shapesArray;
+  };
+
+  // Generate shapes on mount
+  useEffect(() => {
+    setShapes(generateShapes());
   }, []);
 
+  // Variants for shapes
   const shapeVariants = (shape) => ({
     hidden: {
-      x: "0vw", // stacked at center horizontally
-      y: typeof window !== "undefined" ? `${window.innerHeight / 2 + 200}px` : "600px", // stacked at bottom
+      x: "0vw",
+      y: typeof window !== "undefined" ? `${window.innerHeight / 2 + 200}px` : "600px",
       opacity: 0,
       scale: 0.8,
       rotate: shape.rotate
     },
     visible: {
-      x: shape.x, // final horizontal position
-      y: shape.y, // final vertical position
+      x: shape.x,
+      y: shape.y,
       opacity: 1,
       scale: 1,
       rotate: shape.rotate,
       transition: {
-        duration: 1, // smooth flight
+        duration: 1,
         delay: shape.delay,
-        ease: [0.22, 1, 0.36, 1] // easeOut-like curve
+        ease: [0.22, 1, 0.36, 1]
+      }
+    },
+    scattered: {
+      x: `calc(${shape.x} + ${parseFloat(shape.x) > 0 ? '15px' : '-15px'})`,
+      y: `calc(${shape.y} + ${parseFloat(shape.y) > 0 ? '15px' : '-15px'})`,
+      opacity: 1,
+      scale: 1,
+      rotate: shape.rotate,
+      transition: {
+        duration: 0.3,
+        ease: "easeOut"
       }
     }
   });
-
 
   const magnetVariants = {
     hidden: { opacity: 0, scale: 0.5 },
@@ -111,12 +126,14 @@ basePositions.push(...generateZone(10, 40, pointCount));
     visible: { opacity: 1, y: 0 }
   };
 
+  // Intersection observer for launching animation
   useEffect(() => {
     if (!containerRef.current) return;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
+            setShapes(generateShapes());
             setLaunched(true);
           } else {
             setLaunched(false);
@@ -137,7 +154,13 @@ basePositions.push(...generateZone(10, 40, pointCount));
           key={shape.id}
           variants={shapeVariants(shape)}
           initial="hidden"
-          animate={launched ? "visible" : "hidden"}
+          animate={
+            !launched
+              ? "hidden"
+              : isHovering
+              ? "scattered"
+              : "visible"
+          }
           className="absolute z-10"
           style={{
             left: "50%",
@@ -173,10 +196,17 @@ basePositions.push(...generateZone(10, 40, pointCount));
             stiffness: 100
           }}
         >
-          <Magnet magnetStrength={3} padding={150} wrapperClassName="relative" innerClassName="transition-transform duration-300 ease-out">
+          <Magnet
+            magnetStrength={3}
+            padding={150}
+            wrapperClassName="relative"
+            innerClassName="transition-transform duration-300 ease-out"
+          >
             <div
-              className="w-64 h-64 rounded-full flex items-center justify-center text-white font-bold shadow-2xl relative overflow-hidden backdrop-blur-sm"
+              className="w-64 h-64 rounded-full flex items-center justify-center text-white font-bold shadow-2xl relative overflow-hidden backdrop-blur-sm cursor-pointer"
               style={{ background: "hsla(0,0%,100%,.08)", border: "1px solid hsla(0,0%,100%,.1)" }}
+              onMouseEnter={() => setIsHovering(true)}
+              onMouseLeave={() => setIsHovering(false)}
             >
               <span className="text-xl font-bold z-10 relative tracking-wide">Contact.</span>
               <div
