@@ -3,7 +3,7 @@
 /* Custom Font */
 @font-face {
   font-family: "DTGetaiGroteskDisplay";
-  src: url("./assets/DTGetaiGroteskDisplay-Black.woff") format("woff");
+  src: url("./assets/fonts/DTGetaiGroteskDisplay-Black.woff") format("woff");
 }
 
 html {
@@ -19,6 +19,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
+
+
 
 * {
   box-sizing: border-box;

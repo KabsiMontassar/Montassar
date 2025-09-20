@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 
-export default function ColourfulText(text) {
+export default function ColourfulText({ text }) {
   const colors = [
     "rgb(131, 179, 32)",
     "rgb(47, 195, 106)",
@@ -23,7 +23,7 @@ export default function ColourfulText(text) {
       const shuffled = [...colors].sort(() => Math.random() - 0.5);
       setCurrentColors(shuffled);
       setCount((prev) => prev + 1);
-    }, 5000);
+    }, 2000);
 
     return () => clearInterval(interval);
   }, []);

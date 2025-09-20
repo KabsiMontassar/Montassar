@@ -21,15 +21,15 @@ const Shuffle = ({
   onShuffleComplete,
   shuffleTimes = 1,
   animationMode = 'evenodd',
-  loop = false,
+  loop = true,
   loopDelay = 0,
-  stagger = 0.03,
+  stagger = 0.63,
   scrambleCharset = '',
   colorFrom,
   colorTo,
-  triggerOnce = true,
+  triggerOnce = false,
   respectReducedMotion = true,
-  triggerOnHover = true
+  triggerOnHover = false
 }) => {
   const ref = useRef(null);
   const [fontsLoaded, setFontsLoaded] = useState(false);

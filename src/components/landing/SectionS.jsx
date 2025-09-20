@@ -5,11 +5,18 @@ import { useState, useEffect, useRef } from "react";
 import '../../assets/style.css';
 import Magnet from "../ui/Magnet";
 import Chevrons from "../ui/Chevrons";
+import YinYang from "../ui/YinYang";
+import yinYangSvg from "../../assets/images/yin-yang.svg";
+import ColourfulText from "../ui/Colourful-text";
+import FuzzyText from "../ui/FuzzyText";
+import Shuffle from "../ui/Shuffle";
+import Technologie from "../ui/Technologie";
 // Register GSAP plugins
 gsap.registerPlugin(Observer);
 
 const SectionS = ({ onButtonHover }) => {
   const [isButtonHovered, setIsButtonHovered] = useState(false);
+  const [isYinYangHovered, setIsYinYangHovered] = useState(false);
   const buttonRef = useRef(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -69,21 +76,33 @@ const SectionS = ({ onButtonHover }) => {
                 ease: [0.25, 0.46, 0.45, 0.94],
               }}
             >
-              <span >
 
-                Transforming ideas into
-                polished  {/* Shuffle */}
-                ,
-                meaningful  {/* Fuzzy Text */}
-                experiences
-                <Chevrons />
-                where
-                design    {/* colourful */}    and
-                technology {/* orange rectangle */}
-                work in
-                harmony.{/* yin yang */}
 
+              Transforming ideas into
+              ,polished
+
+              experiences
+              <Chevrons />
+              where
+              <span className="inline-block mx-5">
+                <ColourfulText text="design" />
               </span>
+              and
+              technology
+              <Technologie />
+              work in
+
+
+              harmony
+              <YinYang
+                src={yinYangSvg}
+                size={"w-22 h-22 inline-block ml-5"}
+                isHovered={isYinYangHovered}
+                onMouseEnter={() => setIsYinYangHovered(true)}
+                onMouseLeave={() => setIsYinYangHovered(false)}
+              />
+
+
             </motion.h1>
             <Magnet padding={100} disabled={false} magnetStrength={3}>
 
