@@ -177,9 +177,31 @@ const RotatingText = forwardRef((props, ref) => {
                     {char}
                   </motion.span>
                 ))}
+                
                 {wordObj.needsSpace && <span className="whitespace-pre"> </span>}
+
+                {wordIndex === 1 && (
+                  <motion.span
+                    key="yellow-dot"
+                    initial={initial}
+                    animate={animate}
+                    exit={exit}
+                    transition={{
+                      ...transition,
+                      delay: getStaggerDelay(
+                        previousCharsCount + wordObj.characters.length,
+                        array.reduce((sum, word) => sum + word.characters.length, 0)
+                      )
+                    }}
+                    className="inline-block"
+                  >
+                    <span className="text-yellow-400">.</span>
+                  </motion.span>
+                )}
+
               </span>
             );
+            
           })}
         </motion.span>
       </AnimatePresence>

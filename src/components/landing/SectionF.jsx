@@ -5,6 +5,7 @@ import CurvedLoop from "../ui/CurvedLoop";
 import yinYangSvg from "../../assets/images/yin-yang.svg";
 import Plasma from "../ui/Plasma.jsx";
 import Magnet from "../ui/Magnet.jsx";
+import RotatingText from "../ui/typography/RotatingText.jsx";
 const titles = [
   "Reactjs Developer",
   "Cloud Engineer",
@@ -13,24 +14,11 @@ const titles = [
 ];
 
 const SectionF = () => {
-  const [index, setIndex] = useState(0);
   const [isCardHovered, setIsCardHovered] = useState(false);
   const cardRef = useRef(null);
 
   // Magnetic effect state
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  // Auto-cycle through job titles
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((prevIndex) => {
-        const newIndex = (prevIndex + 1) % titles.length;
-        return newIndex;
-      });
-    }, 2000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   // Decryption animation for text
   const decryptText = (originalText) => {
@@ -99,31 +87,17 @@ const SectionF = () => {
               Freelance
             </motion.h2>
 
-            {/* Animated Job Titles */}
+            {/* RotatingText Component */}
             <motion.div
               className="flex items-center justify-center"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.2 }}
             >
-              <div className="relative overflow-hidden h-10 w-full max-w-sm flex items-center justify-center">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.3 }}
-                    className="absolute w-full text-xl sm:text-2xl font-semibold text-gray-300 flex items-center justify-center h-10"
-                    style={{ zIndex: 10 }}
-                  >
-                    <span className="truncate text-gray-300">
-                      {titles[index]}
-                    </span>
-                    <span className="text-yellow-400 ml-1">.</span>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
+              <RotatingText
+                texts={titles}
+                className="text-xl sm:text-2xl font-semibold text-gray-300"
+              />
             </motion.div>
           </div>
 
@@ -221,31 +195,17 @@ const SectionF = () => {
               Freelance
             </motion.h2>
 
-            {/* Animated Job Titles */}
+            {/* RotatingText Component */}
             <motion.div
               className="flex items-center space-x-2"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.2 }}
             >
-              <div className="relative overflow-hidden h-10 lg:h-12 xl:h-14 w-full max-w-md lg:max-w-lg">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.3 }}
-                    className="absolute w-full text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold text-gray-300 flex items-center h-10 lg:h-12 xl:h-14"
-                    style={{ zIndex: 10 }}
-                  >
-                    <span className="truncate pr-1 text-gray-300">
-                      {titles[index]}
-                    </span>
-                    <span className="text-yellow-400 flex-shrink-0">.</span>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
+              <RotatingText
+                texts={titles}
+                className="text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold text-gray-300"
+              />
             </motion.div>
           </motion.div>
         </div>
