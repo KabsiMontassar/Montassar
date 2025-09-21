@@ -157,12 +157,16 @@ const SectionT = () => {
           },
         },
         scattered: {
-          x: logo.x,
-          y: logo.y,
+          x: logo.relativeX > 0
+            ? `calc(${logo.x} + ${Math.abs(logo.relativeX) * 1.5}vw)` // Move right logos further right
+            : `calc(${logo.x} - ${Math.abs(logo.relativeX) * 1.5}vw)`, // Move left logos further left
+          y: logo.relativeY > 0
+            ? `calc(${logo.y} + ${Math.abs(logo.relativeY) * 1.5}vh)` // Move bottom logos further down
+            : `calc(${logo.y} - ${Math.abs(logo.relativeY) * 1.5}vh)`, // Move top logos further up
           opacity: 1,
           scale: 1,
           rotate: logo.rotate || 0,
-          transition: { duration: 0.4, ease: "easeOut" },
+          transition: { duration: 0.6, ease: "easeOut" },
         },
         repelled: {
           x: logo.relativeX > 0
