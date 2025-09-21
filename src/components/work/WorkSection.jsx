@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Magnet from '../ui/Magnet';
-import Counter from '../ui/typography/Counter';
 
 const WorkSection = ({ currentSlide = 0, sectionIndex = 0 }) => {
     // Determine variant based on section index (odd = black, even = white)
@@ -57,8 +56,8 @@ const WorkSection = ({ currentSlide = 0, sectionIndex = 0 }) => {
             : 'bg-gradient-to-r from-white to-gray-50 text-black'
             }`}>
             {/* Background Index Number */}
-            <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
-                <span className={`text-[12rem] md:text-[18rem] font-extrabold select-none leading-none ${isBlackVariant ? 'text-white/5' : 'text-black/5'
+            <div className="mt-20 absolute inset-0 flex justify-center items-start pointer-events-none">
+                <span className={`text-[9rem] md:text-[15rem] font-extrabold select-none leading-none ${isBlackVariant ? 'text-white/5' : 'text-black/5'
                     }`}>
                     0{currentSlide + 1}
                 </span>
@@ -152,7 +151,7 @@ const WorkSection = ({ currentSlide = 0, sectionIndex = 0 }) => {
                 </div>
 
                 {/* Right Half - Card */}
-                <div className="flex-1  flex items-center justify-center min-h-screen lg:min-h-full px-4 sm:px-6 lg:px-8 xl:px-12 py-8 lg:py-0">
+                <div className="flex-1 flex items-center justify-center min-h-screen lg:min-h-full px-4 sm:px-6 lg:px-8 xl:px-12 py-8 lg:py-0 lg:ml-12 xl:ml-16">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
@@ -160,7 +159,7 @@ const WorkSection = ({ currentSlide = 0, sectionIndex = 0 }) => {
                         className="relative w-full max-w-sm sm:max-w-md lg:max-w-lg xl:max-w-xl"
                     >
                         <div
-                            className="ml-25 relative w-full aspect-[4/3] rounded-2xl lg:rounded-3xl border border-white/10 shadow-2xl overflow-hidden"
+                            className=" relative w-full aspect-[4/3] rounded-2xl lg:rounded-3xl border border-white/10 shadow-2xl overflow-hidden"
                             style={{
                                 backgroundImage: `url(${content.imageUrl})`,
                                 backgroundSize: 'cover',
