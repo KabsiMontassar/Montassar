@@ -1,10 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Magnet from '../ui/Magnet';
+import Counter from '../ui/typography/Counter';
 
 const WorkSection = ({ currentSlide = 0, sectionIndex = 0 }) => {
-    const slideNumber = String(currentSlide + 1).padStart(2, '0');
-
     // Determine variant based on section index (odd = black, even = white)
     const isBlackVariant = sectionIndex % 2 === 0;
 
@@ -59,10 +58,22 @@ const WorkSection = ({ currentSlide = 0, sectionIndex = 0 }) => {
             }`}>
             {/* Background Index Number */}
             <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
-                <span className={`text-[12rem] md:text-[18rem] font-extrabold select-none leading-none ${isBlackVariant ? 'text-white/5' : 'text-black/5'
-                    }`}>
-                    {slideNumber}
-                </span>
+                <div className="text-[12rem] md:text-[18rem]">
+                    <Counter
+                        value={currentSlide + 1}
+                        textColor={isBlackVariant ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)'}
+                        fontWeight="bold"
+                        places={[10, 1]} // For 2-digit numbers
+                        gap={0}
+                        horizontalPadding={0}
+                        gradientHeight={32}
+                        gradientFrom={isBlackVariant ? 'rgba(0, 0, 0, 0.1)' : 'rgba(255, 255, 255, 0.1)'}
+                        gradientTo="transparent"
+
+                        fontSize={280}
+                        padding={10}
+                    />
+                </div>
             </div>
 
             {/* Main Content Container */}
