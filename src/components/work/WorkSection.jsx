@@ -58,22 +58,10 @@ const WorkSection = ({ currentSlide = 0, sectionIndex = 0 }) => {
             }`}>
             {/* Background Index Number */}
             <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
-                <div className="text-[12rem] md:text-[18rem]">
-                    <Counter
-                        value={currentSlide + 1}
-                        textColor={isBlackVariant ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)'}
-                        fontWeight="bold"
-                        places={[10, 1]} // For 2-digit numbers
-                        gap={0}
-                        horizontalPadding={0}
-                        gradientHeight={32}
-                        gradientFrom={isBlackVariant ? 'rgba(0, 0, 0, 0.1)' : 'rgba(255, 255, 255, 0.1)'}
-                        gradientTo="transparent"
-
-                        fontSize={280}
-                        padding={10}
-                    />
-                </div>
+                <span className={`text-[12rem] md:text-[18rem] font-extrabold select-none leading-none ${isBlackVariant ? 'text-white/5' : 'text-black/5'
+                    }`}>
+                    0{currentSlide + 1}
+                </span>
             </div>
 
             {/* Main Content Container */}
