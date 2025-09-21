@@ -14,6 +14,7 @@ const WorkSection = ({ currentSlide = 0, sectionIndex = 0 }) => {
                 subtitle: "Page",
                 description: "Web Development Solutions",
                 buttonText: "Show Me",
+                tags: ["Web", "Cloud", "Devops"],
                 imageUrl: "https://picsum.photos/800/600"
             },
             {
@@ -21,6 +22,7 @@ const WorkSection = ({ currentSlide = 0, sectionIndex = 0 }) => {
                 subtitle: "Platform",
                 description: "Modern Tech Infrastructure",
                 buttonText: "Explore",
+                  tags: ["Web", "Cloud", "Devops"],
                 imageUrl: "https://picsum.photos/801/601"
             },
             {
@@ -28,6 +30,7 @@ const WorkSection = ({ currentSlide = 0, sectionIndex = 0 }) => {
                 subtitle: "Analytics",
                 description: "Data-Driven Insights",
                 buttonText: "Discover",
+                  tags: ["Web", "Cloud", "Devops"],
                 imageUrl: "https://picsum.photos/802/602"
             },
             {
@@ -35,6 +38,7 @@ const WorkSection = ({ currentSlide = 0, sectionIndex = 0 }) => {
                 subtitle: "Services",
                 description: "Scalable Cloud Solutions",
                 buttonText: "Launch",
+                  tags: ["Web", "Automation", "Devops"],
                 imageUrl: "https://picsum.photos/803/603"
             },
             {
@@ -42,6 +46,7 @@ const WorkSection = ({ currentSlide = 0, sectionIndex = 0 }) => {
                 subtitle: "Automation",
                 description: "Streamlined Development",
                 buttonText: "Optimize",
+                  tags: ["Web", "AI", "Devops"],
                 imageUrl: "https://picsum.photos/804/604"
             }
         ];
@@ -158,6 +163,7 @@ const WorkSection = ({ currentSlide = 0, sectionIndex = 0 }) => {
                         transition={{ duration: 0.8, delay: 0.2 }}
                         className="relative w-full max-w-sm sm:max-w-md lg:max-w-lg xl:max-w-xl"
                     >
+                    
                         <div
                             className=" relative w-full aspect-[4/3] rounded-2xl lg:rounded-3xl border border-white/10 shadow-2xl overflow-hidden"
                             style={{
