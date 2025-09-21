@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
+
 // Work Section Components
 import WorkSection1 from "../components/work/WorkSection1";
 import WorkSection2 from "../components/work/WorkSection2";
@@ -33,50 +34,80 @@ const WorkPage = () => {
   const navigate = useNavigate();
 
   // Custom hooks
-  const { currentSlide, isAnimating, slideRefs, navigateToSection, next, prev } = useSlideNavigation(WORK_SECTIONS.length);
+  const { currentSlide, isAnimating, slideRefs, navigateToSection, next, prev } =
+    useSlideNavigation(WORK_SECTIONS.length);
 
+  // New state: tracks the slide used for indicator color (updates immediately)
+  const [indicatorSlide, setIndicatorSlide] = useState(currentSlide);
 
+  // Ensure indicatorSlide is synced when animation finishes (or on mount)
+  useEffect(() => {
+    // When animation ends, snap indicatorSlide to the actual currentSlide.
+    if (!isAnimating) {
+      setIndicatorSlide(currentSlide);
+    }
+  }, [isAnimating, currentSlide]);
+
+  // Navigation wrappers: update indicatorSlide instantly then call actual navigation
+  const goToSection = useCallback(
+    (index) => {
+      setIndicatorSlide(index);
+      navigateToSection(index);
+    },
+    [navigateToSection]
+  );
+
+  const goNext = useCallback(() => {
+    // optimistic increment (clamp)
+    setIndicatorSlide((prev) => Math.min(prev + 1, WORK_SECTIONS.length - 1));
+    next();
+  }, [next]);
+
+  const goPrev = useCallback(() => {
+    // optimistic decrement (clamp)
+    setIndicatorSlide((prev) => Math.max(prev - 1, 0));
+    prev();
+  }, [prev]);
 
   const handleNavigateHome = useCallback(() => {
-    navigate('/');
+    navigate("/");
   }, [navigate]);
 
-  // Event listeners
+  // Event listeners: pass wrapped next/prev/navigate so mouse/touch handlers update indicator instantly
   useEventListeners({
     isAnimating,
-    next,
-    prev,
+    next: goNext,
+    prev: goPrev,
+    navigateToSection: goToSection,
     setMousePosition,
     currentSlide,
     isMenuOpen,
     setIsMenuOpen,
-    setIsMontassarHovered
+    setIsMontassarHovered,
   });
 
-
-
   const getSectionStyles = (index) => {
-    if (index % 2 === 0) return true
-    return false
+    if (index % 2 === 0) return true;
+    return false;
   };
 
-  // Keyboard navigation
+  // Keyboard navigation — use the wrappers so indicator updates immediately
   useEffect(() => {
     const handleKeyPress = (e) => {
       if (isAnimating) return;
 
       switch (e.key) {
-        case 'ArrowDown':
-        case 'ArrowRight':
+        case "ArrowDown":
+        case "ArrowRight":
           e.preventDefault();
-          next();
+          goNext();
           break;
-        case 'ArrowUp':
-        case 'ArrowLeft':
+        case "ArrowUp":
+        case "ArrowLeft":
           e.preventDefault();
-          prev();
+          goPrev();
           break;
-        case 'Escape':
+        case "Escape":
           e.preventDefault();
           handleNavigateHome();
           break;
@@ -85,9 +116,9 @@ const WorkPage = () => {
       }
     };
 
-    window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [isAnimating, next, prev, handleNavigateHome]);
+    window.addEventListener("keydown", handleKeyPress);
+    return () => window.removeEventListener("keydown", handleKeyPress);
+  }, [isAnimating, goNext, goPrev, handleNavigateHome]);
 
   return (
     <div
@@ -101,6 +132,7 @@ const WorkPage = () => {
         WebkitUserSelect: "none",
         MozUserSelect: "none",
         msUserSelect: "none",
+        
       }}
     >
       {/* Slides */}
@@ -108,8 +140,9 @@ const WorkPage = () => {
         <div
           key={`work-slide-${index}`}
           ref={(el) => (slideRefs.current[index] = el)}
-          className={`absolute inset-0 w-full h-screen overflow-hidden ${index === currentSlide ? "z-10" : "z-0"
-            }`}
+          className={`absolute inset-0 w-full h-screen overflow-hidden ${
+            index === currentSlide ? "z-10" : "z-0"
+          }`}
           style={{
             willChange: "transform",
             backfaceVisibility: "hidden",
@@ -117,7 +150,7 @@ const WorkPage = () => {
           }}
         >
           <div className="w-full h-full">
-            <SectionComponent />
+            <SectionComponent currentSlide={currentSlide} />
           </div>
 
           {/* Yin-Yang for each slide */}
@@ -141,8 +174,6 @@ const WorkPage = () => {
               </motion.div>
             </Magnet>
           </div>
-
-         
 
           {/* Back to Home Button */}
           <div className="absolute top-12 right-12 sm:top-14 sm:right-14 md:top-16 md:right-16 lg:top-12 lg:right-12 z-50">
@@ -171,30 +202,42 @@ const WorkPage = () => {
                 </svg>
               </motion.button>
             </Magnet>
-          </div>  
+          </div>
 
           {/* Progress Indicator */}
           <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20">
             <div className="flex items-end justify-center gap-6">
-              {WORK_SECTIONS.map((_, index) => (
+             {WORK_SECTIONS.map((_, dotIndex) => (
                 <motion.div
-                  key={index}
-                  className={`w-1 rounded-full transition-all duration-300 ${
-                    index === currentSlide
-                      ? `h-10 bg-${getSectionStyles(currentSlide) ? "white" : "black"}`
-                      : `h-4 bg-${getSectionStyles(currentSlide) ? "white" : "black"}/40`
-                  }`}
-                  initial={{ scaleY: 0 }}
+                  key={dotIndex}
+                  onClick={() => navigateToSection(dotIndex)}
+                  className="relative flex items-center justify-center cursor-pointer"
+                  initial={false}
                   animate={{ scaleY: 1 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                />
+                  transition={{ duration: 0.2 }}
+                >
+                  <div
+                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full"
+                    style={{ zIndex: 1 }}
+                  />
+                  <div
+                    className="w-1 rounded-full z-10"
+                    style={{
+                      height: dotIndex === currentSlide ? "2.5rem" : "1rem",
+
+                      backgroundColor: getSectionStyles(index)
+                        ? `rgba(255,255,255,${dotIndex === currentSlide ? 1 : 0.4})`
+                        : `rgba(0,0,0,${dotIndex === currentSlide ? 1 : 0.4})`,
+                      transition: "height 0.3s ease",
+                    }}
+                  />
+                </motion.div>
               ))}
             </div>
           </div>
         </div>
       ))}
 
-   
       <CustomCursor mousePosition={mousePosition} />
     </div>
   );
