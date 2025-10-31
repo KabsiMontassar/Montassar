@@ -28,9 +28,10 @@ const Hero = () => {
     return (
         <Box
             id="hero"
-            minH="70vh"
+            minH="75vh"
             bg="white"
             width="100%"
+            px={"5%"}
             position="relative"
             display="flex"
             alignItems="top"
@@ -41,14 +42,14 @@ const Hero = () => {
                 direction="column"
                 align="left"
                 pl={20}
-                pt={100}
+                pt={20}
                 textAlign="left"
                 width="100%"
                 minH="400px"
                 transition="transform 0.25s ease-out"
                 position="relative"
             >
-                <Box zIndex="1">
+                <Box zIndex="1" >
                     <Magnet padding={100} disabled={false} magnetStrength={20}>
                         <Text
                             fontSize={{ base: '3xl', md: '5xl', lg: '9xl' }}
@@ -63,9 +64,9 @@ const Hero = () => {
                 </Box>
                 {/* Main text */}
                 <Box position="absolute"
-                    top="5"
+                    top="0%"
                     left="50%" zIndex="0">
-                    <Magnet padding={700} disabled={false} magnetStrength={20}>
+                    <Magnet padding={400} disabled={false} magnetStrength={20}>
                         <Text
                             fontSize={{ base: '6xl', md: '8xl', lg: '10xl' }}
                             className={isWaving ? 'wave-animation' : ''}
@@ -79,14 +80,14 @@ const Hero = () => {
             </Flex>
 
             {/* Bottom right name */}
-            <Box position="absolute" bottom="20%" right="10%">
+            <Box position="absolute" bottom="0%" right="10%" >
                 <Magnet padding={100} disabled={false} magnetStrength={20}>
                     <Text fontWeight={"bold"} textAlign={"right"} fontSize={{ base: 'lg', md: '4xl' }}>I'm Kebsi <br /> Montassar </Text>
                 </Magnet>
             </Box>
 
             {/* Bottom left scroll indicator */}
-            <Box position="absolute" bottom="20%" left="10%" textAlign="center">
+            <Box position="absolute" bottom="0%" left="10%" textAlign="center">
                 <Text fontWeight={"500"} fontSize={{ base: 'lg', md: '4xl' }} mb={2}>
                     Scroll
                 </Text>
@@ -95,7 +96,7 @@ const Hero = () => {
                         size="lg"
                         color="#ffc83d"
                         sx={{ transform: 'rotate(180deg)' }}
-                        
+
                     >
                         <IoTriangleSharp />
                     </Icon>
