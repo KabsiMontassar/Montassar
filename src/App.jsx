@@ -23,7 +23,17 @@ function App() {
       <Cursor />
       <Box position="fixed" top="0" left="0" right="0" bg="white" zIndex="10" p={4} >
         <Flex justify="space-between" align="center">
-          <Text pl="250px" fontSize="2xl" fontWeight="bold">Kebsi Montassar</Text>
+          <Button ml="250px" border={"none"}
+            _hover={{
+              backgroundColor: "transparent",
+
+
+            }}
+            backgroundColor={"transparent"}
+            fontSize="xl" fontWeight="600" letterSpacing={1}
+          >
+            Kebsi Montassar
+          </Button>
           <HStack pr="250px">
             <Button
               border={"none"}
