@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, useBreakpointValue } from "@chakra-ui/react";
 import { ReactLenis } from "@studio-freight/react-lenis";
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import { useRef, useLayoutEffect, useState } from "react";
@@ -53,6 +53,10 @@ function App() {
   const contentMarginX = useTransform(scrollY, [0, 50, 100], ["5%", "2%", "0%"]);
   const getInTouchWidth = useTransform(scrollY, [start, end - 300], ["30%", "100%"]);
 
+  // Responsive values
+  const heroHeight = useBreakpointValue({ base: "60vh", sm: "70vh", md: "75vh", lg: "75vh" });
+  const getInTouchStartWidth = useBreakpointValue({ base: "50%", sm: "40%", md: "30%", lg: "30%" });
+
   const lenisOptions = {
     lerp: 0.08,
     duration: 1.5,
@@ -85,13 +89,13 @@ function App() {
             width: "100%",
           }}
         >
-          <Box bg="white" h="75vh"> {/* Make Hero take full intended height */}
+          <Box bg="white" h={heroHeight}>
             <Hero />
           </Box>
         </motion.div>
 
         {/* Placeholder to reserve Hero space */}
-        <Box h="75vh" /> {/* This pushes AboutMe down so Hero is visible first */}
+        <Box h={heroHeight} />
 
         {/* MAIN CONTENT */}
         <motion.div style={{ y: mainContentY, position: "relative", zIndex: 10 }}>
