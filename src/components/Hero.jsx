@@ -1,6 +1,7 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Box, Flex, Text, Icon } from '@chakra-ui/react';
 import { useState, useEffect, useRef } from 'react';
 import Magnet from './UI/Magnet';
+import { IoTriangleSharp } from "react-icons/io5";
 
 const Hero = () => {
     const [isWaving, setIsWaving] = useState(false);
@@ -30,7 +31,6 @@ const Hero = () => {
             minH="100vh"
             bg="white"
             width="100%"
-
             position="relative"
             display="flex"
             alignItems="top"
@@ -75,24 +75,29 @@ const Hero = () => {
                         </Text>
                     </Magnet>
                 </Box>
-
-
                 {/* Emoji */}
-
             </Flex>
 
             {/* Bottom right name */}
-            <Box position="absolute" bottom="8" right="8">
-                <Text fontSize={{ base: 'lg', md: 'xl' }}>I'm Montassar Kebsi</Text>
+            <Box position="absolute" bottom="20%" right="10%">
+                <Magnet padding={100} disabled={false} magnetStrength={20}>
+                    <Text fontWeight={"bold"} textAlign={"right"} fontSize={{ base: 'lg', md: '4xl' }}>I'm Kebsi <br /> Montassar </Text>
+                </Magnet>
             </Box>
 
             {/* Bottom left scroll indicator */}
-            <Box position="absolute" bottom="8" left="8" textAlign="center">
-                <Text fontSize="lg" mb={2}>
+            <Box position="absolute" bottom="20%" left="10%" textAlign="center">
+                <Text fontWeight={"500"} fontSize={{ base: 'lg', md: '4xl' }} mb={2}>
                     Scroll
                 </Text>
                 <Box as="span" fontSize="2xl" className="bounce-animation" display="block">
-                    ⌄
+                    <Icon
+                        size="lg"
+                        color="#ffc83d"
+                        sx={{ transform: 'rotate(180deg)' }}
+                    >
+                        <IoTriangleSharp />
+                    </Icon>
                 </Box>
             </Box>
         </Box>
