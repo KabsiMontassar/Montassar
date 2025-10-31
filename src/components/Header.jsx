@@ -3,11 +3,11 @@ import { useTranslation } from "react-i18next";
 
 import { setStoredLanguage } from "../utils/localStorage";
 
-import Magnet from "../components/UI/Magnet";
+import Magnet from "./UI/Magnet";
 
 const Header = () => {
     const { i18n } = useTranslation();
-    const changeLanguage = (lang: any) => {
+    const changeLanguage = (lang) => {
         i18n.changeLanguage(lang);
         setStoredLanguage(lang);
     };

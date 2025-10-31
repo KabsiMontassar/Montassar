@@ -31,6 +31,7 @@ const Hero = () => {
             minH="75vh"
             bg="white"
             width="100%"
+            mt={20}
             px={"5%"}
             position="relative"
             display="flex"
@@ -80,14 +81,14 @@ const Hero = () => {
             </Flex>
 
             {/* Bottom right name */}
-            <Box position="absolute" bottom="0%" right="10%" >
+            <Box position="absolute" bottom="10%" right="10%" >
                 <Magnet padding={100} disabled={false} magnetStrength={20}>
                     <Text fontWeight={"bold"} textAlign={"right"} fontSize={{ base: 'lg', md: '4xl' }}>I'm Kebsi <br /> Montassar </Text>
                 </Magnet>
             </Box>
 
             {/* Bottom left scroll indicator */}
-            <Box position="absolute" bottom="0%" left="10%" textAlign="center">
+            <Box position="absolute" bottom="10%" left="10%" textAlign="center">
                 <Text fontWeight={"500"} fontSize={{ base: 'lg', md: '4xl' }} mb={2}>
                     Scroll
                 </Text>

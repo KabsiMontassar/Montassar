@@ -23,10 +23,14 @@ function App() {
   const borderRadius = useTransform(scrollY, [0, 400], [0, 40]);
 
   // 🔹 Move main content upward when scrolling
-  const mainContentY = useTransform(scrollY, [0, 400], [0, -400]);
+  const mainContentY = useTransform(scrollY, [0, 400], [0, 0]);
 
   // 🔹 Animate margin shrink effect (10% → 0%)
-  const contentMarginX = useTransform(scrollY, [0, 100], ["10%", "0%"]);
+  const contentMarginX = useTransform(scrollY, [0, 50, 100], ["5%", "2%", "0%"]);
+
+  // 🔹 GetInTouch animations: width (30% → 100%) and opacity (0 → 1)
+  const getInTouchWidth = useTransform(scrollY, [0, 200, 400], ["30%", "60%", "100%"]);
+  const getInTouchOpacity = useTransform(scrollY, [0, 200, 400], [0, 0.5, 1]);
 
   const lenisOptions = {
     lerp: 0.08,
@@ -58,12 +62,11 @@ function App() {
             width: "100%",
           }}
         >
-          <Box bg="white" minH="75vh">
+          <Box bg="white"  >
             <Hero />
           </Box>
         </motion.div>
 
-        {/* 🔸 MAIN CONTENT (slides upward, overlaps hero) */}
         <motion.div
           style={{
             y: mainContentY,
@@ -71,27 +74,28 @@ function App() {
             zIndex: 10,
           }}
         >
-          {/* 🪄 Animated horizontal margin */}
           <motion.div style={{ marginLeft: contentMarginX, marginRight: contentMarginX }}>
-            <Box mt="70vh" minH="100vh">
+            <Box mt="75vh" >
               <AboutMe />
             </Box>
-            <Box minH="100vh">
-              <MoreAboutMe />
-            </Box>
-            <Box minH="100vh">
-              <MySkills />
-            </Box>
-            <Box minH="100vh">
-              <Services />
-            </Box>
-            <Box minH="100vh">
-              <Projects />
-            </Box>
-            <Box minH="100vh">
-              <GetInTouch />
-            </Box>
+            <MoreAboutMe />
+            <MySkills />
+            <Services />
+            <Projects />
+          <motion.div
+  style={{
+    width: getInTouchWidth,
+    opacity: getInTouchOpacity,
+    margin: "0 auto",
+  }}
+  transition={{ type: "spring", stiffness: 100, damping: 20 }}
+>
+  <Box>
+    <GetInTouch />
+  </Box>
+</motion.div>
           </motion.div>
+
         </motion.div>
       </Box>
     </ReactLenis>
