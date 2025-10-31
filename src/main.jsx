@@ -15,7 +15,18 @@ const config = {
   }
 }
 
-const theme = extendTheme({ config })
+const theme = extendTheme({
+  config,
+  colors: {
+    white: '#ffffff',
+    black: '#000000',
+    accent: '#ffc83d',
+  },
+  fonts: {
+    body: "'Clash Display', 'Inter', sans-serif",
+    heading: "'Clash Display', 'Inter', sans-serif",
+  }
+})
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

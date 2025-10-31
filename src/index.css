@@ -1,11 +1,63 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lobster&display=swap');
+
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/src/assets/font/ClashDisplay-Regular.otf') format('opentype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/src/assets/font/ClashDisplay-Light.otf') format('opentype');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/src/assets/font/ClashDisplay-Medium.otf') format('opentype');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/src/assets/font/ClashDisplay-Semibold.otf') format('opentype');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/src/assets/font/ClashDisplay-Bold.otf') format('opentype');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/src/assets/font/ClashDisplay-Extralight.otf') format('opentype');
+  font-weight: 200;
+}
+
+:root {
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-accent: #ffc83d;
+}
+
 *, *::before, *::after {
-   font-family: 'Inter', sans-serif;
+   font-family: 'Clash Display', 'Inter', sans-serif;
    box-sizing: border-box;
    font-style: normal;
    font-weight: 400;
    
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.greeting-text{
+    font-family: 'Lobster', cursive;
+  
 }
 
 .greeting-text{
