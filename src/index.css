@@ -1,39 +1,39 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lobster&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lobster&display=swap");
 
 @font-face {
-  font-family: 'Clash Display';
-  src: url('/src/assets/font/ClashDisplay-Regular.otf') format('opentype');
+  font-family: "Clash Display";
+  src: url("/src/assets/font/ClashDisplay-Regular.otf") format("opentype");
   font-weight: 400;
 }
 
 @font-face {
-  font-family: 'Clash Display';
-  src: url('/src/assets/font/ClashDisplay-Light.otf') format('opentype');
+  font-family: "Clash Display";
+  src: url("/src/assets/font/ClashDisplay-Light.otf") format("opentype");
   font-weight: 300;
 }
 
 @font-face {
-  font-family: 'Clash Display';
-  src: url('/src/assets/font/ClashDisplay-Medium.otf') format('opentype');
+  font-family: "Clash Display";
+  src: url("/src/assets/font/ClashDisplay-Medium.otf") format("opentype");
   font-weight: 500;
 }
 
 @font-face {
-  font-family: 'Clash Display';
-  src: url('/src/assets/font/ClashDisplay-Semibold.otf') format('opentype');
+  font-family: "Clash Display";
+  src: url("/src/assets/font/ClashDisplay-Semibold.otf") format("opentype");
   font-weight: 600;
 }
 
 @font-face {
-  font-family: 'Clash Display';
-  src: url('/src/assets/font/ClashDisplay-Bold.otf') format('opentype');
+  font-family: "Clash Display";
+  src: url("/src/assets/font/ClashDisplay-Bold.otf") format("opentype");
   font-weight: 700;
 }
 
 @font-face {
-  font-family: 'Clash Display';
-  src: url('/src/assets/font/ClashDisplay-Extralight.otf') format('opentype');
+  font-family: "Clash Display";
+  src: url("/src/assets/font/ClashDisplay-Extralight.otf") format("opentype");
   font-weight: 200;
 }
 
@@ -43,34 +43,33 @@
   --color-accent: #ffc83d;
 }
 
-*, *::before, *::after {
-   font-family: 'Clash Display', 'Inter', sans-serif;
-   box-sizing: border-box;
-   font-style: normal;
-   font-weight: 400;
-   
+*,
+*::before,
+*::after {
+  font-family: "Clash Display", "Inter", sans-serif;
+  box-sizing: border-box;
+  font-style: normal;
+  font-weight: 400;
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-.greeting-text{
-    font-family: 'Lobster', cursive;
-  
+.greeting-text {
+  font-family: "Lobster", cursive;
 }
 
-.greeting-text{
-    font-family: 'Lobster', cursive;
-  
+.greeting-text {
+  font-family: "Lobster", cursive;
 }
 
-.Shadowsbackground{
-   background: linear-gradient(180deg, #F5F5F5 0%, #ff1212 100%);
-   box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
-   border-radius: 8px;
-   padding: 20px;
-   margin: 20px;
+.Shadowsbackground {
+  background: linear-gradient(180deg, #f5f5f5 0%, #ff1212 100%);
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px;
 }
 
 .achievement-card {
@@ -131,3 +130,39 @@ html {
   box-shadow: 0 0 50px -2px rgba(245, 101, 101, 0.5);
 }
 
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+.bounce-animation {
+  animation: bounce 2s infinite;
+}
+
+@keyframes wave {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  50% {
+    transform: translate(-50%, -50%) rotate(-20deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+}
+
+.wave-animation {
+  animation: wave 0.75s ease-in-out forwards;
+}
