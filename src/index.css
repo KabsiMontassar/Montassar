@@ -37,6 +37,19 @@
   font-weight: 200;
 }
 
+
+@font-face{
+  font-family: "Piestacy";
+  src: url("/src/assets/font/Priestacy.otf") format("opentype");
+}
+
+.signature {
+  font-family: "Piestacy", cursive;
+}
+
+
+
+
 :root {
   --color-white: #ffffff;
   --color-black: #000000;

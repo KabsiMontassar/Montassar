@@ -57,6 +57,7 @@ const Hero = () => {
                             fontWeight="bold"
                             lineHeight="1"
                             zIndex="1"
+
                             letterSpacing={2}
                         >
                             WELCOME TO <br /> MY WEBSITE
