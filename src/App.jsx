@@ -44,7 +44,7 @@ function App() {
   const contentMarginX = useTransform(scrollY, [0, 50, 100], ["5%", "2%", "0%"]);
 
   // 🔹 GetInTouch width based on scrollY
-  const getInTouchWidth = useTransform(scrollY, [start, end], ["30%", "100%"]);
+  const getInTouchWidth = useTransform(scrollY, [start, end - 300], ["30%", "100%"]);
 
   const lenisOptions = {
     lerp: 0.08,
@@ -93,18 +93,21 @@ function App() {
             <Projects />
 
             {/* 🔹 GetInTouch */}
-            <motion.div
-              ref={getInTouchRef}
-              style={{
-                width: getInTouchWidth,
-                margin: "0 auto",
-                minHeight: "100vh",
-              }}
-              transition={{ type: "spring", stiffness: 100, damping: 20 }}
-            >
-              <GetInTouch />
-            </motion.div>
+            <Box  bgColor={"black"}>
+              <motion.div
+                ref={getInTouchRef}
+                style={{
+                  width: getInTouchWidth,
+                  margin: "0 auto",
+                  minHeight: "100vh",
+                }}
+                transition={{ type: "spring", stiffness: 100, damping: 20 }}
+              >
+                <GetInTouch />
+              </motion.div>
+            </Box>
           </motion.div>
+
         </motion.div>
       </Box>
     </ReactLenis>
