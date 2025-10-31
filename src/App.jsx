@@ -1,8 +1,7 @@
 import { Box } from "@chakra-ui/react";
-import { useTranslation } from "react-i18next";
 import { ReactLenis } from "@studio-freight/react-lenis";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useLayoutEffect, useState } from "react";
 
 import Cursor from "./components/Cursor";
 import Hero from "./components/Hero";
@@ -17,20 +16,35 @@ import Header from "./components/Header";
 function App() {
   const { scrollY } = useScroll();
   const containerRef = useRef(null);
+  const getInTouchRef = useRef(null);
+
+  // Store scroll positions for GetInTouch animation
+  const [start, setStart] = useState(0);
+  const [end, setEnd] = useState(0);
+
+  useLayoutEffect(() => {
+    if (getInTouchRef.current) {
+      const rect = getInTouchRef.current.getBoundingClientRect();
+      const scrollTop = window.scrollY || window.pageYOffset;
+      const offsetTop = rect.top + scrollTop;
+
+      setStart(offsetTop - window.innerHeight); // animation starts when bottom reaches viewport
+      setEnd(offsetTop); // animation ends when fully visible
+    }
+  }, []);
 
   // 🔹 Animate hero scale & rounding for subtle depth
   const scale = useTransform(scrollY, [0, 400], [1, 1.03]);
   const borderRadius = useTransform(scrollY, [0, 400], [0, 40]);
 
-  // 🔹 Move main content upward when scrolling
+  // 🔹 Move main content upward
   const mainContentY = useTransform(scrollY, [0, 400], [0, 0]);
 
-  // 🔹 Animate margin shrink effect (10% → 0%)
+  // 🔹 Animate horizontal margins
   const contentMarginX = useTransform(scrollY, [0, 50, 100], ["5%", "2%", "0%"]);
 
-  // 🔹 GetInTouch animations: width (30% → 100%) and opacity (0 → 1)
-  const getInTouchWidth = useTransform(scrollY, [0, 200, 400], ["30%", "60%", "100%"]);
-  const getInTouchOpacity = useTransform(scrollY, [0, 200, 400], [0, 0.5, 1]);
+  // 🔹 GetInTouch width based on scrollY
+  const getInTouchWidth = useTransform(scrollY, [start, end], ["30%", "100%"]);
 
   const lenisOptions = {
     lerp: 0.08,
@@ -48,7 +62,7 @@ function App() {
       <Box position="relative" bg="white" overflow="hidden" ref={containerRef}>
         <Cursor />
 
-        {/* 🔸 HERO SECTION (fixed, background layer) */}
+        {/* 🔸 HERO SECTION */}
         <motion.div
           style={{
             scale,
@@ -62,40 +76,35 @@ function App() {
             width: "100%",
           }}
         >
-          <Box bg="white"  >
+          <Box bg="white">
             <Hero />
           </Box>
         </motion.div>
 
-        <motion.div
-          style={{
-            y: mainContentY,
-            position: "relative",
-            zIndex: 10,
-          }}
-        >
+        {/* 🔸 MAIN CONTENT */}
+        <motion.div style={{ y: mainContentY, position: "relative", zIndex: 10 }}>
           <motion.div style={{ marginLeft: contentMarginX, marginRight: contentMarginX }}>
-            <Box mt="75vh" >
+            <Box mt="75vh">
               <AboutMe />
             </Box>
             <MoreAboutMe />
             <MySkills />
             <Services />
             <Projects />
-          <motion.div
-  style={{
-    width: getInTouchWidth,
-    opacity: getInTouchOpacity,
-    margin: "0 auto",
-  }}
-  transition={{ type: "spring", stiffness: 100, damping: 20 }}
->
-  <Box>
-    <GetInTouch />
-  </Box>
-</motion.div>
-          </motion.div>
 
+            {/* 🔹 GetInTouch */}
+            <motion.div
+              ref={getInTouchRef}
+              style={{
+                width: getInTouchWidth,
+                margin: "0 auto",
+                minHeight: "100vh",
+              }}
+              transition={{ type: "spring", stiffness: 100, damping: 20 }}
+            >
+              <GetInTouch />
+            </motion.div>
+          </motion.div>
         </motion.div>
       </Box>
     </ReactLenis>
