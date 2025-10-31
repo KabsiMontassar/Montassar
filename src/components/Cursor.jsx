@@ -29,8 +29,12 @@ const Cursor = () => {
     animationRef.current = requestAnimationFrame(animate);
     document.addEventListener('mousemove', handleMouseMove);
 
-    // Add hover listeners to interactive elements
-    const interactiveElements = document.querySelectorAll('button, a, input, textarea, select, [role="button"]');
+    // Add hover listeners to text content only - more specific selectors
+    const interactiveElements = document.querySelectorAll(`
+      button, a[href], input[type="submit"], input[type="button"], 
+      [role="button"], .clickable, .interactive,
+      h1, h2, h3, h4, h5, h6,p ,span
+    `);
     interactiveElements.forEach(el => {
       el.addEventListener('mouseenter', handleMouseEnter);
       el.addEventListener('mouseleave', handleMouseLeave);
@@ -59,7 +63,7 @@ const Cursor = () => {
       borderRadius="50%"
       pointerEvents="none"
       zIndex="9999"
-      opacity={isHovering ? 0.4 : 1}
+      opacity={isHovering ? 0.6 : 1}
       transform="translate(-50%, -50%)"
       sx={{
         transition: 'width 0.3s ease, height 0.3s ease, opacity 0.3s ease',

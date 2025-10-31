@@ -28,7 +28,7 @@ const Hero = () => {
     return (
         <Box
             id="hero"
-            minH="100vh"
+            minH="70vh"
             bg="white"
             width="100%"
             position="relative"
@@ -95,6 +95,7 @@ const Hero = () => {
                         size="lg"
                         color="#ffc83d"
                         sx={{ transform: 'rotate(180deg)' }}
+                        
                     >
                         <IoTriangleSharp />
                     </Icon>
