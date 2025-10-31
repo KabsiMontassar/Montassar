@@ -19,11 +19,11 @@ function App() {
   };
 
   return (
-    <Box>
+    <Box mx="10%">
       <Cursor />
-      <Box position="fixed" top="0" left="0" right="0" bg="white" zIndex="10" p={4} >
+      <Box position="sticky" top="0" left="0" right="0" bg="white" zIndex="10" p={4} >
         <Flex justify="space-between" align="center">
-          <Button ml="250px" border={"none"}
+          <Button border={"none"}
             _hover={{
               backgroundColor: "transparent",
 
@@ -31,10 +31,11 @@ function App() {
             }}
             backgroundColor={"transparent"}
             fontSize="xl" fontWeight="600" letterSpacing={1}
+             pl={20}
           >
             Kebsi Montassar
           </Button>
-          <HStack pr="250px">
+          <HStack >
             <Button
               border={"none"}
               _hover={{
