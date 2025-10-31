@@ -1,64 +1,14 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Box, useColorMode } from '@chakra-ui/react'
-import Navbar from './components/navbar/Navbar'
-import FloatingSettings from './components/settings/FloatingSettings'
-import Home from './pages/home'
-import About from './pages/about'
-import Experience from './pages/experience'
-import Projects from './pages/projects'
-import Contact from './pages/contact'
-import Footer from './components/Footer/Footer'
-import Lenis from '@studio-freight/lenis'
-import { useEffect } from 'react';
+
 function App() {
   const { colorMode } = useColorMode()
-
-  useEffect(() => {
-
-    const lenis = new Lenis()
-
-
-
-    function raf(time) {
-
-      lenis.raf(time)
-
-      requestAnimationFrame(raf)
-
-    }
-
-
-
-    requestAnimationFrame(raf)
-
-  }, [])
-
- 
 
 
 
   return (
-    <Router future={{
-      v7_startTransition: true,
-      v7_relativeSplatPath: true
-    }}>
-      <Box
-        backgroundColor={colorMode === 'light' ? '#F7FAFC' : '#1A202C'}
-        minHeight="100vh"
-        position="relative"
-      >
-        <Navbar />
-        <FloatingSettings />
-        <Routes>
-          <Route path="/portfolio/" element={<Home />} />
-          <Route path="/portfolio/about" element={<About />} />
-          <Route path="/portfolio/experience" element={<Experience />} />
-          <Route path="/portfolio/projects" element={<Projects />} />
-          <Route path="/portfolio/contact" element={<Contact />} />
-        </Routes>
-      </Box>
-      <Footer />
-    </Router>
+    <Box bg={colorMode === 'light' ? 'white' : 'gray.800'}>
+      App Component
+    </Box>
   )
 }
 
