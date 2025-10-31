@@ -33,7 +33,7 @@ const Cursor = () => {
     const interactiveElements = document.querySelectorAll(`
       button, a[href], input[type="submit"], input[type="button"], 
       [role="button"], .clickable, .interactive,
-      h1, h2, h3, h4, h5, h6,p ,span
+      h1, h2, h3, h4, h5, h6, p, span, button
     `);
     interactiveElements.forEach(el => {
       el.addEventListener('mouseenter', handleMouseEnter);

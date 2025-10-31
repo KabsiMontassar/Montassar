@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import { ReactLenis } from "@studio-freight/react-lenis";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import { useRef, useLayoutEffect, useState } from "react";
 
 import Cursor from "./components/Cursor";
@@ -17,33 +17,40 @@ function App() {
   const { scrollY } = useScroll();
   const containerRef = useRef(null);
   const getInTouchRef = useRef(null);
+  const heroRef = useRef(null);
 
-  // Store scroll positions for GetInTouch animation
+  const [headerColor, setHeaderColor] = useState("black"); // default black for Hero
+
+  // Track scroll to dynamically change header color
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const heroHeight = heroRef.current?.offsetHeight || 0;
+    const getInTouchTop = getInTouchRef.current?.offsetTop || 0;
+    if (latest < heroHeight) {
+      setHeaderColor("black"); // Hero background is white
+    } else if (latest >= heroHeight && latest < getInTouchTop) {
+      setHeaderColor("white"); // Middle sections have black background
+    } else {
+      setHeaderColor("black"); // GetInTouch background is white
+    }
+  });
+
+  // GetInTouch scroll-based animation
   const [start, setStart] = useState(0);
   const [end, setEnd] = useState(0);
-
   useLayoutEffect(() => {
     if (getInTouchRef.current) {
       const rect = getInTouchRef.current.getBoundingClientRect();
       const scrollTop = window.scrollY || window.pageYOffset;
       const offsetTop = rect.top + scrollTop;
-
-      setStart(offsetTop - window.innerHeight); // animation starts when bottom reaches viewport
-      setEnd(offsetTop); // animation ends when fully visible
+      setStart(offsetTop - window.innerHeight);
+      setEnd(offsetTop);
     }
   }, []);
 
-  // 🔹 Animate hero scale & rounding for subtle depth
   const scale = useTransform(scrollY, [0, 400], [1, 1.03]);
   const borderRadius = useTransform(scrollY, [0, 400], [0, 40]);
-
-  // 🔹 Move main content upward
   const mainContentY = useTransform(scrollY, [0, 400], [0, 0]);
-
-  // 🔹 Animate horizontal margins
   const contentMarginX = useTransform(scrollY, [0, 50, 100], ["5%", "2%", "0%"]);
-
-  // 🔹 GetInTouch width based on scrollY
   const getInTouchWidth = useTransform(scrollY, [start, end - 300], ["30%", "100%"]);
 
   const lenisOptions = {
@@ -57,13 +64,15 @@ function App() {
 
   return (
     <ReactLenis root options={lenisOptions}>
-      <Header />
+      <Header textColor={headerColor} />
 
       <Box position="relative" bg="white" overflow="hidden" ref={containerRef}>
         <Cursor />
 
-        {/* 🔸 HERO SECTION */}
+        {/* HERO */}
+        {/* HERO (fixed) */}
         <motion.div
+          ref={heroRef}
           style={{
             scale,
             borderRadius,
@@ -76,24 +85,25 @@ function App() {
             width: "100%",
           }}
         >
-          <Box bg="white">
+          <Box bg="white" h="75vh"> {/* Make Hero take full intended height */}
             <Hero />
           </Box>
         </motion.div>
 
-        {/* 🔸 MAIN CONTENT */}
+        {/* Placeholder to reserve Hero space */}
+        <Box h="75vh" /> {/* This pushes AboutMe down so Hero is visible first */}
+
+        {/* MAIN CONTENT */}
         <motion.div style={{ y: mainContentY, position: "relative", zIndex: 10 }}>
           <motion.div style={{ marginLeft: contentMarginX, marginRight: contentMarginX }}>
-            <Box mt="75vh">
-              <AboutMe />
-            </Box>
+            <AboutMe />
             <MoreAboutMe />
             <MySkills />
             <Services />
             <Projects />
 
-            {/* 🔹 GetInTouch */}
-            <Box  bgColor={"black"}>
+            {/* GETINTOUCH */}
+            <Box bg="black">
               <motion.div
                 ref={getInTouchRef}
                 style={{
@@ -107,8 +117,9 @@ function App() {
               </motion.div>
             </Box>
           </motion.div>
-
         </motion.div>
+
+
       </Box>
     </ReactLenis>
   );

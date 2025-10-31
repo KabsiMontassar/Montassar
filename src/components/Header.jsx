@@ -5,7 +5,7 @@ import { setStoredLanguage } from "../utils/localStorage";
 
 import Magnet from "./UI/Magnet";
 
-const Header = () => {
+const Header = ({ textColor }) => {
     const { i18n } = useTranslation();
     const changeLanguage = (lang) => {
         i18n.changeLanguage(lang);
@@ -30,15 +30,18 @@ const Header = () => {
                         backgroundColor="transparent"
                         fontSize="xl"
                         fontWeight="600"
+                        color={textColor}
                         letterSpacing={1}
                         pl={20}
                     >
+
                         Kebsi Montassar
                     </Button>
                 </Magnet>
-                <HStack>
+                <HStack >
                     <Magnet padding={20} disabled={false} magnetStrength={20}>
                         <Button
+                            color={textColor}
                             border="none"
                             _hover={{
                                 backgroundColor: "transparent",
@@ -53,6 +56,7 @@ const Header = () => {
                     </Magnet>
                     <Magnet padding={20} disabled={false} magnetStrength={20}>
                         <Button
+                            color={textColor}
                             border="none"
                             _hover={{
                                 backgroundColor: "transparent",
