@@ -1,7 +1,4 @@
 import { Box, Text, VStack } from '@chakra-ui/react';
-import TextPressure from './UI/TextPressure';
-import { FaLessThanEqual } from 'react-icons/fa';
-
 const MySkills = () => {
   return (
     <Box
@@ -14,20 +11,9 @@ const MySkills = () => {
     >
       <VStack spacing={{ base: 12, md: 16, lg: 20 }} align="center" maxW="1200px" mx="auto">
 
-        <div >
-          <TextPressure
-            text="My Skills"
-            flex={true}
-            alpha={false}
-            stroke={false}
-            width={false}
-            weight={true}
-            italic={true}
-            textColor="#ffffff"
-            strokeColor="#ff0000"
-            minFontSize={80}
-          />
-        </div>
+        <Text fontSize={{ base: "5xl", md: "6xl", lg: "7xl" }} fontWeight="600" color="white">
+          My Skills
+        </Text>
 
         {/* Big Transparent Box with White Borders */}
         <Box
@@ -60,18 +46,9 @@ const MySkills = () => {
           justifyContent="center"
           boxShadow="0 0 40px rgba(255, 255, 255, 0.2), 0 0 80px rgba(255, 255, 255, 0.1), 0 0 120px rgba(255, 255, 255, 0.05)"
         >
-          <Text
-            textColor="white"
-            fontSize={{
-              base: "lg",
-              sm: "xl",
-              md: "2xl"
-            }}
-            textAlign="center"
-            opacity={0.7}
-          >
-            Skills content will go here
-          </Text>
+
+
+
         </Box>
       </VStack>
     </Box>
