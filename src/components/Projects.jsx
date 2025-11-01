@@ -2,9 +2,9 @@ import { Box, Text } from '@chakra-ui/react';
 
 const Projects = () => {
   return (
-      <Box id="about-me" minH="100vh" bg="black" p={8} pt="120px">
-      <Text textColor="white" fontSize="3xl" fontWeight="bold" mb={4}>About Me</Text>
-      <Text textColor="white">Content for About Me section</Text>
+      <Box id="projects" minH="100vh" bg="black" p={8} pt="120px">
+      <Text textColor="white" fontSize="3xl" fontWeight="bold" mb={4}>Projects</Text>
+      <Text textColor="white">Content for Projects section</Text>
     </Box>
   );
 };

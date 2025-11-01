@@ -73,8 +73,6 @@ function App() {
       <Box position="relative" bg="white" overflow="hidden" ref={containerRef}>
         <Cursor />
 
-        {/* HERO */}
-        {/* HERO (fixed) */}
         <motion.div
           ref={heroRef}
           style={{
