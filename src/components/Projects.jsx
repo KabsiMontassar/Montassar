@@ -156,7 +156,7 @@ const Projects = () => {
                 position="relative"
                 maxW="900px"
                 w="100%"
-                transformStyle="preserve-3d"
+                transformstyle="preserve-3d"
                 style={{
                   transform: `rotateY(${index % 2 === 0 ? 10 : -10}deg)`, // consistent tilt
                 }}
