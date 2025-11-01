@@ -37,8 +37,7 @@
   font-weight: 200;
 }
 
-
-@font-face{
+@font-face {
   font-family: "Piestacy";
   src: url("/src/assets/font/Priestacy.otf") format("opentype");
 }
@@ -46,9 +45,6 @@
 .signature {
   font-family: "Piestacy", cursive;
 }
-
-
-
 
 :root {
   --color-white: #ffffff;
@@ -135,6 +131,19 @@ html.lenis body {
   pointer-events: none;
 }
 
-.split-char{
+.split-char {
   font-weight: bold;
+}
+
+.get-in-touch-title-first > span,
+.get-in-touch-title-second > span {
+  color: #000000;
+}
+
+.get-in-touch-title-first > span > .split-char {
+  font-weight: 400;
+}
+
+.get-in-touch-title-second > span > .split-char {
+  font-weight: 600;
 }

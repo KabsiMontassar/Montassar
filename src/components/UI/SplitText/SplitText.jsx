@@ -148,8 +148,8 @@ const SplitText = ({
       wordWrap: 'break-word',
       willChange: 'transform, opacity',
       color: 'white',
-      fontSize: '7rem', 
-      fontWeight
+      fontSize: '7rem',
+      fontWeight: fontWeight
     };
     const classes = `split-parent ${className}`;
     switch (tag) {
