@@ -1,6 +1,5 @@
-import { Box, Text, VStack, HStack, Button, SimpleGrid } from '@chakra-ui/react';
+import { Box, Text, VStack, SimpleGrid } from '@chakra-ui/react';
 import SpotlightCard from './UI/spotLight/SpotlightCard';
-import Magnet from './UI/magnet/Magnet';
 import SplitText from './UI/SplitText/SplitText';
 
 const Services = () => {
