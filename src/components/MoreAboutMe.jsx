@@ -15,6 +15,23 @@ const MoreAboutMe = () => {
   const paragraph =
     "I have a deep passion for learning new technologies, especially in effects and animations. I strive to create innovative and engaging digital experiences, pushing boundaries with each project while prioritizing quality above all.";
 
+  // Split paragraph into three parts
+  const part1 = "I have a deep passion for learning new technologies,";
+  const part2 = "especially in effects and animations. I strive to create";
+  const part3 = "innovative and engaging digital experiences, pushing boundaries with each project while prioritizing quality above all.";
+
+  // Configuration for all paragraph animations
+  const paragraphConfigs = [
+    // Left side paragraphs
+    { text: part1, align: "left", selfAlign: "flex-start", rotation: "rotateZ(1.2deg)", delay: 0 },
+    { text: part2, align: "left", selfAlign: "flex-start", rotation: "rotateZ(1.2deg)", delay: 0.2 },
+    { text: part3, align: "left", selfAlign: "flex-start", rotation: "rotateZ(1.2deg)", delay: 0.4 },
+    // Right side paragraphs
+    { text: part1, align: "right", selfAlign: "flex-end", rotation: "rotateZ(-1.2deg)", delay: 0.8 },
+    { text: part2, align: "right", selfAlign: "flex-end", rotation: "rotateZ(-1.2deg)", delay: 1.0 },
+    { text: part3, align: "right", selfAlign: "flex-end", rotation: "rotateZ(-1.2deg)", delay: 1.2 },
+  ];
+
   return (
     <Box
       ref={containerRef}
@@ -70,6 +87,7 @@ const MoreAboutMe = () => {
 
         {/* Static Paragraph */}
         <Box maxW={{ base: '100%', sm: '90%', md: '700px', lg: '820px' }} textAlign="center">
+
           <Text
             color="white"
             fontSize={{ base: 'xl', sm: '2xl', md: '3xl', lg: '4xl' }}
@@ -83,113 +101,82 @@ const MoreAboutMe = () => {
 
         {/* Three Column Section */}
         <VStack
-          spacing={{ base: 12, md: 16, lg: 20 }}
-
+          spacing={{ base: 6, md: 8, lg: 10 }}
           w="100%"
-
           mt={{ base: 16, md: 20, lg: 24 }}
         >
-          {/* Left Paragraph with Reveal Animation */}
-          <Box
-            w={{ base: '100%', md: '80%', lg: '60%' }}
-            textAlign="left"
-            alignSelf="flex-start"
-            transform={"rotateZ(1.2deg)"}
-
-
-          >
-
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{
-                opacity: 1,
-                x: 0,
-                transition: {
-                  duration: 0.8,
-                  ease: "easeOut"
-                }
-              }}
-              viewport={{ once: true, margin: "-100px" }}
-            >
-              <Text
-                color="white"
-                fontSize={{ base: 'lg', sm: '3xl', md: '4xl', lg: '5xl' }}
-                fontWeight="200"
-                lineHeight=".9"
-
-              >
-                {paragraph}
-              </Text>
-            </motion.div>
-          </Box>
-
-          {/* Center Logo */}
-          <Box>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{
-                opacity: 1,
-                scale: 1,
-                transition: {
-                  duration: 1,
-                  ease: "easeOut",
-                  delay: 0.2
-                }
-              }}
-              viewport={{ once: true, margin: "-100px" }}
-            >
+          {/* Animated Paragraphs */}
+          {paragraphConfigs.map((config, index) => (
+            <>
               <Box
-                w={{ base: '120px', md: '150px', lg: '180px' }}
-                h={{ base: '120px', md: '150px', lg: '180px' }}
-                bg="rgba(255, 255, 255, 0.1)"
-                borderRadius="full"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                border="2px solid rgba(255, 255, 255, 0.2)"
+                key={index}
+                w={{ base: '100%', md: '80%', lg: '60%' }}
+                textAlign={config.align}
+                alignSelf={config.selfAlign}
+                style={{ transform: config.rotation }}
               >
-                <Text
-                  color="white"
-                  fontSize={{ base: '2xl', md: '3xl', lg: '4xl' }}
-                  fontWeight="bold"
-                  opacity={0.6}
+                <motion.div
+                  initial={{ opacity: 0, x: config.align === "left" ? -50 : 50 }}
+                  whileInView={{
+                    opacity: 1,
+                    x: 0,
+                    transition: {
+                      duration: 0.8,
+                      ease: "easeOut",
+                      delay: config.delay
+                    }
+                  }}
+                  viewport={{ once: true, margin: "-100px" }}
                 >
-                  LOGO
-                </Text>
+                  <Text
+                    color="white"
+                    fontSize={{ base: 'lg', sm: '3xl', md: '4xl', lg: '5xl' }}
+                    fontWeight="200"
+                    lineHeight=".9"
+                  >
+                    {config.text}
+                  </Text>
+                </motion.div>
               </Box>
-            </motion.div>
-          </Box>
 
-          {/* Right Paragraph with Reveal Animation */}
-          <Box
-            w={{ base: '100%', md: '80%', lg: '60%' }}
-            textAlign="right"
-            alignSelf="flex-end"
-            transform={"rotateZ(-1.2deg)"}
-
-          >
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{
-                opacity: 1,
-                x: 0,
-                transition: {
-                  duration: 0.8,
-                  ease: "easeOut"
-                }
-              }}
-              viewport={{ once: true, margin: "-100px" }}
-            >
-              <Text
-                color="white"
-                fontSize={{ base: 'lg', sm: '3xl', md: '4xl', lg: '5xl' }}
-                fontWeight="200"
-                lineHeight=".9"
-              >
-                {paragraph}
-              </Text>
-            </motion.div>
-          </Box>
+              {index === 2 && (
+                <Box>
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{
+                      opacity: 1,
+                      scale: 1,
+                      transition: {
+                        duration: 1,
+                        ease: "easeOut",
+                        delay: 0.6
+                      }
+                    }}
+                    viewport={{ once: true, margin: "-100px" }}
+                  >
+                    <Box
+                      w={{ base: '120px', md: '150px', lg: '180px' }}
+                      h={{ base: '120px', md: '150px', lg: '180px' }}
+                      bg="rgba(255, 255, 255, 0.1)"
+                      borderRadius="full"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      border="2px solid rgba(255, 255, 255, 0.2)"
+                    >
+                      <Text
+                        color="white"
+                        fontSize={{ base: '2xl', md: '3xl', lg: '4xl' }}
+                        fontWeight="bold"
+                        opacity={0.6}
+                      >
+                        LOGO
+                      </Text>
+                    </Box>
+                  </motion.div>
+                </Box>)}
+            </>
+          ))}
         </VStack>
       </VStack>
     </Box>

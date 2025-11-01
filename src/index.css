@@ -134,3 +134,7 @@ html.lenis body {
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
 }
+
+.split-char{
+  font-weight: bold;
+}

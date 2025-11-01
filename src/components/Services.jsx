@@ -1,6 +1,7 @@
 import { Box, Text, VStack, HStack, Button, SimpleGrid } from '@chakra-ui/react';
-import SpotlightCard from './UI/SpotlightCard';
-import Magnet from './UI/Magnet';
+import SpotlightCard from './UI/spotLight/SpotlightCard';
+import Magnet from './UI/magnet/Magnet';
+import SplitText from './UI/SplitText/SplitText';
 
 const Services = () => {
   const services = [
@@ -23,11 +24,11 @@ const Services = () => {
 
   return (
     <Box id="services" minH="100vh" bg="black" pt="80px">
-      <VStack spacing={100} align="flex-start" maxW="1500px" mx="auto">
+      <VStack spacing={50} align="flex-start" maxW="1500px" mx="auto">
+        <SplitText
+          text="Services"
+        />
 
-        <Text textColor="white" fontSize="7xl" fontWeight="bold">
-          Services
-        </Text>
 
         <Text
           color="white"
@@ -38,34 +39,40 @@ const Services = () => {
           I offer expert solutions in website and mobile app development, focusing on performance, scalability, and seamless user experience. Additionally, I provide optimization services for speed and SEO, along with academic project support, including graduation theses. Let's build something exceptional together!
         </Text>
 
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6} w="100%">
+        <SimpleGrid mt={100} columns={{ base: 1, md: 2, lg: 3 }} spacing={6} w="100%">
           {services.map((service, index) => (
             <SpotlightCard className="custom-spotlight-card" spotlightColor="rgba(255, 255, 255, 0.2)" key={index}>
               <VStack align="start" h="100%" justifyContent={"center"}>
+
+
                 <Text fontSize="2xl" fontWeight="bold" color="white">
                   {service.title}
                 </Text>
+
+
+
+
                 <Text fontSize="xl" color="rgb(156 163 175)" flex={1}>
 
                   {service.description}
                 </Text>
                 <Magnet padding={100} disabled={false} magnetStrength={20}>
-                <Button
+                  <Button
 
-                  variant="outline"
-                  fontSize="2xl"
-                  px={6}
-                  py={6}
-                  borderRadius={"full"}
-                  fontWeight={"semibold"}
-                  bgColor="#141414"
-                  borderColor="#272727"
-                  color="white"
-                _hover={{ bg: 'white', color: 'black' }}
-                >
+                    variant="outline"
+                    fontSize="2xl"
+                    px={6}
+                    py={6}
+                    borderRadius={"full"}
+                    fontWeight={"semibold"}
+                    bgColor="#141414"
+                    borderColor="#272727"
+                    color="white"
+                    _hover={{ bg: 'white', color: 'black' }}
+                  >
 
-                  {service.buttonText}
-                </Button>
+                    {service.buttonText}
+                  </Button>
                 </Magnet>
               </VStack>
 

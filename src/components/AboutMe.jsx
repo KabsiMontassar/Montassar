@@ -1,6 +1,8 @@
 import { Box, Text, Flex, VStack, Image, Card, CardBody } from '@chakra-ui/react';
 import image from '../assets/image.jpg';
-import ScrollVelocity from './UI/ScrollVelocity';
+import ScrollVelocity from './UI/scrollVelocity/ScrollVelocity';
+import SplitText from './UI/SplitText/SplitText';
+
 const AboutMe = () => {
 
   // Create scroll-based transforms for curved loops
@@ -36,40 +38,38 @@ const AboutMe = () => {
       >
         {/* Left Side - Text Content */}
         <VStack align="flex-start" spacing={10} flex={1} maxW={{ base: "100%", md: "60%" }}>
-          <Text
-            textColor="white"
-            fontSize={{ base: "5xl", md: "6xl", lg: "7xl" }}
-            fontWeight="bold"
-            lineHeight="1.1"
-          >
-            {contents.title}
-          </Text>
+        
+            <SplitText
+              text="About Me"
+              fontWeight="bold"
+            />
+          
 
-          <Text
-            textColor="white"
-            fontSize={{ base: "md", md: "lg", lg: "4xl" }}
-            fontWeight="200"
-            maxW="700px"
-          >
-            {contents.description}
-          </Text>
+            <Text
+              textColor="white"
+              fontSize={{ base: "md", md: "lg", lg: "4xl" }}
+              fontWeight="200"
+              maxW="700px"
+            >
+              {contents.description}
+            </Text>
 
-          <Text
-            textColor="white"
-            fontSize={{ base: "2xl", md: "3xl", lg: "7xl" }}
-            fontWeight="very light"
-            className="signature"
-            mt={4}
-          >
-            {contents.signature}
-          </Text>
+            <Text
+              textColor="white"
+              fontSize={{ base: "2xl", md: "3xl", lg: "7xl" }}
+              fontWeight="very light"
+              className="signature"
+              mt={4}
+            >
+              {contents.signature}
+            </Text>
         </VStack>
 
 
         <Box
           flex={1}
           maxW={{ base: "100%", md: "30%" }}
-        
+
           pb={100}
         >
           <Card

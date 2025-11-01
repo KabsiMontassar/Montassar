@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import { setStoredLanguage } from "../utils/localStorage";
 
-import Magnet from "./UI/Magnet";
+import Magnet from "./UI/magnet/Magnet";
 
 const Header = ({ textColor }) => {
     const { i18n } = useTranslation();

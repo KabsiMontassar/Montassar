@@ -3,11 +3,10 @@ import { ReactLenis } from "@studio-freight/react-lenis";
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import { useRef, useLayoutEffect, useState } from "react";
 
-import Cursor from "./components/UI/Cursor";
+import Cursor from "./components/UI/cursor/Cursor";
 import Hero from "./components/Hero";
 import AboutMe from "./components/AboutMe";
 import MoreAboutMe from "./components/MoreAboutMe";
-import MySkills from "./components/MySkills";
 import Services from "./components/Services";
 import Projects from "./components/Projects";
 import GetInTouch from "./components/GetInTouch";
@@ -51,11 +50,10 @@ function App() {
   const borderRadius = useTransform(scrollY, [0, 400], [0, 40]);
   const mainContentY = useTransform(scrollY, [0, 400], [0, 0]);
   const contentMarginX = useTransform(scrollY, [0, 50, 100], ["5%", "2%", "0%"]);
-  const getInTouchWidth = useTransform(scrollY, [start, end - 300], ["30%", "100%"]);
+  const getInTouchWidth = useTransform(scrollY, [start, end - 300], ["15%", "100%"]);
 
   // Responsive values
   const heroHeight = useBreakpointValue({ base: "60vh", sm: "70vh", md: "75vh", lg: "75vh" });
-  const getInTouchStartWidth = useBreakpointValue({ base: "50%", sm: "40%", md: "30%", lg: "30%" });
 
   const lenisOptions = {
     lerp: 0.08,
@@ -100,7 +98,6 @@ function App() {
           <motion.div style={{ marginLeft: contentMarginX, marginRight: contentMarginX }}>
             <AboutMe />
             <MoreAboutMe />
-            <MySkills />
             <Services />
             <Projects />
 

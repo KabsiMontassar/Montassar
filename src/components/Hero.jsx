@@ -1,6 +1,6 @@
 import { Box, Flex, Text, Icon } from '@chakra-ui/react';
 import { useState, useEffect, useRef } from 'react';
-import Magnet from './UI/Magnet';
+import Magnet from './UI/magnet/Magnet';
 import { IoTriangleSharp } from "react-icons/io5";
 
 const Hero = () => {
