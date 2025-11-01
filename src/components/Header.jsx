@@ -51,6 +51,7 @@ const Header = ({ textColor }) => {
                         <Button
                             color={textColor}
                             border="none"
+                            fontWeight={"300"}
                             _hover={{
                                 backgroundColor: "transparent",
                                 fontWeight: "bold",
@@ -67,6 +68,7 @@ const Header = ({ textColor }) => {
                         <Button
                             color={textColor}
                             border="none"
+                             fontWeight={"300"}
                             _hover={{
                                 backgroundColor: "transparent",
                                 fontWeight: "bold",
