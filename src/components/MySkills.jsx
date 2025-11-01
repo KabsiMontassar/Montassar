@@ -32,7 +32,7 @@ const MySkills = () => {
             xl: "600px"
           }}
           bg="transparent"
-          border="2px solid white"
+          border="1px solid white"
           borderRadius="3xl"
           p={{
             base: 6,

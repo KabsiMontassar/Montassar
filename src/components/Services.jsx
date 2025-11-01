@@ -1,5 +1,6 @@
 import { Box, Text, VStack, HStack, Button, SimpleGrid } from '@chakra-ui/react';
 import SpotlightCard from './UI/SpotlightCard';
+import Magnet from './UI/Magnet';
 
 const Services = () => {
   const services = [
@@ -40,14 +41,15 @@ const Services = () => {
         <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6} w="100%">
           {services.map((service, index) => (
             <SpotlightCard className="custom-spotlight-card" spotlightColor="rgba(255, 255, 255, 0.2)" key={index}>
-              <VStack spacing={4} align="flex-start" h="100%">
-                <Text fontSize="3xl" fontWeight="bold" color="white">
+              <VStack align="start" h="100%" justifyContent={"center"}>
+                <Text fontSize="2xl" fontWeight="bold" color="white">
                   {service.title}
                 </Text>
                 <Text fontSize="xl" color="rgb(156 163 175)" flex={1}>
 
                   {service.description}
                 </Text>
+                <Magnet padding={100} disabled={false} magnetStrength={20}>
                 <Button
 
                   variant="outline"
@@ -64,6 +66,7 @@ const Services = () => {
 
                   {service.buttonText}
                 </Button>
+                </Magnet>
               </VStack>
 
 

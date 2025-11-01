@@ -1,15 +1,9 @@
 import { Box, Text, Flex, VStack, Image, Card, CardBody } from '@chakra-ui/react';
-import { motion, scale, useScroll, useTransform } from 'framer-motion';
 import image from '../assets/image.jpg';
-import CurvedLoop from './UI/CurvedLoop';
-import { t } from 'i18next';
 import ScrollVelocity from './UI/ScrollVelocity';
 const AboutMe = () => {
-  const { scrollYProgress } = useScroll();
 
   // Create scroll-based transforms for curved loops
-  const curve1X = useTransform(scrollYProgress, [0, 1], [0, 300]); // Move right
-  const curve2X = useTransform(scrollYProgress, [0, 1], [0, -300]); // Move left
 
 
 
@@ -32,11 +26,12 @@ const AboutMe = () => {
   return (
     <Box id="about-me" minH="100vh" bg="black" p={{ base: 4, md: 8 }} pt={{ base: "100px", md: "250px" }}>
       <Flex
+
         direction={{ base: "column", md: "row" }}
         align="top"
         justify="space-between"
         gap={8}
-        maxW="1500px"
+        maxW="1450px"
         mx="auto"
       >
         {/* Left Side - Text Content */}
@@ -74,7 +69,8 @@ const AboutMe = () => {
         <Box
           flex={1}
           maxW={{ base: "100%", md: "30%" }}
-          transform="rotateZ(-10deg)"
+        
+          pb={100}
         >
           <Card
             transition="transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1)"
@@ -88,6 +84,7 @@ const AboutMe = () => {
             boxShadow="2xl"
             h={{ base: "400px", md: "500px", lg: "600px" }}
             w="100%"
+
           >
             <CardBody p={0}>
               <Image
@@ -102,7 +99,7 @@ const AboutMe = () => {
           </Card>
         </Box>
       </Flex>
-      <Box my={100} transform="rotateZ(-10deg)">
+      <Box my={200} transform="rotateZ(-10deg)">
         <ScrollVelocity texts={['Montassar Kebsi', 'Personal Website']}
           velocity={"10"}
           className="custom-scroll-text" />
