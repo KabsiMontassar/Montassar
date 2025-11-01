@@ -63,7 +63,7 @@ const Cursor = () => {
       borderRadius="50%"
       pointerEvents="none"
       zIndex="9999"
-      opacity={isHovering ? 0.6 : 1}
+      opacity={isHovering ? 0.5 : 1}
       transform="translate(-50%, -50%)"
       sx={{
         transition: 'width 0.3s ease, height 0.3s ease, opacity 0.3s ease',

@@ -3,7 +3,7 @@ import { ReactLenis } from "@studio-freight/react-lenis";
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import { useRef, useLayoutEffect, useState } from "react";
 
-import Cursor from "./components/Cursor";
+import Cursor from "./components/UI/Cursor";
 import Hero from "./components/Hero";
 import AboutMe from "./components/AboutMe";
 import MoreAboutMe from "./components/MoreAboutMe";
