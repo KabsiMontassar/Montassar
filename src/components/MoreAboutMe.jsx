@@ -1,6 +1,8 @@
+import React from 'react';
 import { Box, Text, VStack, Flex } from '@chakra-ui/react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
+import CircularText from './UI/circularText/CircularText';
 
 const MoreAboutMe = () => {
   const containerRef = useRef(null);
@@ -27,9 +29,9 @@ const MoreAboutMe = () => {
     { text: part2, align: "left", selfAlign: "flex-start", rotation: "rotateZ(1.2deg)", delay: 0.2 },
     { text: part3, align: "left", selfAlign: "flex-start", rotation: "rotateZ(1.2deg)", delay: 0.4 },
     // Right side paragraphs
-    { text: part1, align: "right", selfAlign: "flex-end", rotation: "rotateZ(-1.2deg)", delay: 0.8 },
-    { text: part2, align: "right", selfAlign: "flex-end", rotation: "rotateZ(-1.2deg)", delay: 1.0 },
-    { text: part3, align: "right", selfAlign: "flex-end", rotation: "rotateZ(-1.2deg)", delay: 1.2 },
+    { text: part1, align: "right", selfAlign: "flex-end", rotation: "rotateZ(-1.2deg)", delay: 0.6 },
+    { text: part2, align: "right", selfAlign: "flex-end", rotation: "rotateZ(-1.2deg)", delay: 0.8 },
+    { text: part3, align: "right", selfAlign: "flex-end", rotation: "rotateZ(-1.2deg)", delay: 1.0 },
   ];
 
   return (
@@ -101,15 +103,15 @@ const MoreAboutMe = () => {
 
         {/* Three Column Section */}
         <VStack
-         
+
           w="100%"
           mt={{ base: 16, md: 20, lg: 24 }}
         >
           {/* Animated Paragraphs */}
           {paragraphConfigs.map((config, index) => (
-            <>
+            <React.Fragment key={`paragraph-group-${index}`}>
               <Box
-                key={index}
+                key={`paragraph-${index}`}
                 w={{ base: '100%', md: '80%', lg: '60%' }}
                 textAlign={config.align}
                 alignSelf={config.selfAlign}
@@ -121,7 +123,7 @@ const MoreAboutMe = () => {
                     opacity: 1,
                     x: 0,
                     transition: {
-                      duration: 0.8,
+                      duration: 0.5,
                       ease: "easeOut",
                       delay: config.delay
                     }
@@ -140,7 +142,7 @@ const MoreAboutMe = () => {
               </Box>
 
               {index === 2 && (
-                <Box my={100}>
+                <Box key={`circular-text-${index}`} my={100}>
                   <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{
@@ -149,33 +151,21 @@ const MoreAboutMe = () => {
                       transition: {
                         duration: 1,
                         ease: "easeOut",
-                        delay: 0.6
+                        delay: 0.2
                       }
                     }}
                     viewport={{ once: true, margin: "-100px" }}
                   >
-                    <Box
-                      w={{ base: '120px', md: '150px', lg: '180px' }}
-                      h={{ base: '120px', md: '150px', lg: '180px' }}
-                      bg="rgba(255, 255, 255, 0.1)"
-                      borderRadius="full"
-                      display="flex"
-                      alignItems="center"
-                      justifyContent="center"
-                      border="2px solid rgba(255, 255, 255, 0.2)"
-                    >
-                      <Text
-                        color="white"
-                        fontSize={{ base: '2xl', md: '3xl', lg: '4xl' }}
-                        fontWeight="bold"
-                        opacity={0.6}
-                      >
-                        LOGO
-                      </Text>
-                    </Box>
+                    <CircularText
+                      text="CODE * CREATE * INSPIRE * REPEAT * "
+                      onHover="speedUp"
+                      spinDuration={20}
+                      className="custom-class"
+                    />
                   </motion.div>
-                </Box>)}
-            </>
+                </Box>
+              )}
+            </React.Fragment>
           ))}
         </VStack>
       </VStack>
