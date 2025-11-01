@@ -6,11 +6,12 @@ import { SlSocialLinkedin } from "react-icons/sl";
 import SplitText from './UI/SplitText/SplitText';
 import { useState } from 'react';
 import Magnet from './UI/magnet/Magnet';
+import './GetInTouch.css';
 
 const GetInTouch = () => {
   const [isHovered, setIsHovered] = useState(false);
   return (
-    <Box id="get-in-touch"  bg="white" p={8}  >
+    <Box id="get-in-touch" bg="white" p={8} position="relative" minH="100vh" >
       {/* Main Title */}
       <VStack py={{ base: 16, md: 20, lg: 24 }} pt={{ base: '90px', md: '110px', lg: '130px' }}>
         <Flex direction="column" spacing={4} w="100%" >
@@ -113,6 +114,31 @@ const GetInTouch = () => {
                 <SlSocialLinkedin size={35} color="#000" />
               </Box>
               </Magnet>
+            </Box>
+
+            {/* Back To Top */}
+            <Box
+              position="absolute"
+              right="1%"
+              top="40%"
+              transform="translateY(-50%)"
+              cursor="pointer"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="back-to-top"
+            >
+              <Text
+                fontSize="xl"
+                fontWeight="400"
+                color="black"
+                writingMode="vertical-rl"
+                textOrientation="mixed"
+                _hover={{ color: "#ffc83d" }}
+                transition="color 0.3s ease"
+                transform="rotate(180deg)"
+                className="bouncing-text"
+              >
+                Back To Top
+              </Text>
             </Box>
 
             <Box mt={10}>
