@@ -1,17 +1,23 @@
 import { Box, Text, VStack, Flex } from '@chakra-ui/react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 
 const MoreAboutMe = () => {
-  const { scrollYProgress } = useScroll();
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
 
   // Animate the gap between "More" and "about me" on scroll
-  const gapTransform = useTransform(scrollYProgress, [0, 0.3], [1000, 20]);
+  const gapTransform = useTransform(scrollYProgress, [0, 0.3], [400, 20]);
 
   const paragraph =
     "I have a deep passion for learning new technologies, especially in effects and animations. I strive to create innovative and engaging digital experiences, pushing boundaries with each project while prioritizing quality above all.";
 
   return (
     <Box
+      ref={containerRef}
       id="more-about-me"
       minH="100vh"
       bg="black"
@@ -23,25 +29,39 @@ const MoreAboutMe = () => {
     >
       <VStack spacing={{ base: 12, md: 16, lg: 20 }} align="center" maxW="1200px" mx="auto">
         {/* Scroll-Animated Title */}
-        <Flex justify="center" align="center" wrap="wrap" position="relative">
-          <motion.div style={{ x: useTransform(gapTransform, (gap) => -gap / 2) }}>
+        <Flex justify="center" align="center" wrap="wrap" position="relative" overflow="hidden" w="100%">
+          <motion.div
+            style={{
+              x: useTransform(gapTransform, (gap) => -gap / 2),
+              position: 'relative',
+              zIndex: 1
+            }}
+          >
             <Text
               color="white"
               fontSize={{ base: '4xl', sm: '5xl', md: '6xl', lg: '7xl', xl: '8xl' }}
               fontWeight="bold"
               letterSpacing="-0.02em"
               textAlign="center"
+              display="inline-block"
             >
               More
             </Text>
           </motion.div>
 
-          <motion.div style={{ x: useTransform(gapTransform, (gap) => gap / 2) }}>
+          <motion.div
+            style={{
+              x: useTransform(gapTransform, (gap) => gap / 2),
+              position: 'relative',
+              zIndex: 1
+            }}
+          >
             <Text
               color="white"
               fontSize={{ base: '4xl', sm: '5xl', md: '6xl', lg: '7xl', xl: '8xl' }}
               letterSpacing="-0.02em"
               textAlign="center"
+              display="inline-block"
             >
               about me
             </Text>
