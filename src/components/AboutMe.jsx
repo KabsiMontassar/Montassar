@@ -73,7 +73,7 @@ const AboutMe = () => {
         <Box
           flex={1}
           maxW={{ base: "100%", md: "30%" }}
-          transform="rotateZ(-10deg)"
+          transform="rotateZ(-14deg)"
         >
           <Card
             transition="transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1)"
@@ -106,8 +106,9 @@ const AboutMe = () => {
           <CurvedLoop
             marqueeText={contents.marqueeText1}
             speed={0}
-            curveAmount={0}
-            interactive={true}
+           
+            curveAmount={100}
+           
             className="about-me-curve"
           />
         </motion.div>
@@ -115,8 +116,8 @@ const AboutMe = () => {
           <CurvedLoop
             marqueeText={contents.marqueeText2}
             speed={0}
-            curveAmount={0}
-            interactive={true}
+            curveAmount={100}
+           
           />
         </motion.div>
       </Box>
