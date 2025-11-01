@@ -2,6 +2,7 @@ import { Box, Text, VStack, HStack, Flex } from '@chakra-ui/react';
 import { BsArrowReturnRight } from "react-icons/bs";
 import { VscGithubAlt } from "react-icons/vsc";
 import { SlSocialLinkedin } from "react-icons/sl";
+import { CiMail } from "react-icons/ci";
 
 import SplitText from './UI/SplitText/SplitText';
 import { useState } from 'react';
@@ -10,6 +11,18 @@ import './GetInTouch.css';
 
 const GetInTouch = () => {
   const [isHovered, setIsHovered] = useState(false);
+  const [emailCopied, setEmailCopied] = useState(false);
+  const [emailHovered, setEmailHovered] = useState(false);
+
+  const copyEmailToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText('kebsimontassar@gmail.com');
+      setEmailCopied(true);
+      setTimeout(() => setEmailCopied(false), 2000); // Hide after 2 seconds
+    } catch (err) {
+      console.error('Failed to copy email: ', err);
+    }
+  };
   return (
     <Box id="get-in-touch" bg="white" p={8} position="relative" minH="100vh" >
       {/* Main Title */}
@@ -102,7 +115,7 @@ const GetInTouch = () => {
 
               <Magnet padding={30} disabled={false} magnetStrength={10}><Box
                 as="button"
-                onClick={() => window.open('https://linkedin.com/in/your-profile', '_blank')}
+                onClick={() => window.open('https://www.linkedin.com/in/montassarkabsi', '_blank')}
                 border="1px solid rgb(221 221 221)"
                 borderRadius="50%"
                 p={5}
@@ -114,12 +127,49 @@ const GetInTouch = () => {
                 <SlSocialLinkedin size={35} color="#000" />
               </Box>
               </Magnet>
+                 <Magnet padding={30} disabled={false} magnetStrength={10}><Box
+                as="button"
+                onClick={copyEmailToClipboard}
+                onMouseEnter={() => setEmailHovered(true)}
+                onMouseLeave={() => setEmailHovered(false)}
+                border="1px solid rgb(221 221 221)"
+                borderRadius="50%"
+                p={5}
+                bg="transparent"
+                cursor="pointer"
+                position="relative"
+                transition="all 0.2s"
+              >
+                <CiMail size={35} color="#000" />
+               
+                {(emailHovered || emailCopied) && (
+                  <Text
+                    position="absolute"
+                    top="-40px"
+                    left="50%"
+                    transform="translateX(-50%)"
+                    fontSize="md"
+                    fontWeight="400"
+                    color="black"
+                    bg="white"
+                    px={2}
+                    py={1}
+                    borderRadius="md"
+                    boxShadow="md"
+                    zIndex={10}
+                  >
+                    {emailCopied ? 'copied!' : 'kebsimontassar@gmail.com'}
+                  </Text>
+                )}
+             
+              </Box>
+              </Magnet>
             </Box>
 
             {/* Back To Top */}
             <Box
               position="absolute"
-              right="1%"
+              right="2.2%"
               top="40%"
               transform="translateY(-50%)"
               cursor="pointer"
@@ -127,7 +177,7 @@ const GetInTouch = () => {
               className="back-to-top"
             >
               <Text
-                fontSize="xl"
+                fontSize="2xl"
                 fontWeight="400"
                 color="black"
                 writingMode="vertical-rl"

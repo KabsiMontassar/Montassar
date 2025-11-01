@@ -8,17 +8,14 @@ const Services = () => {
     {
       title: 'Website Development',
       description: 'Designing and developing responsive, modern websites with cutting-edge technology to enhance your digital presence and captivate your audience.',
-      buttonText: 'Contact Me'
     },
     {
       title: 'Mobile App Development',
       description: 'Creating high-performance mobile applications tailored to your vision, ensuring seamless experiences across all devices.',
-      buttonText: 'Contact Me'
     },
     {
       title: 'Project & Thesis Assistance',
       description: 'Providing expert guidance and support for academic projects, including graduation theses, to ensure high-quality and well-structured outcomes.',
-      buttonText: 'Contact Me'
     }
   ];
 
@@ -56,24 +53,7 @@ const Services = () => {
 
                   {service.description}
                 </Text>
-                <Magnet padding={100} disabled={false} magnetStrength={20}>
-                  <Button
-
-                    variant="outline"
-                    fontSize="2xl"
-                    px={6}
-                    py={6}
-                    borderRadius={"full"}
-                    fontWeight={"semibold"}
-                    bgColor="#141414"
-                    borderColor="#272727"
-                    color="white"
-                    _hover={{ bg: 'white', color: 'black' }}
-                  >
-
-                    {service.buttonText}
-                  </Button>
-                </Magnet>
+             
               </VStack>
 
 
