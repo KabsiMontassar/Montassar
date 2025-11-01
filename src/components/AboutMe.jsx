@@ -3,6 +3,7 @@ import { motion, scale, useScroll, useTransform } from 'framer-motion';
 import image from '../assets/image.jpg';
 import CurvedLoop from './UI/CurvedLoop';
 import { t } from 'i18next';
+import ScrollVelocity from './UI/ScrollVelocity';
 const AboutMe = () => {
   const { scrollYProgress } = useScroll();
 
@@ -69,11 +70,11 @@ const AboutMe = () => {
           </Text>
         </VStack>
 
-        {/* Right Side - Image Card */}
+
         <Box
           flex={1}
           maxW={{ base: "100%", md: "30%" }}
-          transform="rotateZ(-14deg)"
+          transform="rotateZ(-10deg)"
         >
           <Card
             transition="transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1)"
@@ -102,24 +103,9 @@ const AboutMe = () => {
         </Box>
       </Flex>
       <Box my={100} transform="rotateZ(-10deg)">
-        <motion.div style={{ x: curve1X }} >
-          <CurvedLoop
-            marqueeText={contents.marqueeText1}
-            speed={0}
-           
-            curveAmount={100}
-           
-            className="about-me-curve"
-          />
-        </motion.div>
-        <motion.div style={{ x: curve2X }}>
-          <CurvedLoop
-            marqueeText={contents.marqueeText2}
-            speed={0}
-            curveAmount={100}
-           
-          />
-        </motion.div>
+        <ScrollVelocity texts={['Montassar Kebsi', 'Personal Website']}
+          velocity={"10"}
+          className="custom-scroll-text" />
       </Box>
     </Box>
   );
