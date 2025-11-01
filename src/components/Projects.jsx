@@ -1,7 +1,8 @@
-import { Box, Text, VStack, HStack, Image } from '@chakra-ui/react';
+import { Box, Text, VStack, HStack, Image ,Flex} from '@chakra-ui/react';
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { LuArrowUpRight } from 'react-icons/lu';
+import Magnet from './UI/Magnet';
 
 const Projects = () => {
   const containerRef = useRef(null);
@@ -95,19 +96,39 @@ const Projects = () => {
         </Box>
 
         {/* Projects Grid */}
-        <VStack spacing={20} w="100%">
+        <VStack spacing={200} w="100%">
           {projects.map((project, index) => (
-            <Box
+            // full box for each project
+            <motion.div
               key={project.id}
               className="project-card"
-              position="relative"
-              w="100%"
-              display="flex"
-              flexDirection={index % 2 === 0 ? "row" : "row-reverse"}
-              ml={index % 2 === 0 ? { base: 0, md: 0, lg: 0, xl: 20 } : { base: 0, md: 0, lg: 0, xl: 0 }}
-              mr={index % 2 === 0 ? { base: 0, md: 0, lg: 0, xl: 0 } : { base: 0, md: 0, lg: 0, xl: 20 }}
-              alignItems="center"
-              gap={12}
+              style={{
+                position: 'relative',
+                width: '100%',
+                display: 'flex',
+                marginLeft: index % 2 === 0 ? '150px' : '0',
+                marginRight: index % 2 === 0 ? '0' : '150px',
+                flexDirection: index % 2 === 0 ? "row" : "row-reverse",
+                alignItems: 'center',
+                gap: '12px',
+                perspective: 1000, // enables 3D depth
+              }}
+              initial={{
+                x: index % 2 === 0 ? -50 : 50,
+                opacity: 0,
+                rotateY: index % 2 === 0 ? 10 : -10, // starts slightly tilted
+              }}
+              whileInView={{
+                x: 0,
+                opacity: 1,
+                rotateY: index % 2 === 0 ? 10 : -10, // stays tilted always
+              }}
+              transition={{
+                duration: 0.8,
+                delay: index * 0.1,
+                ease: "easeOut",
+              }}
+              viewport={{ once: true, amount: 0.6 }}
             >
               {/* Project Number */}
               <Box
@@ -119,9 +140,8 @@ const Projects = () => {
                 zIndex={1}
               >
                 <Text
-                  fontSize={{ base: "6xl", md: "8xl", lg: "200px" }}
+                  fontSize={{ base: "7xl", md: "9xl", lg: "220px" }}
                   fontWeight="bold"
-
                   color="#808080"
                   opacity={0.5}
                   textAlign="center"
@@ -134,20 +154,14 @@ const Projects = () => {
               <Box
                 flex={1}
                 position="relative"
-                maxW="850px"
+                maxW="900px"
                 w="100%"
+                transformStyle="preserve-3d"
+                style={{
+                  transform: `rotateY(${index % 2 === 0 ? 10 : -10}deg)`, // consistent tilt
+                }}
               >
-                <Box
-                  position="relative"
-                  borderRadius="2xl"
-                  overflow="hidden"
-                  boxShadow="0 0 40px rgba(255, 255, 255, 0.1)"
-                  _hover={{
-                    boxShadow: "0 0 60px rgba(255, 255, 255, 0.2)",
-                    transform: "scale(1.02)",
-                    transition: "all 0.3s ease"
-                  }}
-                >
+                <Box position="relative" borderRadius="2xl" overflow="hidden">
                   <Image
                     src={project.image}
                     alt={project.name}
@@ -158,42 +172,36 @@ const Projects = () => {
                   />
                 </Box>
 
-                {/* Project Name with Arrow */}
-                <HStack
-
-                  align="center"
-                  mt={6}
-                  justify="center"
+                {/* Project Name + Arrow */}
+                <HStack align="center" mt={6} justify="center" cursor="pointer"
+                  onClick={() => window.open(project.link, "_blank")}
                 >
-                  <Text
-                    textColor="white"
-                    fontSize="6xl"
-                    fontWeight="bold"
-                  >
-                    {project.name}
-                  </Text>
+                  <Magnet padding={20} disabled={false} magnetStrength={20}>
+                    <Flex>
+                      <Text textColor="white" fontSize="6xl" fontWeight="bold">
+                        {project.name}
+                      </Text>
+                      <Box
+                        w="40px"
+                        h="40px"
+                        borderRadius="full"
+                        display="flex"
+                        pt={5}
 
-                  {/* Arrow pointing to top right */}
-                  <Box
-                    w="40px"
-                    h="40px"
-                    borderRadius="full"
-                    display="flex"
+                      >
+                        <LuArrowUpRight size={24} color="#ffc83d" />
+                      </Box>
+                    </Flex>
 
-                    cursor="pointer"
-                    _hover={{
-                      transform: "scale(1.1)",
-                      transition: "transform 0.2s ease"
-                    }}
-                  >
-                    <LuArrowUpRight size={24} color="#ffc83d" />
-                  </Box>
+                  </Magnet>
+
                 </HStack>
               </Box>
 
               {/* Spacer for alternating layout */}
               <Box flex={1} />
-            </Box>
+            </motion.div>
+
           ))}
         </VStack>
       </VStack>
