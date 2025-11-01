@@ -101,7 +101,7 @@ const MoreAboutMe = () => {
 
         {/* Three Column Section */}
         <VStack
-          spacing={{ base: 6, md: 8, lg: 10 }}
+         
           w="100%"
           mt={{ base: 16, md: 20, lg: 24 }}
         >
@@ -140,7 +140,7 @@ const MoreAboutMe = () => {
               </Box>
 
               {index === 2 && (
-                <Box>
+                <Box my={100}>
                   <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{
