@@ -10,7 +10,7 @@ import Magnet from './UI/magnet/Magnet';
 const GetInTouch = () => {
   const [isHovered, setIsHovered] = useState(false);
   return (
-    <Box id="get-in-touch" minH="100vh" bg="white" p={8}  >
+    <Box id="get-in-touch"  bg="white" p={8}  >
       {/* Main Title */}
       <VStack py={{ base: 16, md: 20, lg: 24 }} pt={{ base: '90px', md: '110px', lg: '130px' }}>
         <Flex direction="column" spacing={4} w="100%" >
@@ -127,7 +127,7 @@ const GetInTouch = () => {
                 Montassar
               </Text>
             </Box>
-            <Box mt={10}>
+            <Box mt={20}>
               <Text
                 fontSize="xl"
                 fontWeight="400"

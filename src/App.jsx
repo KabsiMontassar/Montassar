@@ -108,7 +108,7 @@ function App() {
                 style={{
                   width: getInTouchWidth,
                   margin: "0 auto",
-                  minHeight: "100vh",
+                  
                 }}
                 transition={{ type: "spring", stiffness: 100, damping: 20 }}
               >
