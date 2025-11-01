@@ -51,7 +51,7 @@ const Header = ({ textColor }) => {
                         <Button
                             color={textColor}
                             border="none"
-                            fontWeight={"300"}
+                            fontWeight={i18n.language === "en" ? "bold" : "300"}
                             _hover={{
                                 backgroundColor: "transparent",
                                 fontWeight: "bold",
@@ -68,7 +68,6 @@ const Header = ({ textColor }) => {
                         <Button
                             color={textColor}
                             border="none"
-                             fontWeight={"300"}
                             _hover={{
                                 backgroundColor: "transparent",
                                 fontWeight: "bold",
@@ -77,7 +76,7 @@ const Header = ({ textColor }) => {
                             backgroundColor="transparent"
                             fontSize={{ base: "sm", sm: "sm", md: "md", lg: "md" }}
                             onClick={() => changeLanguage("fr")}
-                            fontWeight={i18n.language === "fr" ? "bold" : "regular"}
+                            fontWeight={i18n.language === "fr" ? "bold" : "300"}
                         >
                             FR
                         </Button>
