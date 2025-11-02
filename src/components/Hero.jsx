@@ -41,8 +41,8 @@ const Hero = () => {
         >
             <Flex
                 direction="column"
-                align={{ base: "center", md: "left" }}
-                pl={{ base: 4, sm: 4, md: 12, lg: 20 }}
+
+                pl={{ base: 4, sm: 4, md: 12, lg: 10 }}
                 pt={20}
                 textAlign={"left"}
                 width="100%"
@@ -65,7 +65,7 @@ const Hero = () => {
                             lineHeight={{ base: "1.2", md: "1" }}
                             zIndex="1"
                             letterSpacing={{ base: 1, md: 2 }}
-                            maxW={{ base: "100%", md: "90%" }}
+                            maxW={{ base: "100%" }}
                         >
                             WELCOME TO <br /> MY WEBSITE
                         </Text>
@@ -74,8 +74,8 @@ const Hero = () => {
                 {/* Main emoji - positioned responsively */}
                 <Box
                     position="absolute"
-                    top={{ base: "5%", sm: "0%", md: "0%", lg: "0%" }}
-                    left={{ base: "", md: "50%", lg: "62%" }}
+                    top={{ base: "5%", sm: "4%", md: "3%", lg: "2%" }}
+                    left={{ base: "", md: "62%", lg: "62%" }}
                     right={{ base: "0", md: "", lg: "" }}
                     transform="translateX(-50%)"
                     zIndex="0"
@@ -86,7 +86,7 @@ const Hero = () => {
                         magnetStrength={20}
                     >
                         <Text
-                            fontSize={{ base: '6xl', sm: '7xl', md: '8xl', lg: '10xl' }}
+                            fontSize={{ base: '6xl', sm: '6xl', md: '7xl', lg: '100px' }}
                             className={isWaving ? 'wave-animation' : ''}
                             style={{
                                 pointerEvents: 'none',
@@ -125,7 +125,7 @@ const Hero = () => {
 
             {/* Bottom left scroll indicator - responsive positioning */}
             <Box
-                 position="absolute"
+                position="absolute"
                 bottom={{ base: "30%", sm: "30%", md: "10%", lg: "10%" }}
                 left={"10%"}
                 textAlign="center"
