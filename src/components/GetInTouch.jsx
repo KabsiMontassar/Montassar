@@ -362,7 +362,7 @@ const GetInTouch = () => {
 
             {/* Back To Top - Responsive positioning */}
             <motion.div
-              variants={itemVariants}
+            
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
