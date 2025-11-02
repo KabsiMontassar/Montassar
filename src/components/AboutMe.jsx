@@ -5,16 +5,11 @@ import SplitText from './UI/SplitText/SplitText';
 
 const AboutMe = () => {
 
-  // Create scroll-based transforms for curved loops
-
-
-
-
   const contents = {
     title: "About Me",
-    description: "I'm Kebsi Montassar Full Stack Developer with 6 years of experience, specializing in frontend development. I focus on building high-performance, user-friendly web and mobile applications that deliver seamless experiences.",
+    description: "I'm Montassar, a Full Stack Developer with 2+ years of experience building and deploying scalable web applications. I focus on creating high-performance, user-friendly solutions using modern technologies and cloud-native practices.",
     personalwebsite: "Personal Website",
-  }
+  };
 
 
 

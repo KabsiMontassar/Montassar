@@ -21,15 +21,17 @@ const MoreAboutMe = () => {
   const content = {
     more: "More",
     title: "about me",
-    paragraph: "I have a deep passion for learning new technologies, especially in effects and animations. I strive to create innovative and engaging digital experiences, pushing boundaries with each project while prioritizing quality above all.",
-    part1: "I have a deep passion for learning new technologies,",
-    part2: "especially in effects and animations. I strive to create",
-    part3: "innovative and engaging digital experiences, pushing boundaries with each project while prioritizing quality above all.",
-    part4: "I have a deep passion for learning new technologies,",
-    part5: "especially in effects and animations. I strive to create",
-    part6: "innovative and engaging digital experiences, pushing boundaries with each project while prioritizing quality above all.",
-    circularText: "CODE * CREATE * INSPIRE * REPEAT * ",
-  }
+    paragraph:
+      "I'm a passionate Full Stack Developer who creates digital experiences that blend creativity, technology, and purpose. I love exploring new tools and ideas to push boundaries while keeping quality and usability at the core.",
+    part1: "I enjoy diving deep into how things work — from frontend animations",
+    part2: "to backend logic and system design — constantly finding new ways",
+    part3: "to make technology feel more human, intuitive, and alive.",
+
+    part4: "Beyond coding, I love experimenting with ideas that combine art and tech,",
+    part5: "turning imagination into functional design and solving real-world problems",
+    part6: "through AI, automation, and innovation that inspires progress.",
+    circularText: "CODE * CREATE * INNOVATE * IMPACT * ",
+  };
   // Configuration for all paragraph animations
   const paragraphConfigs = [
     // Left side paragraphs

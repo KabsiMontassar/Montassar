@@ -7,28 +7,28 @@ const Services = () => {
 
   const content = {
     servicesTitle: "Services",
-    servicesDescription: "I offer expert solutions in website and mobile app development, focusing on performance, scalability, and seamless user experience. Additionally, I provide optimization services for speed and SEO, along with academic project support, including graduation theses. Let's build something exceptional together!",
+    servicesDescription:
+      "I specialize in building scalable, high-performance web applications that combine creativity and modern technologies. My goal is to craft seamless user experiences with clean architecture, reliable automation, and smart integrations that make a real impact.",
 
-    services: [{
-      title: "Website Development",
-      description: "Designing and developing responsive, modern websites with cutting-edge technology to enhance your digital presence and captivate your audience.",
+    services: [
+      {
+        title: "Full Stack Web Development",
+        description:
+          "Developing modern, responsive, and feature-rich web applications — from intuitive frontends to robust and secure backends.",
+      },
+      {
+        title: "AI-Enhanced App Development",
+        description:
+          "Integrating intelligent features and automation systems to create smarter, data-driven digital experiences.",
+      },
+      {
+        title: "Cloud & DevOps Solutions",
+        description:
+          "Designing scalable cloud infrastructures and automation pipelines to ensure performance, security, and reliability.",
+      },
+    ],
+  };
 
-    },
-    {
-      title: "Mobile App Development",
-      description: "Creating high-performance mobile applications tailored to your vision, ensuring seamless experiences across all devices.",
-
-
-    },
-    {
-      title: "Project & Thesis Assistance",
-      description: "Providing expert guidance and support for academic projects, including graduation theses, to ensure high-quality and well-structured outcomes.",
-
-    }
-
-    ]
-
-  }
 
   return (
     <Box
