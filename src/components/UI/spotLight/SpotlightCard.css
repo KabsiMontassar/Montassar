@@ -1,13 +1,16 @@
 .card-spotlight {
   position: relative;
-  border-radius: 1.5rem;
+  border-radius: 1rem;
   border: 1px solid #222;
   background-color: #111;
-  padding: 2rem;
+  padding: 1.5rem;
   overflow: hidden;
   --mouse-x: 50%;
   --mouse-y: 50%;
   --spotlight-color: rgba(255, 255, 255, 0.05);
+  min-height: 220px;
+  transition: all 0.3s ease;
+  will-change: transform;
 }
 
 .card-spotlight::before {
@@ -26,4 +29,26 @@
 .card-spotlight:hover::before,
 .card-spotlight:focus-within::before {
   opacity: 0.6;
+}
+
+
+
+
+
+/* Responsive class for enhanced styling */
+.responsive-spotlight-card {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Performance optimizations */
+@media (prefers-reduced-motion: reduce) {
+  .card-spotlight,
+  .responsive-spotlight-card {
+    transition: none;
+    transform: none !important;
+  }
+  
+  .card-spotlight::before {
+    transition: none;
+  }
 }
