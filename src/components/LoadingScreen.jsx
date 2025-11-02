@@ -5,7 +5,6 @@ import { gsap } from 'gsap';
 
 const LoadingScreen = ({ onLoadingComplete }) => {
     const [progress, setProgress] = useState(0);
-    const [isAnimating, setIsAnimating] = useState(false);
     const containerRef = useRef(null);
     const curtainLeftRef = useRef(null);
     const curtainRightRef = useRef(null);
@@ -26,7 +25,7 @@ const LoadingScreen = ({ onLoadingComplete }) => {
                     clearInterval(timer);
                     // Trigger GSAP animation when 100% is reached
                     setTimeout(() => {
-                        setIsAnimating(true);
+
                         startExitAnimation();
                     }, 100);
                     return 100;

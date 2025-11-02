@@ -39,14 +39,28 @@ function App() {
   const [start, setStart] = useState(0);
   const [end, setEnd] = useState(0);
   useLayoutEffect(() => {
-    if (getInTouchRef.current) {
-      const rect = getInTouchRef.current.getBoundingClientRect();
-      const scrollTop = window.scrollY || window.pageYOffset;
-      const offsetTop = rect.top + scrollTop;
-      setStart(offsetTop - window.innerHeight);
-      setEnd(offsetTop);
-    }
-  }, []);
+    const updatePositions = () => {
+      if (getInTouchRef.current) {
+        const rect = getInTouchRef.current.getBoundingClientRect();
+        const scrollTop = window.scrollY || window.pageYOffset;
+        const offsetTop = rect.top + scrollTop;
+        setStart(offsetTop - window.innerHeight);
+        setEnd(offsetTop);
+      }
+    };
+
+    // Update positions when loading completes and on resize
+    updatePositions();
+    window.addEventListener('resize', updatePositions);
+    
+    // Also update after a short delay to ensure layout is stable
+    const timer = setTimeout(updatePositions, 100);
+
+    return () => {
+      window.removeEventListener('resize', updatePositions);
+      clearTimeout(timer);
+    };
+  }, [isLoading]); // Re-run when loading state changes
 
   const scale = useTransform(scrollY, [0, 400], [1, 1.03]);
   const borderRadius = useTransform(scrollY, [0, 400], [0, 40]);
