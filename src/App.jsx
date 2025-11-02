@@ -50,7 +50,7 @@ function App() {
   const borderRadius = useTransform(scrollY, [0, 400], [0, 40]);
   const mainContentY = useTransform(scrollY, [0, 400], [0, 0]);
   const contentMarginX = useTransform(scrollY, [0, 50, 100], ["5%", "2%", "0%"]);
-  const getInTouchWidth = useTransform(scrollY, [start, end - 300], ["15%", "100%"]);
+  const getInTouchWidth = useTransform(scrollY, [start, end - 300], ["45%", "0%"]);
 
   // Responsive values
   const heroHeight = useBreakpointValue({ base: "75vh", sm: "75vh", md: "75vh", lg: "75vh" });
@@ -102,25 +102,45 @@ function App() {
             <Projects />
 
             {/* GETINTOUCH */}
-            <Box >
+            <Box position="relative" align="center" ref={getInTouchRef}>
+              {/* Actual GetInTouch content as base */}
               <Box
-                zIndex={20}
-                ref={getInTouchRef}
-                style={{
-                  width: getInTouchWidth,
-                  margin: "0 auto",
-
-                }}
-                transition={{ type: "spring", stiffness: 100, damping: 20 }}
-
-                bg="black"
-              />
-              <Box mt={0} >
-                <motion.div   >
-                  <GetInTouch />
-                </motion.div>
+                position="relative"
+                zIndex={5}
+                w="100%"
+                bg="white"
+              >
+                <GetInTouch />
               </Box>
 
+              {/* The expanding black overlay ON TOP - Center reveal */}
+              {/* Left overlay */}
+              <motion.div
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  height: "100%",
+                  background: "black",
+                  width: getInTouchWidth, // this animates with scroll
+                  zIndex: 10,
+                }}
+                transition={{ type: "spring", stiffness: 100, damping: 20 }}
+              />
+
+              {/* Right overlay */}
+              <motion.div
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  right: 0,
+                  height: "100%",
+                  background: "black",
+                  width: getInTouchWidth, // this animates with scroll
+                  zIndex: 10,
+                }}
+                transition={{ type: "spring", stiffness: 100, damping: 20 }}
+              />
             </Box>
           </motion.div>
         </motion.div>
