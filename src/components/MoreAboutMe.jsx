@@ -48,7 +48,7 @@ const MoreAboutMe = () => {
       bg="black"
       px={{ base: "4%", sm: "5%", md: "6%", lg: "8%" }}
       py={{ base: 12, sm: 16, md: 20, lg: 24 }}
-      pt={{ base: "80px", sm: "100px", md: "120px", lg: "140px" }}
+      pt={{ base: "60px", sm: "80px", md: "80px", lg: "100px" }}
       position="relative"
       overflow="hidden"
     >
