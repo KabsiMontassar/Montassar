@@ -52,7 +52,7 @@ function App() {
     // Update positions when loading completes and on resize
     updatePositions();
     window.addEventListener('resize', updatePositions);
-    
+
     // Also update after a short delay to ensure layout is stable
     const timer = setTimeout(updatePositions, 100);
 
@@ -72,11 +72,11 @@ function App() {
   const heroHeight = useBreakpointValue({ base: "75vh", sm: "75vh", md: "75vh", lg: "75vh" });
 
   const lenisOptions = {
-    lerp: 0.08,
-    duration: 1.5,
+    lerp: 0.05,              // Lower = slower, smoother (0.08 → 0.05)
+    duration: 2.0,           // Higher = slower transitions (1.5 → 2.0)
     smoothWheel: true,
     smoothTouch: false,
-    wheelMultiplier: 0.8,
+    wheelMultiplier: 0.5,    // Lower = slower scroll per wheel tick (0.8 → 0.5)
     touchMultiplier: 1.5,
   };
 
@@ -87,86 +87,88 @@ function App() {
 
   return (
     <ReactLenis root options={lenisOptions}>
-      <Header textColor={headerColor} />
+      <Box position="relative" minH="100vh">
+        <Header textColor={headerColor} />
 
-      <Box position="relative" bg="white" overflow="hidden" ref={containerRef}>
-        <Cursor />
+        <Box position="relative" bg="white" overflow="hidden" ref={containerRef}>
+          <Cursor />
 
-        <motion.div
-          ref={heroRef}
-          style={{
-            scale,
-            borderRadius,
-            overflow: "hidden",
-            zIndex: 1,
-            position: "fixed",
-            top: 0,
-            left: 0,
-            right: 0,
-            width: "100%",
-          }}
-        >
-          <Box bg="white" h={heroHeight}>
-            <Hero />
-          </Box>
-        </motion.div>
-
-        {/* Placeholder to reserve Hero space */}
-        <Box h={heroHeight} />
-
-        {/* MAIN CONTENT */}
-        <motion.div style={{ y: mainContentY, position: "relative", zIndex: 10 }}>
-          <motion.div style={{ marginLeft: contentMarginX, marginRight: contentMarginX }}>
-            <AboutMe />
-            <MoreAboutMe />
-            <Services />
-            <Projects />
-
-            {/* GETINTOUCH */}
-            <Box position="relative" align="center" ref={getInTouchRef}>
-              {/* Actual GetInTouch content as base */}
-              <Box
-                position="relative"
-                zIndex={5}
-                w="100%"
-                bg="white"
-              >
-                <GetInTouch />
-              </Box>
-
-              {/* The expanding black overlay ON TOP - Center reveal */}
-              {/* Left overlay */}
-              <motion.div
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  height: "100%",
-                  background: "black",
-                  width: getInTouchWidth, // this animates with scroll
-                  zIndex: 10,
-                }}
-                transition={{ type: "spring", stiffness: 100, damping: 20 }}
-              />
-
-              {/* Right overlay */}
-              <motion.div
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  right: 0,
-                  height: "100%",
-                  background: "black",
-                  width: getInTouchWidth, // this animates with scroll
-                  zIndex: 10,
-                }}
-                transition={{ type: "spring", stiffness: 100, damping: 20 }}
-              />
+          <motion.div
+            ref={heroRef}
+            style={{
+              scale,
+              borderRadius,
+              overflow: "hidden",
+              zIndex: 1,
+              position: "fixed",
+              top: 0,
+              left: 0,
+              right: 0,
+              width: "100%",
+            }}
+          >
+            <Box bg="white" h={heroHeight}>
+              <Hero />
             </Box>
           </motion.div>
-        </motion.div>
+
+          {/* Placeholder to reserve Hero space */}
+          <Box h={heroHeight} />
+
+          {/* MAIN CONTENT */}
+          <motion.div style={{ y: mainContentY, position: "relative", zIndex: 10 }}>
+            <motion.div style={{ marginLeft: contentMarginX, marginRight: contentMarginX }}>
+              <AboutMe />
+              <MoreAboutMe />
+              <Services />
+              <Projects />
+
+              {/* GETINTOUCH */}
+              <Box position="relative" align="center" ref={getInTouchRef}>
+                {/* Actual GetInTouch content as base */}
+                <Box
+                  position="relative"
+                  zIndex={5}
+                  w="100%"
+                  bg="white"
+                >
+                  <GetInTouch />
+                </Box>
+
+                {/* The expanding black overlay ON TOP - Center reveal */}
+                {/* Left overlay */}
+                <motion.div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    height: "100%",
+                    background: "black",
+                    width: getInTouchWidth, // this animates with scroll
+                    zIndex: 10,
+                  }}
+                  transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                />
+
+                {/* Right overlay */}
+                <motion.div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    right: 0,
+                    height: "100%",
+                    background: "black",
+                    width: getInTouchWidth, // this animates with scroll
+                    zIndex: 10,
+                  }}
+                  transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                />
+              </Box>
+            </motion.div>
+          </motion.div>
 
 
+        </Box>
       </Box>
     </ReactLenis>
   );

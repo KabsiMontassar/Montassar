@@ -45,7 +45,6 @@ const CircularText = ({
 
     const handleHoverStart = () => {
         const start = rotation.get();
-        console.log('CircularText mounted with text:', text);
         if (!onHover) return;
 
         let transitionConfig;
