@@ -11,6 +11,7 @@ import Services from "./components/Services";
 import Projects from "./components/Projects";
 import GetInTouch from "./components/GetInTouch";
 import Header from "./components/Header";
+import LoadingScreen from "./components/LoadingScreen";
 
 function App() {
   const { scrollY } = useScroll();
@@ -19,6 +20,7 @@ function App() {
   const heroRef = useRef(null);
 
   const [headerColor, setHeaderColor] = useState("black"); // default black for Hero
+  const [isLoading, setIsLoading] = useState(true);
 
   // Track scroll to dynamically change header color
   useMotionValueEvent(scrollY, "change", (latest) => {
@@ -63,6 +65,11 @@ function App() {
     wheelMultiplier: 0.8,
     touchMultiplier: 1.5,
   };
+
+  // Show loading screen first
+  if (isLoading) {
+    return <LoadingScreen onLoadingComplete={() => setIsLoading(false)} />;
+  }
 
   return (
     <ReactLenis root options={lenisOptions}>
