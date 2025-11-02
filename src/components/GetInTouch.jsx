@@ -137,7 +137,7 @@ const GetInTouch = () => {
             {/* Split Text Title */}
             <motion.div variants={itemVariants}>
               <Flex
-                gap={{ base: 1, md: 2 }}
+                gap={5}
                 justify={{ base: "center", md: "center" }}
                 wrap="wrap"
                 w="100%"

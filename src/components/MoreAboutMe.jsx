@@ -29,11 +29,20 @@ const MoreAboutMe = () => {
     circularText: t('moreaboutme.circularText'),
   };
 
+  
+
   // Configuration for all paragraph animations
   const paragraphConfigs = [
     // Left side paragraphs
     { text: content.part1, align: "left", selfAlign: "flex-start", rotation: "rotateZ(1.2deg)", delay: 0 },
     { text: content.part2, align: "left", selfAlign: "flex-start", rotation: "rotateZ(1.2deg)", delay: 0.2 },
+    { text: content.part3, align: "left", selfAlign: "flex-start", rotation: "rotateZ(1.2deg)", delay: 0.4 },
+    // Right side paragraphs
+    { text: content.part4, align: "right", selfAlign: "flex-end", rotation: "rotateZ(-1.2deg)", delay: 0.6 },
+    { text: content.part5, align: "right", selfAlign: "flex-end", rotation: "rotateZ(-1.2deg)", delay: 0.8 },
+    { text: content.part6, align: "right", selfAlign: "flex-end", rotation: "rotateZ(-1.2deg)", delay: 1.0 },
+  
+  
   ];
 
 
