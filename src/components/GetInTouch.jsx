@@ -361,12 +361,7 @@ const GetInTouch = () => {
             </motion.div>
 
             {/* Back To Top - Responsive positioning */}
-            <motion.div
-            
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
+            <motion.div  >
               <Box
                 position="absolute"
                 right={{ base: "4%", md: "3%", lg: "2.2%" }}
