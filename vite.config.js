@@ -7,6 +7,10 @@ export default defineConfig({
   // GitHub Pages deployment base path
   base: '/Montassar/',
 
+  server: {
+    middlewareMode: true,
+  },
+
   build: {
     chunkSizeWarningLimit: 1600,
     rollupOptions: {
