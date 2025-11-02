@@ -26,80 +26,104 @@ const AboutMe = () => {
 
 
   return (
-    <Box id="about-me" minH="100vh" bg="black" p={{ base: 4, md: 8 }} pt={{ base: "100px", md: "250px" }}>
+    <Box 
+      id="about-me" 
+      minH={{ base: "100vh", md: "100vh" }} 
+      bg="black" 
+      p={{ base: "4%", sm: "5%", md: "6%", lg: "8%" }} 
+      pt={{ base: "100px", sm: "100px", md: "180px", lg: "250px" }}
+      position="relative"
+      overflow="hidden"
+    >
       <Flex
-
-        direction={{ base: "column", md: "row" }}
-        align="top"
+        direction={{ base: "column", lg: "row" }}
+        align={{ base: "center", lg: "flex-start" }}
         justify="space-between"
-        gap={8}
-        maxW="1450px"
+        gap={{ base: 8, sm: 10, md: 12, lg: 16 }}
+        maxW={{ base: "100%", sm: "95%", md: "90%", lg: "1450px" }}
         mx="auto"
+        minH={{ base: "auto", lg: "500px" }}
       >
         {/* Left Side - Text Content */}
-        <VStack align="flex-start" spacing={10} flex={1} maxW={{ base: "100%", md: "60%" }}>
-        
-            <SplitText
-              text="About Me"
-              fontWeight="bold"
-            />
-          
+        <VStack 
+          align={{ base: "center", lg: "flex-start" }} 
+          spacing={{ base: 6, sm: 8, md: 10, lg: 12 }} 
+          flex={1} 
+          maxW={{ base: "100%", lg: "65%" }}
+          textAlign={{ base: "center", lg: "left" }}
+          w="100%"
+        >
+            <Box w="100%" display="flex" justifyContent={{ base: "center", lg: "flex-start" }}>
+              <SplitText
+                text="About Me"
+                fontWeight="bold"
+              />
+            </Box>
 
             <Text
               textColor="white"
-              fontSize={{ base: "md", md: "lg", lg: "4xl" }}
+              fontSize={{ base: "lg", sm: "xl", md: "2xl", lg: "3xl", xl: "4xl" }}
               fontWeight="200"
-              maxW="700px"
+              maxW={{ base: "100%", md: "90%", lg: "700px" }}
+              lineHeight={{ base: "1.6", md: "1.5", lg: "1.4" }}
+              textAlign={{ base: "center", lg: "left" }}
             >
               {contents.description}
             </Text>
 
             <Text
               textColor="white"
-              fontSize={{ base: "2xl", md: "3xl", lg: "7xl" }}
-              fontWeight="very light"
+              fontSize={{ base: "3xl", sm: "4xl", md: "5xl", lg: "6xl", xl: "7xl" }}
+              fontWeight="100"
               className="signature"
-              mt={4}
+              mt={{ base: 4, md: 6 }}
+              textAlign={{ base: "center", lg: "left" }}
             >
               {contents.signature}
             </Text>
         </VStack>
 
-
+        {/* Right Side - Image Card */}
         <Box
-          flex={1}
-          maxW={{ base: "100%", md: "30%" }}
-
-          pb={100}
+          flex={{ base: "none", lg: 1 }}
+          maxW={{ base: "350px", sm: "400px", md: "450px", lg: "35%" }}
+          w={{ base: "100%", lg: "auto" }}
+          pb={{ base: 8, md: 12, lg: 16 }}
+          mt={{ base: 8, lg: 0 }}
         >
           <Card
-            transition="transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1)"
+            transition="all 0.5s cubic-bezier(0.4, 0, 0.2, 1)"
             _hover={{
-              transform: "scale(1.05)",
-              boxShadow: "0 20px 30px rgba(0, 0, 0, 0.3)",
+              transform: { base: "scale(1.02)", md: "scale(1.05)" },
+              boxShadow: { base: "0 15px 25px rgba(0, 0, 0, 0.3)", md: "0 20px 30px rgba(0, 0, 0, 0.3)" },
             }}
             bg="gray.800"
-            borderRadius="2xl"
+            borderRadius={{ base: "xl", md: "2xl" }}
             overflow="hidden"
-            boxShadow="2xl"
-            h={{ base: "400px", md: "500px", lg: "600px" }}
+            boxShadow={{ base: "xl", md: "2xl" }}
+            h={{ base: "350px", sm: "400px", md: "450px", lg: "500px", xl: "600px" }}
             w="100%"
-
+            position="relative"
           >
             <CardBody p={0}>
               <Image
                 src={image}
                 alt="Montassar"
                 objectFit="cover"
+                objectPosition="center"
                 w="100%"
                 h="100%"
-                borderRadius="2xl"
+                borderRadius={{ base: "xl", md: "2xl" }}
+                transition="transform 0.5s ease"
+                _hover={{ transform: "scale(1.1)" }}
               />
             </CardBody>
           </Card>
         </Box>
       </Flex>
-      <Box my={200} transform="rotateZ(-10deg)">
+      
+      {/* Scroll Velocity Section */}
+      <Box  my={{ base: 50, sm: 120, md: 150, lg: 150 }} transform="rotateZ(-10deg)">
         <ScrollVelocity texts={['Montassar Kebsi', 'Personal Website']}
           velocity={"10"}
           className="custom-scroll-text" />

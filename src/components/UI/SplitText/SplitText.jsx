@@ -25,6 +25,7 @@ const SplitText = ({
   const ref = useRef(null);
   const animationCompletedRef = useRef(false);
   const [fontsLoaded, setFontsLoaded] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
 
   useEffect(() => {
     if (document.fonts.status === 'loaded') {
@@ -33,6 +34,18 @@ const SplitText = ({
       document.fonts.ready.then(() => {
         setFontsLoaded(true);
       });
+    }
+  }, []);
+
+  // Handle window resize for responsive font sizing
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
     }
   }, []);
 
@@ -140,16 +153,23 @@ const SplitText = ({
   );
 
   const renderTag = () => {
+    const getFontSize = () => {
+      if (windowWidth < 480) return '3rem';        // mobile
+      if (windowWidth < 768) return '4rem';        // small tablet
+      if (windowWidth < 1024) return '5rem';       // tablet
+      if (windowWidth < 1280) return '6rem';       // desktop
+      return '7rem';                               // large desktop
+    };
+
     const style = {
       textAlign,
-     
       display: 'inline-block',
-   
       wordWrap: 'break-word',
       willChange: 'transform, opacity',
       color: 'white',
-      fontSize: '7rem',
-      fontWeight: fontWeight
+      fontSize: getFontSize(),
+      fontWeight: fontWeight,
+      lineHeight: '1.1'
     };
     const classes = `split-parent ${className}`;
     switch (tag) {

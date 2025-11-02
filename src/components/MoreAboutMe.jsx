@@ -12,7 +12,7 @@ const MoreAboutMe = () => {
   });
 
   // Animate the gap between "More" and "about me" on scroll
-  const gapTransform = useTransform(scrollYProgress, [0, 0.3], [400, 20]);
+  const gapTransform = useTransform(scrollYProgress, [0, 0.3], [400, 10]);
 
   const paragraph =
     "I have a deep passion for learning new technologies, especially in effects and animations. I strive to create innovative and engaging digital experiences, pushing boundaries with each project while prioritizing quality above all.";
@@ -42,7 +42,7 @@ const MoreAboutMe = () => {
       bg="black"
       px={{ base: 4, md: 8, lg: 12 }}
       py={{ base: 16, md: 20, lg: 24 }}
-      pt={{ base: '120px', md: '140px', lg: '160px' }}
+      pt={100}
       position="relative"
       overflow="hidden"
     >
@@ -94,7 +94,7 @@ const MoreAboutMe = () => {
             color="white"
             fontSize={{ base: 'xl', sm: '2xl', md: '3xl', lg: '4xl' }}
             fontWeight="300"
-            lineHeight="1.6"
+            lineHeight="1.2"
             opacity={0.85}
           >
             {paragraph}
