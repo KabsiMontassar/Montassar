@@ -102,8 +102,9 @@ function App() {
             <Projects />
 
             {/* GETINTOUCH */}
-            <Box bg="black">
-              <motion.div
+            <Box >
+              <Box
+                zIndex={20}
                 ref={getInTouchRef}
                 style={{
                   width: getInTouchWidth,
@@ -111,9 +112,15 @@ function App() {
 
                 }}
                 transition={{ type: "spring", stiffness: 100, damping: 20 }}
-              >
-                <GetInTouch />
-              </motion.div>
+
+                bg="black"
+              />
+              <Box mt={0} >
+                <motion.div   >
+                  <GetInTouch />
+                </motion.div>
+              </Box>
+
             </Box>
           </motion.div>
         </motion.div>
