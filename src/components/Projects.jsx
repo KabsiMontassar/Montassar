@@ -28,8 +28,9 @@ const Projects = () => {
     offset: ["start end", "end start"]
   });
 
+
   // Animate the gap between "My" and "Projects" on scroll
-  const gapTransform = useTransform(scrollYProgress, [0, 0.3], [200, 20]);
+  const gapTransform = useTransform(scrollYProgress, [0, .15], [400, 10]);
 
   const projects = [
     {
@@ -68,50 +69,50 @@ const Projects = () => {
       pt="120px"
       pb={200}
       overflow="hidden"
+
     >
       <VStack spacing={100} align="center" mx="auto">
         {/* Scroll-Animated Title */}
-        <Box position="relative" overflow="hidden" w="100%">
-          <HStack justify="center" align="center" wrap="wrap" spacing={0} position="relative">
-            <motion.div
-              style={{
-                x: useTransform(gapTransform, (gap) => -gap / 2),
-                position: 'relative',
-                zIndex: 1
-              }}
+        <Flex justify="center" w="100%">
+          <motion.div
+            style={{
+              x: useTransform(gapTransform, (gap) => -gap / 2),
+              position: 'relative',
+              zIndex: 1
+            }}
+          >
+            <Text
+              color="white"
+              fontSize={{ base: '4xl', md: '6xl', lg: '8xl' }}
+              fontWeight="bold"
+              letterSpacing="-0.02em"
+              textAlign="center"
+              display="inline-block"
             >
-              <Text
-                color="white"
-                fontSize={{ base: '4xl', md: '6xl', lg: '8xl' }}
-                fontWeight="bold"
-                letterSpacing="-0.02em"
-                textAlign="center"
-                display="inline-block"
-              >
-                My
-              </Text>
-            </motion.div>
+              My
+            </Text>
+          </motion.div>
 
-            <motion.div
-              style={{
-                x: useTransform(gapTransform, (gap) => gap / 2),
-                position: 'relative',
-                zIndex: 1
-              }}
+          <motion.div
+            style={{
+              x: useTransform(gapTransform, (gap) => gap / 2),
+              position: 'relative',
+              zIndex: 1
+            }}
+          >
+            <Text
+              color="white"
+              fontSize={{ base: '4xl', md: '6xl', lg: '8xl' }}
+              fontWeight="200"
+              letterSpacing="-0.02em"
+              textAlign="center"
+              display="inline-block"
             >
-              <Text
-                color="white"
-                fontSize={{ base: '4xl', md: '6xl', lg: '8xl' }}
-                fontWeight="200"
-                letterSpacing="-0.02em"
-                textAlign="center"
-                display="inline-block"
-              >
-                Projects
-              </Text>
-            </motion.div>
-          </HStack>
-        </Box>
+              Projects
+            </Text>
+          </motion.div>
+        </Flex>
+
 
         {/* Projects Grid */}
         <VStack spacing={300} w="100%">
@@ -140,7 +141,7 @@ const Projects = () => {
                 <Box
                   className="project-number"
                   position="absolute"
-                
+
                   left={index % 2 === 0 ? "55%" : "45%"}
                   top="10%"
                   transform="translate(-50%, -50%)"
