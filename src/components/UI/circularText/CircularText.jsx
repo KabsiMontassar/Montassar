@@ -3,7 +3,11 @@ import { motion, useAnimation, useMotionValue } from 'motion/react';
 
 import './CircularText.css';
 
-const getRotationTransition = (duration, from, loop = true) => ({
+const getRotationTransition = (
+    duration,
+    from,
+    loop = true
+) => ({
     from,
     to: from + 360,
     ease: 'linear',
@@ -21,7 +25,11 @@ const getTransition = (duration, from) => ({
     }
 });
 
-const CircularText = ({ text, spinDuration = 20, onHover = 'speedUp', className = '' }) => {
+const CircularText = ({
+    text, spinDuration = 20, onHover = 'speedUp', className = '',
+    starSize = '30px',
+    fontSize = '24px'
+}) => {
     const letters = Array.from(text);
     const controls = useAnimation();
     const rotation = useMotionValue(0);
@@ -84,7 +92,7 @@ const CircularText = ({ text, spinDuration = 20, onHover = 'speedUp', className 
     return (
         <motion.div
             className={`circular-text ${className}`}
-            style={{ rotate: rotation , letterSpacing: '2em' }}
+            style={{ rotate: rotation, letterSpacing: '2em' }}
             initial={{ rotate: 0 }}
             animate={controls}
             onMouseEnter={handleHoverStart}
@@ -98,10 +106,13 @@ const CircularText = ({ text, spinDuration = 20, onHover = 'speedUp', className 
                 const transform = `rotateZ(${rotationDeg}deg) translate3d(${x}px, ${y}px, 0)`;
 
                 return (
-                    <span key={i} style={{ transform, WebkitTransform: transform }}>
+                    <span key={i} style={{ transform, WebkitTransform: transform, fontSize: fontSize }}>
 
                         {letter === '*' ? (
-                            <span style={{ fontSize: '30px', color: '#ffc83d' }}>
+                            <span style={{
+                                fontSize: starSize,
+                                color: '#ffc83d'
+                            }}>
                                 {letter}
                             </span>
                         ) : (
