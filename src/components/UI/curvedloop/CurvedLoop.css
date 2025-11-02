@@ -1,0 +1,59 @@
+.curved-loop-jacket {
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.curved-loop-svg {
+  user-select: none;
+  width: 100%;
+ 
+  overflow: visible;
+  display: block;
+  font-size: 2rem;
+  fill: #6e6f6f;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  text-transform: uppercase;
+ 
+}
+
+.about-me-curve {
+   font-size: 3rem;
+  fill: #ffffff;
+  font-weight: 200 ;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .curved-loop-svg {
+    font-size: 1.5rem;
+    height: 80px;
+  }
+  
+  .curved-loop-jacket {
+    min-height: 80px;
+  }
+  
+  .about-me-curve {
+    font-size: 1.2rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .curved-loop-svg {
+    font-size: 1rem;
+    height: 60px;
+  }
+  
+  .curved-loop-jacket {
+    min-height: 60px;
+  }
+  
+  .about-me-curve {
+    font-size: 0.9rem !important;
+  }
+}

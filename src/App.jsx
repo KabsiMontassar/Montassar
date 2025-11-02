@@ -1,65 +1,177 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { Box, useColorMode } from '@chakra-ui/react'
-import Navbar from './components/navbar/Navbar'
-import FloatingSettings from './components/settings/FloatingSettings'
-import Home from './pages/home'
-import About from './pages/about'
-import Experience from './pages/experience'
-import Projects from './pages/projects'
-import Contact from './pages/contact'
-import Footer from './components/Footer/Footer'
-import Lenis from '@studio-freight/lenis'
-import { useEffect } from 'react';
+import { Box, useBreakpointValue } from "@chakra-ui/react";
+import { ReactLenis } from "@studio-freight/react-lenis";
+import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
+import { useRef, useLayoutEffect, useState } from "react";
+
+import Cursor from "./components/UI/cursor/Cursor";
+import Hero from "./components/Hero";
+import AboutMe from "./components/AboutMe";
+import MoreAboutMe from "./components/MoreAboutMe";
+import Services from "./components/Services";
+import Projects from "./components/Projects";
+import GetInTouch from "./components/GetInTouch";
+import Header from "./components/Header";
+import LoadingScreen from "./components/LoadingScreen";
+
 function App() {
-  const { colorMode } = useColorMode()
+  const { scrollY } = useScroll();
+  const containerRef = useRef(null);
+  const getInTouchRef = useRef(null);
+  const heroRef = useRef(null);
 
-  useEffect(() => {
+  const [headerColor, setHeaderColor] = useState("black"); // default black for Hero
+  const [isLoading, setIsLoading] = useState(true);
 
-    const lenis = new Lenis()
-
-
-
-    function raf(time) {
-
-      lenis.raf(time)
-
-      requestAnimationFrame(raf)
-
+  // Track scroll to dynamically change header color
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const heroHeight = heroRef.current?.offsetHeight || 0;
+    const getInTouchTop = getInTouchRef.current?.offsetTop || 0;
+    if (latest < heroHeight) {
+      setHeaderColor("black"); // Hero background is white
+    } else if (latest >= heroHeight && latest < getInTouchTop) {
+      setHeaderColor("white"); // Middle sections have black background
+    } else {
+      setHeaderColor("black"); // GetInTouch background is white
     }
+  });
 
+  // GetInTouch scroll-based animation
+  const [start, setStart] = useState(0);
+  const [end, setEnd] = useState(0);
+  useLayoutEffect(() => {
+    const updatePositions = () => {
+      if (getInTouchRef.current) {
+        const rect = getInTouchRef.current.getBoundingClientRect();
+        const scrollTop = window.scrollY || window.pageYOffset;
+        const offsetTop = rect.top + scrollTop;
+        setStart(offsetTop - window.innerHeight);
+        setEnd(offsetTop);
+      }
+    };
 
+    // Update positions when loading completes and on resize
+    updatePositions();
+    window.addEventListener('resize', updatePositions);
 
-    requestAnimationFrame(raf)
+    // Also update after a short delay to ensure layout is stable
+    const timer = setTimeout(updatePositions, 100);
 
-  }, [])
+    return () => {
+      window.removeEventListener('resize', updatePositions);
+      clearTimeout(timer);
+    };
+  }, [isLoading]); // Re-run when loading state changes
 
- 
+  const scale = useTransform(scrollY, [0, 400], [1, 1.03]);
+  const borderRadius = useTransform(scrollY, [0, 400], [0, 40]);
+  const mainContentY = useTransform(scrollY, [0, 400], [0, 0]);
+  const contentMarginX = useTransform(scrollY, [0, 50, 100], ["5%", "2%", "0%"]);
+  const getInTouchWidth = useTransform(scrollY, [start, end - 300], ["40%", "0%"]);
 
+  // Responsive values
+  const heroHeight = useBreakpointValue({ base: "75vh", sm: "75vh", md: "75vh", lg: "75vh" });
 
+  const lenisOptions = {
+    lerp: 0.05,              // Lower = slower, smoother (0.08 → 0.05)
+    duration: 2.0,           // Higher = slower transitions (1.5 → 2.0)
+    smoothWheel: true,
+    smoothTouch: false,
+    wheelMultiplier: 0.5,    // Lower = slower scroll per wheel tick (0.8 → 0.5)
+    touchMultiplier: 1.5,
+  };
+
+  // Show loading screen first
+  if (isLoading) {
+    return <LoadingScreen onLoadingComplete={() => setIsLoading(false)} />;
+  }
 
   return (
-    <Router future={{
-      v7_startTransition: true,
-      v7_relativeSplatPath: true
-    }}>
-      <Box
-        backgroundColor={colorMode === 'light' ? '#F7FAFC' : '#1A202C'}
-        minHeight="100vh"
-        position="relative"
-      >
-        <Navbar />
-        <FloatingSettings />
-        <Routes>
-          <Route path="/portfolio/" element={<Home />} />
-          <Route path="/portfolio/about" element={<About />} />
-          <Route path="/portfolio/experience" element={<Experience />} />
-          <Route path="/portfolio/projects" element={<Projects />} />
-          <Route path="/portfolio/contact" element={<Contact />} />
-        </Routes>
+    <ReactLenis root options={lenisOptions}>
+      <Box position="relative" minH="100vh">
+        <Header textColor={headerColor} />
+
+        <Box position="relative" bg="white" overflow="hidden" ref={containerRef}>
+          <Cursor />
+
+          <motion.div
+            ref={heroRef}
+            style={{
+              scale,
+              borderRadius,
+              overflow: "hidden",
+              zIndex: 1,
+              position: "fixed",
+              top: 0,
+              left: 0,
+              right: 0,
+              width: "100%",
+            }}
+          >
+            <Box bg="white" h={heroHeight}>
+              <Hero />
+            </Box>
+          </motion.div>
+
+          {/* Placeholder to reserve Hero space */}
+          <Box h={heroHeight} />
+
+          {/* MAIN CONTENT */}
+          <motion.div style={{ y: mainContentY, position: "relative", zIndex: 10 }}>
+            <motion.div style={{ marginLeft: contentMarginX, marginRight: contentMarginX }}>
+              <AboutMe />
+              <MoreAboutMe />
+              <Services />
+              <Projects />
+
+              {/* GETINTOUCH */}
+              <Box position="relative" align="center" ref={getInTouchRef}>
+                {/* Actual GetInTouch content as base */}
+                <Box
+                  position="relative"
+                  zIndex={5}
+                  w="100%"
+                  bg="white"
+                >
+                  <GetInTouch />
+                </Box>
+
+                {/* The expanding black overlay ON TOP - Center reveal */}
+                {/* Left overlay */}
+                <motion.div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    height: "100%",
+                    background: "black",
+                    width: getInTouchWidth, // this animates with scroll
+                    zIndex: 10,
+                  }}
+                  transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                />
+
+                {/* Right overlay */}
+                <motion.div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    right: 0,
+                    height: "100%",
+                    background: "black",
+                    width: getInTouchWidth, // this animates with scroll
+                    zIndex: 10,
+                  }}
+                  transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                />
+              </Box>
+            </motion.div>
+          </motion.div>
+
+
+        </Box>
       </Box>
-      <Footer />
-    </Router>
-  )
+    </ReactLenis>
+  );
 }
 
-export default App
+export default App;
