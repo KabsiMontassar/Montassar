@@ -4,13 +4,15 @@ import { VscGithubAlt } from "react-icons/vsc";
 import { SlSocialLinkedin } from "react-icons/sl";
 import { CiMail } from "react-icons/ci";
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 import SplitText from './UI/SplitText/SplitText';
 import { useState, useEffect } from 'react';
 import Magnet from './UI/magnet/Magnet';
-import './GetInTouch.css';
+import '../styles/GetInTouch.css';
 
 const GetInTouch = () => {
+  const { t } = useTranslation();
   const [isHovered, setIsHovered] = useState(false);
   const [emailCopied, setEmailCopied] = useState(false);
   const [emailHovered, setEmailHovered] = useState(false);
@@ -32,17 +34,19 @@ const GetInTouch = () => {
 
 
   const content = {
-    titlepartone: "Get in",
-    titleparttwo: "Touch",
-    subtitle: "Have a project in mind?",
-    subtitleparttwo: " Let's make it a reality!",
-    cta: "Get in touch",
-    signature: "Montassar",
-    thankYou: "Thank you for visiting!",
-    stayConnected: "Let's stay connected.",
-    backToTop: "Back To Top",
-    copied: "Copied!"
+    titlepartone: t('getintouch.titlepartone'),
+    titleparttwo: t('getintouch.titleparttwo'),
+    subtitle: t('getintouch.subtitle'),
+    subtitleparttwo: t('getintouch.subtitleparttwo'),
+    cta: t('getintouch.cta'),
+    signature: t('getintouch.signature'),
+    thankYou: t('getintouch.thankyou1'),
+    stayConnected: t('getintouch.thankyou2'),
+    backToTop: t('getintouch.backtotop'),
+
+    copied: t('getintouch.copied')
   };
+
 
 
 
@@ -440,7 +444,7 @@ const GetInTouch = () => {
                   color="black"
                   textAlign={{ base: "left", md: "right", lg: "right" }}
                   pr={{ base: 0, md: "5%", lg: "10%" }}
-                  pl={{ base: "15%", md: 0, lg: "1%" }}
+                  pl={{ base: "15%", md: 0, lg: "1" }}
                 >
                   {content.stayConnected}
                 </Text>

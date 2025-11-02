@@ -3,8 +3,10 @@ import { Box, Text, VStack, Flex } from '@chakra-ui/react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import CircularText from './UI/circularText/CircularText';
+import { useTranslation } from 'react-i18next';
 
 const MoreAboutMe = () => {
+  const { t } = useTranslation();
   const containerRef = useRef(null);
 
   const { scrollYProgress } = useScroll({
@@ -12,36 +14,26 @@ const MoreAboutMe = () => {
     offset: ["start end", "end start"]
   });
 
-
-
-
   const gapTransform = useTransform(scrollYProgress, [0, 0.3], [400, 10]);
 
-
   const content = {
-    more: "More",
-    title: "about me",
-    paragraph:
-      "I'm a passionate Full Stack Developer who creates digital experiences that blend creativity, technology, and purpose. I love exploring new tools and ideas to push boundaries while keeping quality and usability at the core.",
-    part1: "I enjoy diving deep into how things work — from frontend animations",
-    part2: "to backend logic and system design — constantly finding new ways",
-    part3: "to make technology feel more human, intuitive, and alive.",
-
-    part4: "Beyond coding, I love experimenting with ideas that combine art and tech,",
-    part5: "turning imagination into functional design and solving real-world problems",
-    part6: "through AI, automation, and innovation that inspires progress.",
-    circularText: "CODE * CREATE * INNOVATE * IMPACT * ",
+    more: t('moreaboutme.more'),
+    title: t('moreaboutme.title'),
+    paragraph: t('moreaboutme.paragraph'),
+    part1: t('moreaboutme.part1'),
+    part2: t('moreaboutme.part2'),
+    part3: t('moreaboutme.part3'),
+    part4: t('moreaboutme.part4'),
+    part5: t('moreaboutme.part5'),
+    part6: t('moreaboutme.part6'),
+    circularText: t('moreaboutme.circularText'),
   };
+
   // Configuration for all paragraph animations
   const paragraphConfigs = [
     // Left side paragraphs
     { text: content.part1, align: "left", selfAlign: "flex-start", rotation: "rotateZ(1.2deg)", delay: 0 },
     { text: content.part2, align: "left", selfAlign: "flex-start", rotation: "rotateZ(1.2deg)", delay: 0.2 },
-    { text: content.part3, align: "left", selfAlign: "flex-start", rotation: "rotateZ(1.2deg)", delay: 0.4 },
-    // Right side paragraphs
-    { text: content.part4, align: "right", selfAlign: "flex-end", rotation: "rotateZ(-1.2deg)", delay: 0.6 },
-    { text: content.part5, align: "right", selfAlign: "flex-end", rotation: "rotateZ(-1.2deg)", delay: 0.8 },
-    { text: content.part6, align: "right", selfAlign: "flex-end", rotation: "rotateZ(-1.2deg)", delay: 1.0 },
   ];
 
 

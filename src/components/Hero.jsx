@@ -2,12 +2,12 @@ import { Box, Flex, Text, Icon } from '@chakra-ui/react';
 import { useState, useEffect, useRef } from 'react';
 import Magnet from './UI/magnet/Magnet';
 import { IoTriangleSharp } from "react-icons/io5";
+import { useTranslation } from 'react-i18next';
 
 const Hero = () => {
+    const { t } = useTranslation();
     const [isWaving, setIsWaving] = useState(false);
     const timeoutRef = useRef(null);
-
-
 
     useEffect(() => {
         const startWaveCycle = () => {
@@ -25,15 +25,12 @@ const Hero = () => {
         };
     }, []);
 
-
-
-
     const content = {
-        welcome: "WELCOME TO",
-        myWebsite: "MY WEBSITE",
-        nameIntro: "I'm Kebsi",
-        scrollIndicator: "Scroll",
-    }
+        welcome: t('hero.welcome'),
+        myWebsite: t('hero.myWebsite'),
+        nameIntro: t('hero.nameIntro'),
+        scrollIndicator: t('hero.scrollIndicator'),
+    };
 
 
 

@@ -46,7 +46,7 @@ const Header = ({ textColor }) => {
                         Kebsi Montassar
                     </Button>
                 </Magnet>
-                <HStack gap={{  md: 4, lg: 4 }}>
+                <HStack gap={{ md: 4, lg: 4 }}>
                     <Magnet padding={langMagnetPadding} disabled={false} magnetStrength={20}>
                         <Button
                             color={textColor}
@@ -60,6 +60,7 @@ const Header = ({ textColor }) => {
                             backgroundColor="transparent"
                             fontSize={{ base: "sm", sm: "sm", md: "md", lg: "md" }}
                             onClick={() => changeLanguage("en")}
+                            transition="all 0.3s ease"
                         >
                             EN
                         </Button>
@@ -68,6 +69,7 @@ const Header = ({ textColor }) => {
                         <Button
                             color={textColor}
                             border="none"
+                            fontWeight={i18n.language === "fr" ? "bold" : "300"}
                             _hover={{
                                 backgroundColor: "transparent",
                                 fontWeight: "bold",
@@ -76,7 +78,7 @@ const Header = ({ textColor }) => {
                             backgroundColor="transparent"
                             fontSize={{ base: "sm", sm: "sm", md: "md", lg: "md" }}
                             onClick={() => changeLanguage("fr")}
-                            fontWeight={i18n.language === "fr" ? "bold" : "300"}
+                            transition="all 0.3s ease"
                         >
                             FR
                         </Button>

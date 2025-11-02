@@ -155,10 +155,10 @@ const SplitText = ({
   const renderTag = () => {
     const getFontSize = () => {
       if (windowWidth < 480) return '3rem';        // mobile
-      if (windowWidth < 768) return '4rem';        // small tablet
-      if (windowWidth < 1024) return '5rem';       // tablet
-      if (windowWidth < 1280) return '6rem';       // desktop
-      return '7rem';                               // large desktop
+      if (windowWidth < 768) return '3rem';        // small tablet
+      if (windowWidth < 1024) return '4rem';       // tablet
+      if (windowWidth < 1280) return '5rem';       // desktop
+      return '6rem';                               // large desktop
     };
 
     const style = {

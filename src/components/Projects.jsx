@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { LuArrowUpRight } from 'react-icons/lu';
 import Magnet from './UI/magnet/Magnet';
+import { useTranslation } from 'react-i18next';
 
 
 
@@ -22,6 +23,7 @@ const fadeInVariants = {
 };
 
 const Projects = () => {
+  const { t } = useTranslation();
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -35,34 +37,31 @@ const Projects = () => {
       id: '01',
       name: 'E-Commerce Platform',
       image: 'https://picsum.photos/400/300',
-      description: 'Full-stack e-commerce solution with React and Node.js'
     },
     {
       id: '02',
       name: 'Mobile Banking App',
       image: 'https://picsum.photos/400/300',
-      description: 'Secure mobile banking application with biometric authentication'
     },
     {
       id: '03',
       name: 'Portfolio Website',
       image: 'https://picsum.photos/400/300',
-      description: 'Modern portfolio website with advanced animations'
     },
     {
       id: '04',
       name: 'Task Management System',
       image: 'https://picsum.photos/400/300',
-      description: 'Collaborative task management platform'
     }
   ];
 
 
-  const content = {
-    projectsTitleMy: "My",
-    projectsTitleProjects: "Projects",
+const content = {
+    projectsTitleMy:  t('projects.titleMy'),
+    projectsTitleProjects: t('projects.titleProjects'),
     projects: projects
   }
+
 
 
 

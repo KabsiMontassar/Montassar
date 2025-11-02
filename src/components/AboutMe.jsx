@@ -2,20 +2,16 @@ import { Box, Text, Flex, VStack, Image, Card, CardBody } from '@chakra-ui/react
 import image from '../assets/image.jpg';
 import ScrollVelocity from './UI/scrollVelocity/ScrollVelocity';
 import SplitText from './UI/SplitText/SplitText';
+import { useTranslation } from 'react-i18next';
 
 const AboutMe = () => {
+  const { t } = useTranslation();
 
   const contents = {
-    title: "About Me",
-    description: "I'm Montassar, a Full Stack Developer with 2+ years of experience building and deploying scalable web applications. I focus on creating high-performance, user-friendly solutions using modern technologies and cloud-native practices.",
-    personalwebsite: "Personal Website",
+    title: t("aboutme.title"),
+    description: t("aboutme.description"),
+    personalwebsite: t("aboutme.personalwebsite"),
   };
-
-
-
-
-
-
 
 
   return (
@@ -48,7 +44,7 @@ const AboutMe = () => {
         >
           <Box w="100%" display="flex" justifyContent={{ base: "center", lg: "flex-start" }}>
             <SplitText
-              text="About Me"
+              text={contents.title}
               fontWeight="bold"
             />
           </Box>

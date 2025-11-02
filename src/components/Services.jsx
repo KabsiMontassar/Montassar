@@ -1,31 +1,29 @@
 import { Box, Text, VStack, SimpleGrid } from '@chakra-ui/react';
 import SpotlightCard from './UI/spotLight/SpotlightCard';
 import SplitText from './UI/SplitText/SplitText';
-
+import { useTranslation } from 'react-i18next';
 const Services = () => {
+  const { t } = useTranslation();
 
 
   const content = {
-    servicesTitle: "Services",
-    servicesDescription:
-      "I specialize in building scalable, high-performance web applications that combine creativity and modern technologies. My goal is to craft seamless user experiences with clean architecture, reliable automation, and smart integrations that make a real impact.",
+    servicesTitle: t('services.servicesTitle'),
+    servicesDescription: t('services.servicesDescription'),
 
     services: [
       {
-        title: "Full Stack Web Development",
-        description:
-          "Developing modern, responsive, and feature-rich web applications — from intuitive frontends to robust and secure backends.",
+        title: t('services.fullstack.title'),
+        description: t('services.fullstack.description'),
       },
       {
-        title: "AI-Enhanced App Development",
-        description:
-          "Integrating intelligent features and automation systems to create smarter, data-driven digital experiences.",
+        title: t('services.ai.title'),
+        description: t('services.ai.description'),
       },
       {
-        title: "Cloud & DevOps Solutions",
-        description:
-          "Designing scalable cloud infrastructures and automation pipelines to ensure performance, security, and reliability.",
-      },
+        title: t('services.cloud.title'),
+        description: t('services.cloud.description'),
+      }
+     
     ],
   };
 
