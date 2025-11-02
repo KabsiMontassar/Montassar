@@ -5,7 +5,7 @@ import SplitText from './UI/SplitText/SplitText';
 import { useTranslation } from 'react-i18next';
 
 const AboutMe = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const contents = {
     title: t("aboutme.title"),
@@ -44,6 +44,7 @@ const AboutMe = () => {
         >
           <Box w="100%" display="flex" justifyContent={{ base: "center", lg: "flex-start" }}>
             <SplitText
+              key={`about-title-${i18n.language}`}
               text={contents.title}
               fontWeight="bold"
             />

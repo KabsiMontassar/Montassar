@@ -115,7 +115,7 @@ i18n.use(initReactI18next).init({
         "getintouch.signature": "Montassar",
         "getintouch.thankyou1": "Merci de votre visite !",
         "getintouch.thankyou2": "Restons connectés.",
-        "getintouch.backtotop": "Haut de page",
+        "getintouch.backtotop": "Retour en haut",
         "getintouch.copied": "Copié !",
 
         // PROJECTS

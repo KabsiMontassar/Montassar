@@ -12,7 +12,7 @@ import Magnet from './UI/magnet/Magnet';
 import '../styles/GetInTouch.css';
 
 const GetInTouch = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [isHovered, setIsHovered] = useState(false);
   const [emailCopied, setEmailCopied] = useState(false);
   const [emailHovered, setEmailHovered] = useState(false);
@@ -144,10 +144,12 @@ const GetInTouch = () => {
 
               >
                 <SplitText
+                  key={`title-first-${i18n.language}`}
                   text={content.titlepartone}
                   className='get-in-touch-title-first'
                 />
                 <SplitText
+                  key={`title-second-${i18n.language}`}
                   text={content.titleparttwo}
                   className='get-in-touch-title-second'
                 />

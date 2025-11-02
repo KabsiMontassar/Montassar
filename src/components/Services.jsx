@@ -3,7 +3,7 @@ import SpotlightCard from './UI/spotLight/SpotlightCard';
 import SplitText from './UI/SplitText/SplitText';
 import { useTranslation } from 'react-i18next';
 const Services = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
 
   const content = {
@@ -47,6 +47,7 @@ const Services = () => {
         {/* Services Title */}
         <Box w="100%" display="flex" justifyContent={{ base: "center", lg: "flex-start" }}>
           <SplitText
+            key={`services-title-${i18n.language}`}
             text={content.servicesTitle}
           />
         </Box>
