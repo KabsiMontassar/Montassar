@@ -11,11 +11,9 @@ const AboutMe = () => {
 
 
   const contents = {
-    marqueeText1: "Montassar kebsi Montassar kebsi Montassar kebsi",
-    marqueeText2: " Personal Website Personal Website Personal Website",
     title: "About Me",
     description: "I'm Kebsi Montassar Full Stack Developer with 6 years of experience, specializing in frontend development. I focus on building high-performance, user-friendly web and mobile applications that deliver seamless experiences.",
-    signature: "Montassar",
+    personalwebsite: "Personal Website",
   }
 
 
@@ -26,11 +24,11 @@ const AboutMe = () => {
 
 
   return (
-    <Box 
-      id="about-me" 
-      minH={{ base: "100vh", md: "100vh" }} 
-      bg="black" 
-      p={{ base: "4%", sm: "5%", md: "6%", lg: "8%" }} 
+    <Box
+      id="about-me"
+      minH={{ base: "100vh", md: "100vh" }}
+      bg="black"
+      p={{ base: "4%", sm: "5%", md: "6%", lg: "8%" }}
       pt={{ base: "100px", sm: "100px", md: "180px", lg: "250px" }}
       position="relative"
       overflow="hidden"
@@ -45,42 +43,42 @@ const AboutMe = () => {
         minH={{ base: "auto", lg: "500px" }}
       >
         {/* Left Side - Text Content */}
-        <VStack 
-          align={{ base: "center", lg: "flex-start" }} 
-          spacing={{ base: 6, sm: 8, md: 10, lg: 12 }} 
-          flex={1} 
+        <VStack
+          align={{ base: "center", lg: "flex-start" }}
+          spacing={{ base: 6, sm: 8, md: 10, lg: 12 }}
+          flex={1}
           maxW={{ base: "100%", lg: "65%" }}
           textAlign={{ base: "center", lg: "left" }}
           w="100%"
         >
-            <Box w="100%" display="flex" justifyContent={{ base: "center", lg: "flex-start" }}>
-              <SplitText
-                text="About Me"
-                fontWeight="bold"
-              />
-            </Box>
+          <Box w="100%" display="flex" justifyContent={{ base: "center", lg: "flex-start" }}>
+            <SplitText
+              text="About Me"
+              fontWeight="bold"
+            />
+          </Box>
 
-            <Text
-              textColor="white"
-              fontSize={{ base: "lg", sm: "xl", md: "2xl", lg: "3xl", xl: "4xl" }}
-              fontWeight="200"
-              maxW={{ base: "100%", md: "90%", lg: "700px" }}
-              lineHeight={{ base: "1.6", md: "1.5", lg: "1.4" }}
-              textAlign={{ base: "center", lg: "left" }}
-            >
-              {contents.description}
-            </Text>
+          <Text
+            textColor="white"
+            fontSize={{ base: "lg", sm: "xl", md: "2xl", lg: "3xl", xl: "4xl" }}
+            fontWeight="200"
+            maxW={{ base: "100%", md: "90%", lg: "700px" }}
+            lineHeight={{ base: "1.6", md: "1.5", lg: "1.4" }}
+            textAlign={{ base: "center", lg: "left" }}
+          >
+            {contents.description}
+          </Text>
 
-            <Text
-              textColor="white"
-              fontSize={{ base: "3xl", sm: "4xl", md: "5xl", lg: "6xl", xl: "7xl" }}
-              fontWeight="100"
-              className="signature"
-              mt={{ base: 4, md: 6 }}
-              textAlign={{ base: "center", lg: "left" }}
-            >
-              {contents.signature}
-            </Text>
+          <Text
+            textColor="white"
+            fontSize={{ base: "3xl", sm: "4xl", md: "5xl", lg: "6xl", xl: "7xl" }}
+            fontWeight="100"
+            className="signature"
+            mt={{ base: 4, md: 6 }}
+            textAlign={{ base: "center", lg: "left" }}
+          >
+            Montassar
+          </Text>
         </VStack>
 
         {/* Right Side - Image Card */}
@@ -121,10 +119,10 @@ const AboutMe = () => {
           </Card>
         </Box>
       </Flex>
-      
+
       {/* Scroll Velocity Section */}
-      <Box  my={{ base: 50, sm: 120, md: 150, lg: 150 }} transform="rotateZ(-10deg)">
-        <ScrollVelocity texts={['Montassar Kebsi', 'Personal Website']}
+      <Box my={{ base: 50, sm: 120, md: 150, lg: 150 }} transform="rotateZ(-10deg)">
+        <ScrollVelocity texts={['Montassar Kebsi', contents.personalwebsite]}
           velocity={"10"}
           className="custom-scroll-text" />
       </Box>

@@ -28,6 +28,32 @@ const GetInTouch = () => {
     }
   };
 
+
+
+
+  const content = {
+    titlepartone: "Get in",
+    titleparttwo: "Touch",
+    subtitle: "Have a project in mind?",
+    subtitleparttwo: " Let's make it a reality!",
+    cta: "Get in touch",
+    signature: "Montassar",
+    thankYou: "Thank you for visiting!",
+    stayConnected: "Let's stay connected.",
+    backToTop: "Back To Top",
+    copied: "Copied!"
+  };
+
+
+
+
+
+
+
+
+
+
+
   const itemVariants = {
     hidden: {
       opacity: 0,
@@ -114,11 +140,11 @@ const GetInTouch = () => {
 
               >
                 <SplitText
-                  text="Get in"
+                  text={content.titlepartone}
                   className='get-in-touch-title-first'
                 />
                 <SplitText
-                  text="Touch"
+                  text={content.titleparttwo}
                   className='get-in-touch-title-second'
                 />
               </Flex>
@@ -151,8 +177,9 @@ const GetInTouch = () => {
                   w="100%"
                   mb={{ base: 6, md: 8, lg: 10 }}
                 >
-                  Have a project in mind? <br />
-                  Let's make it a reality!
+                  {content.subtitle}
+                  <br />
+                  {content.subtitleparttwo}
                 </Text>
               </Box>
             </motion.div>
@@ -193,7 +220,7 @@ const GetInTouch = () => {
                     transition="opacity 0.3s ease"
                     textAlign={"left"}
                   >
-                    Get in touch
+                    {content.cta}
                   </Text>
                   <Text
                     fontSize={{
@@ -325,7 +352,7 @@ const GetInTouch = () => {
                         zIndex={10}
                         whiteSpace="nowrap"
                       >
-                        {emailCopied ? 'Copied!' : 'kebsimontassar@gmail.com'}
+                        {emailCopied ? content.copied : 'kebsimontassar@gmail.com'}
                       </Text>
                     )}
                   </Box>
@@ -359,7 +386,7 @@ const GetInTouch = () => {
                   transform="rotate(180deg)"
                   className="bouncing-text"
                 >
-                  Back To Top
+                  {content.backToTop}
                 </Text>
               </Box>
             </motion.div>
@@ -409,7 +436,7 @@ const GetInTouch = () => {
                   textAlign={{ base: "left", md: "right", lg: "right" }}
                   pl={{ base: "5%", md: 0 }}
                 >
-                  Thank you for visiting!
+                  {content.thankYou}
                 </Text>
 
                 <Text
@@ -420,7 +447,7 @@ const GetInTouch = () => {
                   pr={{ base: 0, md: "5%", lg: "10%" }}
                   pl={{ base: "15%", md: 0, lg: "1%" }}
                 >
-                  Let's stay connected.
+                  {content.stayConnected}
                 </Text>
               </Flex>
             </motion.div>

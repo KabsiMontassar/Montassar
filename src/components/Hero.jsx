@@ -25,6 +25,21 @@ const Hero = () => {
         };
     }, []);
 
+
+
+
+    const content = {
+        welcome: "WELCOME TO",
+        myWebsite: "MY WEBSITE",
+        nameIntro: "I'm Kebsi",
+        scrollIndicator: "Scroll",
+    }
+
+
+
+
+
+
     return (
         <Box
             id="hero"
@@ -67,7 +82,7 @@ const Hero = () => {
                             letterSpacing={{ base: 1, md: 2 }}
                             maxW={{ base: "100%" }}
                         >
-                            WELCOME TO <br /> MY WEBSITE
+                            {content.welcome} <br /> {content.myWebsite}
                         </Text>
                     </Magnet>
                 </Box>
@@ -118,7 +133,7 @@ const Hero = () => {
                         fontSize={{ base: 'xl', sm: 'xl', md: '2xl', lg: '5xl' }}
                         lineHeight={{ base: "1.3", md: "1.2" }}
                     >
-                        I'm Kebsi <br /> Montassar
+                        {content.nameIntro} <br /> Montassar
                     </Text>
                 </Magnet>
             </Box>
@@ -135,7 +150,7 @@ const Hero = () => {
                     fontSize={{ base: 'xl', sm: 'xl', md: 'lg', lg: '4xl' }}
                     mb={{ base: 1, md: 2 }}
                 >
-                    Scroll
+                    {content.scrollIndicator}
                 </Text>
                 <Box
                     as="span"

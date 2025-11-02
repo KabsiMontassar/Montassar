@@ -57,6 +57,18 @@ const Projects = () => {
     }
   ];
 
+
+  const content = {
+    projectsTitleMy: "My",
+    projectsTitleProjects: "Projects",
+    projects: projects
+  }
+
+
+
+
+
+
   return (
     <Box
       ref={containerRef}
@@ -91,7 +103,7 @@ const Projects = () => {
               textAlign="center"
               display="inline-block"
             >
-              My
+              {content.projectsTitleMy}
             </Text>
           </motion.div>
 
@@ -110,7 +122,7 @@ const Projects = () => {
               textAlign="center"
               display="inline-block"
             >
-              Projects
+              {content.projectsTitleProjects}
             </Text>
           </motion.div>
         </Flex>
@@ -121,7 +133,7 @@ const Projects = () => {
           w="100%"
           mt={{ base: 8, md: 12, lg: 16 }}
         >
-          {projects.map((project, index) => (
+          {content.projects.map((project, index) => (
             <Box
               key={project.id}
               className="project-card"
@@ -264,7 +276,7 @@ const Projects = () => {
                       >
                         <Text
                           textColor="white"
-                           fontSize={{ base: "xl", md: "4xl", lg: "5xl" }}
+                          fontSize={{ base: "xl", md: "4xl", lg: "5xl" }}
                           fontWeight="bold"
                           lineHeight={{ base: "1.2", md: "1.1" }}
                           textAlign={{ base: "center", sm: "left" }}

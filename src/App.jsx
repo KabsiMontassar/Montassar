@@ -50,7 +50,7 @@ function App() {
   const borderRadius = useTransform(scrollY, [0, 400], [0, 40]);
   const mainContentY = useTransform(scrollY, [0, 400], [0, 0]);
   const contentMarginX = useTransform(scrollY, [0, 50, 100], ["5%", "2%", "0%"]);
-  const getInTouchWidth = useTransform(scrollY, [start, end - 300], ["45%", "0%"]);
+  const getInTouchWidth = useTransform(scrollY, [start, end - 300], ["40%", "0%"]);
 
   // Responsive values
   const heroHeight = useBreakpointValue({ base: "75vh", sm: "75vh", md: "75vh", lg: "75vh" });

@@ -17,28 +17,38 @@ const MoreAboutMe = () => {
 
   const gapTransform = useTransform(scrollYProgress, [0, 0.3], [400, 10]);
 
-  const paragraph =
-    "I have a deep passion for learning new technologies, especially in effects and animations. I strive to create innovative and engaging digital experiences, pushing boundaries with each project while prioritizing quality above all.";
 
-  // Split paragraph into three parts
-  const part1 = "I have a deep passion for learning new technologies,";
-  const part2 = "especially in effects and animations. I strive to create";
-  const part3 = "innovative and engaging digital experiences, pushing boundaries with each project while prioritizing quality above all.";
-  const part4 = "I have a deep passion for learning new technologies,";
-  const part5 = "especially in effects and animations. I strive to create";
-  const part6 = "innovative and engaging digital experiences, pushing boundaries with each project while prioritizing quality above all.";
-
+  const content = {
+    more: "More",
+    title: "about me",
+    paragraph: "I have a deep passion for learning new technologies, especially in effects and animations. I strive to create innovative and engaging digital experiences, pushing boundaries with each project while prioritizing quality above all.",
+    part1: "I have a deep passion for learning new technologies,",
+    part2: "especially in effects and animations. I strive to create",
+    part3: "innovative and engaging digital experiences, pushing boundaries with each project while prioritizing quality above all.",
+    part4: "I have a deep passion for learning new technologies,",
+    part5: "especially in effects and animations. I strive to create",
+    part6: "innovative and engaging digital experiences, pushing boundaries with each project while prioritizing quality above all.",
+    circularText: "CODE * CREATE * INSPIRE * REPEAT * ",
+  }
   // Configuration for all paragraph animations
   const paragraphConfigs = [
     // Left side paragraphs
-    { text: part1, align: "left", selfAlign: "flex-start", rotation: "rotateZ(1.2deg)", delay: 0 },
-    { text: part2, align: "left", selfAlign: "flex-start", rotation: "rotateZ(1.2deg)", delay: 0.2 },
-    { text: part3, align: "left", selfAlign: "flex-start", rotation: "rotateZ(1.2deg)", delay: 0.4 },
+    { text: content.part1, align: "left", selfAlign: "flex-start", rotation: "rotateZ(1.2deg)", delay: 0 },
+    { text: content.part2, align: "left", selfAlign: "flex-start", rotation: "rotateZ(1.2deg)", delay: 0.2 },
+    { text: content.part3, align: "left", selfAlign: "flex-start", rotation: "rotateZ(1.2deg)", delay: 0.4 },
     // Right side paragraphs
-    { text: part4, align: "right", selfAlign: "flex-end", rotation: "rotateZ(-1.2deg)", delay: 0.6 },
-    { text: part5, align: "right", selfAlign: "flex-end", rotation: "rotateZ(-1.2deg)", delay: 0.8 },
-    { text: part6, align: "right", selfAlign: "flex-end", rotation: "rotateZ(-1.2deg)", delay: 1.0 },
+    { text: content.part4, align: "right", selfAlign: "flex-end", rotation: "rotateZ(-1.2deg)", delay: 0.6 },
+    { text: content.part5, align: "right", selfAlign: "flex-end", rotation: "rotateZ(-1.2deg)", delay: 0.8 },
+    { text: content.part6, align: "right", selfAlign: "flex-end", rotation: "rotateZ(-1.2deg)", delay: 1.0 },
   ];
+
+
+
+
+
+
+
+
 
   return (
     <Box
@@ -84,7 +94,7 @@ const MoreAboutMe = () => {
               display="inline-block"
               lineHeight={{ base: "1.1", md: "1" }}
             >
-              More
+              {content.more}
             </Text>
           </motion.div>
 
@@ -103,7 +113,7 @@ const MoreAboutMe = () => {
               lineHeight={{ base: "1.1", md: "1" }}
 
             >
-              about me
+              {content.title}
             </Text>
           </motion.div>
         </Flex>
@@ -121,7 +131,7 @@ const MoreAboutMe = () => {
             lineHeight={"1.2"}
             opacity={0.85}
           >
-            {paragraph}
+            {content.paragraph}
           </Text>
         </Box>
 
@@ -197,7 +207,7 @@ const MoreAboutMe = () => {
                     viewport={{ once: true, margin: "-100px" }}
                   >
                     <CircularText
-                      text="CODE * CREATE * INSPIRE * REPEAT * "
+                      text={content.circularText}
                       onHover="speedUp"
                       fontSize={{ base: '16px', sm: '20px', md: '24px', lg: '28px', xl: '32px' }}
                       starSize='30px'
