@@ -181,7 +181,6 @@ const GetInTouch = () => {
                 fontWeight="400"
                 color="black"
                 writingMode="vertical-rl"
-                textOrientation="mixed"
                 _hover={{ color: "#ffc83d" }}
                 transition="color 0.3s ease"
                 transform="rotate(180deg)"

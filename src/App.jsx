@@ -53,7 +53,7 @@ function App() {
   const getInTouchWidth = useTransform(scrollY, [start, end - 300], ["15%", "100%"]);
 
   // Responsive values
-  const heroHeight = useBreakpointValue({ base: "60vh", sm: "70vh", md: "75vh", lg: "75vh" });
+  const heroHeight = useBreakpointValue({ base: "75vh", sm: "75vh", md: "75vh", lg: "75vh" });
 
   const lenisOptions = {
     lerp: 0.08,
@@ -108,7 +108,7 @@ function App() {
                 style={{
                   width: getInTouchWidth,
                   margin: "0 auto",
-                  
+
                 }}
                 transition={{ type: "spring", stiffness: 100, damping: 20 }}
               >

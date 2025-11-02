@@ -28,11 +28,11 @@ const Hero = () => {
     return (
         <Box
             id="hero"
-            minH="75vh"
+            minH={{ base: "100vh", sm: "90vh", md: "85vh", lg: "75vh" }}
             bg="white"
             width="100%"
-            mt={20}
-            px={"5%"}
+            mt={{ base: 8, sm: 12, md: 16, lg: 20 }}
+            px={{ base: "4%", sm: "5%", md: "5%", lg: "5%" }}
             position="relative"
             display="flex"
             alignItems="top"
@@ -41,38 +41,58 @@ const Hero = () => {
         >
             <Flex
                 direction="column"
-                align="left"
-                pl={20}
+                align={{ base: "center", md: "left" }}
+                pl={{ base: 4, sm: 4, md: 12, lg: 20 }}
                 pt={20}
-                textAlign="left"
+                textAlign={"left"}
                 width="100%"
-                minH="400px"
+                minH={{ base: "300px", sm: "350px", md: "400px", lg: "500px" }}
                 transition="transform 0.25s ease-out"
                 position="relative"
             >
-                <Box zIndex="1" >
-                    <Magnet padding={100} disabled={false} magnetStrength={20}>
+                <Box
+                    position="relative"
+                    zIndex="1"
+                    w="full">
+                    <Magnet
+                        padding={100}
+                        disabled={false}
+                        magnetStrength={20}
+                    >
                         <Text
-                            fontSize={{ base: '3xl', md: '5xl', lg: '9xl' }}
+                            fontSize={{ base: '4xl', sm: '5xl', md: '6xl', lg: '9xl' }}
                             fontWeight="bold"
-                            lineHeight="1"
+                            lineHeight={{ base: "1.2", md: "1" }}
                             zIndex="1"
-
-                            letterSpacing={2}
+                            letterSpacing={{ base: 1, md: 2 }}
+                            maxW={{ base: "100%", md: "90%" }}
                         >
                             WELCOME TO <br /> MY WEBSITE
                         </Text>
                     </Magnet>
                 </Box>
-                {/* Main text */}
-                <Box position="absolute"
-                    top="0%"
-                    left="50%" zIndex="0">
-                    <Magnet padding={400} disabled={false} magnetStrength={20}>
+                {/* Main emoji - positioned responsively */}
+                <Box
+                    position="absolute"
+                    top={{ base: "5%", sm: "0%", md: "0%", lg: "0%" }}
+                    left={{ base: "", md: "50%", lg: "62%" }}
+                    right={{ base: "0", md: "", lg: "" }}
+                    transform="translateX(-50%)"
+                    zIndex="0"
+                >
+                    <Magnet
+                        padding={400}
+                        disabled={false}
+                        magnetStrength={20}
+                    >
                         <Text
-                            fontSize={{ base: '6xl', md: '8xl', lg: '10xl' }}
+                            fontSize={{ base: '6xl', sm: '7xl', md: '8xl', lg: '10xl' }}
                             className={isWaving ? 'wave-animation' : ''}
-                            style={{ pointerEvents: 'none', transition: 'transform 0.25s ease-out' }}
+                            style={{
+                                pointerEvents: 'none',
+                                transition: 'transform 0.25s ease-out',
+                                display: 'inline-block'
+                            }}
                         >
                             👋
                         </Text>
@@ -81,24 +101,52 @@ const Hero = () => {
                 {/* Emoji */}
             </Flex>
 
-            {/* Bottom right name */}
-            <Box position="absolute" bottom="10%" right="10%" >
-                <Magnet padding={100} disabled={false} magnetStrength={20}>
-                    <Text fontWeight={"bold"} textAlign={"right"} fontSize={{ base: 'lg', md: '4xl' }}>I'm Kebsi <br /> Montassar </Text>
+            {/* Bottom right name - responsive positioning */}
+            <Box
+                position="absolute"
+                bottom={{ base: "30%", sm: "30%", md: "10%", lg: "10%" }}
+                right={"10%"}
+            >
+                <Magnet
+                    padding={{ base: 40, sm: 60, md: 80, lg: 100 }}
+                    disabled={false}
+                    magnetStrength={20}
+                >
+                    <Text
+                        fontWeight={"bold"}
+                        textAlign={"right"}
+                        fontSize={{ base: 'xl', sm: 'xl', md: '2xl', lg: '5xl' }}
+                        lineHeight={{ base: "1.3", md: "1.2" }}
+                    >
+                        I'm Kebsi <br /> Montassar
+                    </Text>
                 </Magnet>
             </Box>
 
-            {/* Bottom left scroll indicator */}
-            <Box position="absolute" bottom="10%" left="10%" textAlign="center">
-                <Text fontWeight={"500"} fontSize={{ base: 'lg', md: '4xl' }} mb={2}>
+            {/* Bottom left scroll indicator - responsive positioning */}
+            <Box
+                 position="absolute"
+                bottom={{ base: "30%", sm: "30%", md: "10%", lg: "10%" }}
+                left={"10%"}
+                textAlign="center"
+            >
+                <Text
+                    fontWeight={"500"}
+                    fontSize={{ base: 'xl', sm: 'xl', md: 'lg', lg: '4xl' }}
+                    mb={{ base: 1, md: 2 }}
+                >
                     Scroll
                 </Text>
-                <Box as="span" fontSize="2xl" className="bounce-animation" display="block">
+                <Box
+                    as="span"
+                    fontSize={{ base: 'xl', sm: 'xl', md: '2xl', lg: '2xl' }}
+                    className="bounce-animation"
+                    display="block"
+                >
                     <Icon
                         size="lg"
                         color="#ffc83d"
                         sx={{ transform: 'rotate(180deg)' }}
-
                     >
                         <IoTriangleSharp />
                     </Icon>

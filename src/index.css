@@ -91,6 +91,7 @@ body {
 
 .bounce-animation {
   animation: bounce 2s infinite;
+  will-change: transform;
 }
 
 @keyframes wave {
@@ -107,6 +108,27 @@ body {
 
 .wave-animation {
   animation: wave 0.75s ease-in-out forwards;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* Responsive animation adjustments for mobile */
+@media (max-width: 767px) {
+  .bounce-animation {
+    animation: bounce 2.5s infinite; /* Slightly slower on mobile */
+  }
+  
+  .wave-animation {
+    animation: wave 1s ease-in-out forwards; /* Slightly slower for better visibility */
+  }
+}
+
+/* Performance optimizations */
+@media (prefers-reduced-motion: reduce) {
+  .bounce-animation,
+  .wave-animation {
+    animation: none;
+  }
 }
 
 /* Smooth scrolling */

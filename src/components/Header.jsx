@@ -46,7 +46,7 @@ const Header = ({ textColor }) => {
                         Kebsi Montassar
                     </Button>
                 </Magnet>
-                <HStack gap={{ base: 2, sm: 3, md: 4, lg: 4 }}>
+                <HStack gap={{  md: 4, lg: 4 }}>
                     <Magnet padding={langMagnetPadding} disabled={false} magnetStrength={20}>
                         <Button
                             color={textColor}
