@@ -35,29 +35,44 @@ const Projects = () => {
   const projects = [
     {
       id: '01',
-      name: 'E-Commerce Platform',
+      name: 'VerdeSeeds',
       image: 'https://picsum.photos/400/300',
     },
     {
       id: '02',
-      name: 'Mobile Banking App',
+      name: 'Valero',
       image: 'https://picsum.photos/400/300',
     },
     {
       id: '03',
-      name: 'Portfolio Website',
+      name: 'FileFlow',
       image: 'https://picsum.photos/400/300',
     },
     {
       id: '04',
-      name: 'Task Management System',
+      name: 'InsightFlow',
+      image: 'https://picsum.photos/400/300',
+    },
+    {
+      id: '05',
+      name: 'SecureFlow',
+      image: 'https://picsum.photos/400/300',
+    },
+    {
+      id: '06',
+      name: 'PhytoScan',
+      image: 'https://picsum.photos/400/300',
+    },
+    {
+      id: '07',
+      name: 'Greener',
       image: 'https://picsum.photos/400/300',
     }
   ];
 
 
-const content = {
-    projectsTitleMy:  t('projects.titleMy'),
+  const content = {
+    projectsTitleMy: t('projects.titleMy'),
     projectsTitleProjects: t('projects.titleProjects'),
     projects: projects
   }
