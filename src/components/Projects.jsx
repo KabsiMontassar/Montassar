@@ -4,6 +4,14 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { LuArrowUpRight } from 'react-icons/lu';
 import Magnet from './UI/magnet/Magnet';
 import { useTranslation } from 'react-i18next';
+import fileflow from '../assets/projects/fileflow.png';
+import greener from '../assets/projects/greener.jpg';
+import insightflow from '../assets/projects/insightflow.jpg';
+import phytoScan from '../assets/projects/photo.jpg';
+import secureflow from '../assets/projects/secureflow.jpg';
+import valero from '../assets/projects/valero.jpg';
+import verdeseeds from '../assets/projects/verdeseeds.jpg';
+
 
 
 
@@ -35,38 +43,52 @@ const Projects = () => {
   const projects = [
     {
       id: '01',
-      name: 'VerdeSeeds',
-      image: 'https://picsum.photos/400/300',
+      name: 'Verdeseeds',
+      description: 'Drag and drop website builder with AI-powered design suggestions for farmers and agricultural businesses.',
+      image:  verdeseeds,
+      link: 'https://github.com/ahmed-SIEM/SpringBack'
     },
     {
       id: '02',
       name: 'Valero',
-      image: 'https://picsum.photos/400/300',
+      description: 'A Discord-like application for easy meetings, seamless voice chat, and instant messaging.',
+      image: valero,
+      link: 'https://kabsimontassar.github.io/Valero'
     },
     {
       id: '03',
       name: 'FileFlow',
-      image: 'https://picsum.photos/400/300',
+      description: 'Intelligent File Processing Pipeline • Production-ready pipeline supporting 100+ file formats with automated processing',
+      image: fileflow,
+      link: 'https://github.com/KabsiMontassar/IFPP-Intelligent-File-Processing-Pipeline'
     },
     {
       id: '04',
       name: 'InsightFlow',
-      image: 'https://picsum.photos/400/300',
+      description: 'Dashboard for Surveilling Logs & Metrics (Observability Stack) GitHub • Comprehensive observability platform aggregating logs, metrics, & traces',
+      image: insightflow,
+      link: 'https://github.com/KabsiMontassar/DSLM_Dashboard_for_Surveilling_Logs_-_Metrics'
     },
     {
       id: '05',
       name: 'SecureFlow',
-      image: 'https://picsum.photos/400/300',
+      description: 'End-to-end security: AuthN/AuthZ + secrets management for microservices.',
+      image: secureflow,
+      link: 'https://github.com/KabsiMontassar/ASeSt_Authentication_-_Security_Stack'
     },
     {
       id: '06',
       name: 'PhytoScan',
-      image: 'https://picsum.photos/400/300',
+      description: 'Plant health monitoring made easy. and scan using ai for diseases and pests.',
+      image: phytoScan,
+      link: 'https://huggingface.co/spaces/montassarTester/PlantDetection'
     },
     {
       id: '07',
       name: 'Greener',
-      image: 'https://picsum.photos/400/300',
+      description: 'ecommerce for selling plants online with ai-based plant disease detection.',
+      image: greener,
+      link: 'https://github.com/KabsiMontassar/GreenerGemini'
     }
   ];
 
@@ -271,6 +293,7 @@ const Projects = () => {
 
                   {/* Project Name + Arrow - Responsive layout */}
                   <HStack
+                    className='project-name-arrow'
                     align="center"
                     mt={{ base: 4, md: 6 }}
                     justify={{ base: "center", lg: "center" }}
