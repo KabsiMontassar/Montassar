@@ -28,8 +28,6 @@ const Projects = () => {
     offset: ["start end", "end start"]
   });
 
-
-  // Animate the gap between "My" and "Projects" on scroll
   const gapTransform = useTransform(scrollYProgress, [0, .15], [400, 10]);
 
   const projects = [
@@ -65,13 +63,17 @@ const Projects = () => {
       id="projects"
       minH="100vh"
       bg="black"
-      p={8}
-      pt="120px"
-      pb={200}
-      overflow="hidden"
+      p={{ base: "4%", sm: "5%", md: "6%", lg: "8%" }}
 
+      pb={{ base: "100px", sm: "150px", md: "200px", lg: "250px" }}
+      overflow="hidden"
     >
-      <VStack spacing={100} align="center" mx="auto">
+      <VStack
+        spacing={{ base: 16, sm: 20, md: 24, lg: 28 }}
+        align="center"
+        mx="auto"
+
+      >
         {/* Scroll-Animated Title */}
         <Flex justify="center" w="100%">
           <motion.div
@@ -113,25 +115,39 @@ const Projects = () => {
           </motion.div>
         </Flex>
 
-
         {/* Projects Grid */}
-        <VStack spacing={300} w="100%">
+        <VStack
+          spacing={{ base: 20, sm: 24, md: 28, lg: 32 }}
+          w="100%"
+          mt={{ base: 8, md: 12, lg: 16 }}
+        >
           {projects.map((project, index) => (
-            // full box for each project
             <Box
               key={project.id}
               className="project-card"
               position="relative"
               w="100%"
               display="flex"
-              marginLeft={index % 2 === 0 ? '250px' : '0'}
-              marginRight={index % 2 === 0 ? '0' : '250px'}
-              flexDirection={index % 2 === 0 ? "row" : "row-reverse"}
+              marginLeft={{
+                base: 0,
+                lg: index % 2 === 0 ? '10px' : '0',
+
+              }}
+              marginRight={{
+                base: 0,
+                lg: index % 2 === 0 ? '10px' : '0',
+
+              }}
+              flexDirection={{
+                base: "column",
+                lg: index % 2 === 0 ? "row" : "row-reverse"
+              }}
               alignItems="center"
-              gap="12px"
+              gap={{ base: 4, md: 6, lg: 8 }}
               style={{ perspective: 1000 }}
+              px={{ base: 4, md: 6, lg: 8 }}
             >
-              {/* Project Number - Separate Pop Animation */}
+              {/* Project Number - Responsive positioning */}
               <motion.div
                 initial="initial"
                 whileInView="animate"
@@ -140,12 +156,19 @@ const Projects = () => {
               >
                 <Box
                   className="project-number"
-                  position="absolute"
-
-                  left={index % 2 === 0 ? "55%" : "45%"}
-                  top="10%"
-                  transform="translate(-50%, -50%)"
+                  position={{ base: "relative", lg: "absolute" }}
+                  left={{
+                    base: "auto",
+                    lg: index % 2 === 0 ? "55%" : "45%"
+                  }}
+                  top={{ base: "auto", lg: "10%" }}
+                  transform={{
+                    base: "none",
+                    lg: "translate(-50%, -50%)"
+                  }}
                   zIndex={1}
+                  mb={{ base: 4, lg: 0 }}
+                  textAlign="center"
                 >
                   <Text
                     fontSize={{ base: "7xl", md: "9xl", lg: "220px" }}
@@ -153,13 +176,14 @@ const Projects = () => {
                     color="#808080"
                     opacity={0.5}
                     textAlign="center"
+                    lineHeight="1"
                   >
                     {project.id}
                   </Text>
                 </Box>
               </motion.div>
 
-              {/* Content Wrapper - Fade In Animation */}
+              {/* Content Wrapper - Enhanced responsive animations */}
               <motion.div
                 className="project-content"
                 initial={{
@@ -169,15 +193,16 @@ const Projects = () => {
                 }}
                 whileInView={{
                   x: 0,
+                  y: 0,
                   opacity: 1,
                   rotateY: index % 2 === 0 ? 10 : -10,
                 }}
                 transition={{
                   duration: 0.8,
-                  delay: index * 0.1,
+                  delay: index * 0.15,
                   ease: "easeOut",
                 }}
-                viewport={{ once: true, amount: 0.6 }}
+                viewport={{ once: true, amount: 0.3 }}
                 style={{
                   flex: 1,
                   display: 'flex',
@@ -190,38 +215,71 @@ const Projects = () => {
                 <Box
                   flex={1}
                   position="relative"
-                  maxW="900px"
+                  maxW={{ base: "100%", sm: "500px", md: "600px", lg: "700px", xl: "900px" }}
                   w="100%"
                   style={{
                     transform: `rotateY(${index % 2 === 0 ? 10 : -10}deg)`,
                   }}
                 >
-                  <Box position="relative" borderRadius="2xl" overflow="hidden">
+                  <Box
+                    position="relative"
+                    borderRadius={{ base: "lg", md: "xl", lg: "2xl" }}
+                    overflow="hidden"
+                    transition="transform 0.3s ease"
+                    _hover={{
+                      transform: {
+                        base: "scale(1.02)",
+                        md: "scale(1.05)"
+                      }
+                    }}
+                  >
                     <Image
                       src={project.image}
                       alt={project.name}
                       w="100%"
-                      h="450px"
+                      h={{ base: "250px", sm: "300px", md: "350px", lg: "400px", xl: "450px" }}
                       objectFit="cover"
-                      borderRadius="2xl"
+                      borderRadius={{ base: "lg", md: "xl", lg: "2xl" }}
                     />
                   </Box>
 
-                  {/* Project Name + Arrow */}
-                  <HStack align="center" mt={6} justify="center" cursor="pointer"
+                  {/* Project Name + Arrow - Responsive layout */}
+                  <HStack
+                    align="center"
+                    mt={{ base: 4, md: 6 }}
+                    justify={{ base: "center", lg: "center" }}
+                    cursor="pointer"
                     onClick={() => window.open(project.link, "_blank")}
+                    flexWrap="wrap"
+                    spacing={{ base: 2, md: 4 }}
                   >
-                    <Magnet padding={20} disabled={false} magnetStrength={20}>
-                      <Flex>
-                        <Text textColor="white" fontSize="6xl" fontWeight="bold">
+                    <Magnet
+                      padding={{ base: 15, md: 20 }}
+                      disabled={false}
+                      magnetStrength={20}
+                    >
+                      <Flex
+                        align="center"
+                        textAlign={{ base: "center", sm: "center" }}
+                      >
+                        <Text
+                          textColor="white"
+                           fontSize={{ base: "xl", md: "4xl", lg: "5xl" }}
+                          fontWeight="bold"
+                          lineHeight={{ base: "1.2", md: "1.1" }}
+                          textAlign={{ base: "center", sm: "left" }}
+                        >
                           {project.name}
                         </Text>
                         <Box
-                          w="40px"
-                          h="40px"
+                          w={{ base: "24px", md: "32px", lg: "40px" }}
+                          h={{ base: "24px", md: "32px", lg: "40px" }}
                           borderRadius="full"
                           display="flex"
-                          pt={5}
+                          alignItems="center"
+                          justifyContent="center"
+                          mt={{ base: 1, sm: 0 }}
+                          ml={{ base: 0, sm: 2 }}
                         >
                           <LuArrowUpRight size={24} color="#ffc83d" />
                         </Box>
@@ -230,11 +288,13 @@ const Projects = () => {
                   </HStack>
                 </Box>
 
-                {/* Spacer for alternating layout */}
-                <Box flex={1} />
+                {/* Spacer for alternating layout - only on desktop */}
+                <Box
+                  flex={1}
+                  display={{ base: "none", lg: "block" }}
+                />
               </motion.div>
             </Box>
-
           ))}
         </VStack>
       </VStack>
