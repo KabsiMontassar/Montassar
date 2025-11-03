@@ -8,9 +8,8 @@ export default defineConfig({
   base: '/Montassar/',
 
   server: {
-    host: 'localhost',
-    port: 5173,
-    strictPort: false,
+    middlewareMode: true,
+
   },
 
   build: {
