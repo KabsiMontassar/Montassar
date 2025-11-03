@@ -63,7 +63,7 @@ const Hero = () => {
             minH={{ base: "100vh", sm: "90vh", md: "85vh", lg: "75vh" }}
             bg="white"
             width="100%"
-            mt={{ base: 8, sm: 12, md: 16, lg: 20 }}
+            pt={{ base: 8, sm: 12, md: 16, lg: 20 }}
             px={{ base: "4%", sm: "5%", md: "5%", lg: "5%" }}
             position="relative"
             display="flex"
@@ -103,6 +103,7 @@ const Hero = () => {
                                 zIndex="1"
                                 letterSpacing={{ base: 1, md: 2 }}
                                 maxW={{ base: "100%" }}
+                                color="black"
                             >
                                 {content.welcome} <br /> {content.myWebsite}
                             </Text>
@@ -166,6 +167,7 @@ const Hero = () => {
                             textAlign={"right"}
                             fontSize={{ base: 'xl', sm: 'xl', md: '2xl', lg: '5xl' }}
                             lineHeight={{ base: "1.3", md: "1.2" }}
+                            color="black"
                         >
                             {content.nameIntro} <br /> Montassar
                         </Text>
@@ -189,6 +191,7 @@ const Hero = () => {
                         fontWeight={"500"}
                         fontSize={{ base: 'xl', sm: 'xl', md: 'lg', lg: '4xl' }}
                         mb={{ base: 1, md: 2 }}
+                        color="black"
                     >
                         {content.scrollIndicator}
                     </Text>
