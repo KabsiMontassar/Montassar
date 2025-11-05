@@ -1,7 +1,7 @@
 import { Box, Button, Text, Flex } from '@chakra-ui/react';
 import SplitText from './UI/SplitText/SplitText';
 import { useTranslation } from 'react-i18next';
-import FlowingMenu from './UI/FlowingMenu/FlowingMenu';
+import FlowingMenu from './UI/flowingMenu/FlowingMenu';
 import {
   FaReact,
   SiTypescript,
