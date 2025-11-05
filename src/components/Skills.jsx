@@ -24,7 +24,7 @@ import {
   FaJenkins,
   FaGitlab,
   SiHuggingface
-} from './UI/icons';
+} from './UI/icons.js';
 
 
 const Skills = () => {
