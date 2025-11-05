@@ -149,7 +149,7 @@ const Hero = () => {
             {/* Bottom right name - responsive positioning */}
             <Box
                 position="absolute"
-                bottom={{ base: "30%", sm: "30%", md: "10%", lg: "10%" }}
+                bottom={{ base: "30%", sm: "30%", md: "10%", lg: "0%" }}
                 right={"10%"}
             >
                 <Magnet
@@ -178,7 +178,7 @@ const Hero = () => {
             {/* Bottom left scroll indicator - responsive positioning */}
             <Box
                 position="absolute"
-                bottom={{ base: "30%", sm: "30%", md: "10%", lg: "10%" }}
+                bottom={{ base: "30%", sm: "30%", md: "10%", lg: "0%" }}
                 left={"10%"}
                 textAlign="center"
             >

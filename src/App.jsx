@@ -12,6 +12,7 @@ import Projects from "./components/Projects";
 import GetInTouch from "./components/GetInTouch";
 import Header from "./components/Header";
 import LoadingScreen from "./components/LoadingScreen";
+import Skills from "./components/Skills";
 
 function App() {
   const { scrollY } = useScroll();
@@ -120,6 +121,7 @@ function App() {
             <motion.div style={{ marginLeft: contentMarginX, marginRight: contentMarginX }}>
               <AboutMe />
               <MoreAboutMe />
+              <Skills />
               <Services />
               <Projects />
 

@@ -2,6 +2,17 @@ import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 import { getStoredLanguage } from '../utils/localStorage'
 
+
+
+
+
+
+
+
+
+
+
+
 i18n.use(initReactI18next).init({
   fallbackLng: 'en',
   lng: getStoredLanguage(),
@@ -58,10 +69,19 @@ i18n.use(initReactI18next).init({
         "getintouch.thankyou2": "Let’s stay connected.",
         "getintouch.backtotop": "Back To Top",
         "getintouch.copied": "Copied!",
-        
+
         // PROJECTS
         "projects.titleMy": "My",
-        "projects.titleProjects": "Projects"
+        "projects.titleProjects": "Projects",
+
+        // SKILLS
+        "skills.skillsTitle": "Skills",
+        "skills.webDevelopment": "Web Development",
+        "skills.backendDevelopment": "Backend Development",
+        "skills.databases": "Databases",
+        "skills.cloudDevOps": "Cloud & DevOps",
+        "skills.aiMl": "AI / ML"
+
       }
     },
 
@@ -120,7 +140,16 @@ i18n.use(initReactI18next).init({
 
         // PROJECTS
         "projects.titleMy": "Mes",
-        "projects.titleProjects": "Projets"
+        "projects.titleProjects": "Projets",
+
+        // SKILLS
+        "skills.skillsTitle": "Compétences",
+        "skills.webDevelopment": "Développement Web",
+        "skills.backendDevelopment": "Développement Backend",
+        "skills.databases": "Bases de Données",
+        "skills.cloudDevOps": "Cloud & DevOps",
+        "skills.aiMl": "IA / ML"
+
       }
     }
   },
