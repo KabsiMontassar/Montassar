@@ -40,7 +40,6 @@ export {
     GrMysql,
     DiRedis,
     FaJenkins,
-    FaGitlab ,
+    FaGitlab,
     SiHuggingface
 };
-
