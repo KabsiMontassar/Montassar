@@ -95,12 +95,14 @@ const Skills = () => {
         display="flex" justifyContent="center">
         <SplitText
           key={`services-title-${i18n.language}`}
-          text= {t('skills.skillsTitle')}
+          text={t('skills.skillsTitle')}
         />
       </Box>
-      <div style={{ width: '100%', height: '600px', position: 'relative' }}>
-        <FlowingMenu items={skillSections} />
-      </div>
+      <Flex justify="center" align="center">
+        <div style={{ width: '100%', height: '600px', position: 'relative' }}>
+          <FlowingMenu items={skillSections} />
+        </div>
+      </Flex>
     </Box>
   );
 };
